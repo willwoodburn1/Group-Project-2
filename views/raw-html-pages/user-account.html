@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+</head>
+<body>
+    <h1>USER NAME</h1>
+    <aside>
+        <a href="#account-info" class="account-info">account info</a>
+        <a href="#user-recipes" class="user-recipes">my recipes</a>
+        <a href="#saved-recipes" class="saved-recipes">saved recipes</a>
+        <a href="#create-recipe" class="create-recipe">create a recipe</a>
+    </aside>
+    <main>
+        <h1>hello user!</h1>
+        <!-- only display section when clicked?^ -->
+        <div id="account-info">
+            <h1>account info</h1>
+            <div>
+                <h3>account stats? (optional)</h3>
+                <p>number of created recipes</p>
+                <p>number of saved recipes</p>
+                <p>number of reviews</p>
+                <p>number of meals cooked?</p>
+            </div>
+        </div>
+        <div id="user-recipes">
+            <h1>my recipes</h1>
+            <div>
+                include recipe list from index - if by user
+                <button>edit recipe</button>
+            </div>
+        </div>
+        <div id="saved-recipes">
+            <h1>saved recipes</h1>
+            <div>
+                include recipe list from index - if saved
+            </div>
+        </div>
+        <div id="create-recipe">
+            <h1>create a recipe</h1>
+            <form>
+                <h4>Recipe name</h4>
+                <input id="recipe-name" name="recipe-name" type="text"><br>
+                <h4>Display image</h4>
+                <input id="recipe-image" name="recipe-image" type="text"><br>
+
+                <h4>Ingredients</h4>
+                <table>
+                    <tr>
+                        <th>unit</th>
+                        <th>ingredient</th>
+                    </tr>
+                    <tr>
+                        <td>added unit</td>
+                        <td>added ingredient</td>
+                    </tr>
+                    <tr>
+                        <td><input id="recipe-unit" name="recipe-unit" type="text"></td>
+                        <td><input id="recipe-item" name="recipe-item" type="text"></td>
+                    </tr>
+                </table>
+                <button>add another ingredient</button><br>
+
+                <h4>Method</h4>
+                <input id="recipe-method" name="recipe-method" type="text"><br>
+                <button>add another step</button>
+                <br>
+                <button type="submit">submit recipe</button>
+            </form>
+        </div>
+
+    </main>
+</body>
+</html>
