@@ -17,10 +17,10 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Ingredients.associate = function (models) {
-        Ingredients.belongsTo(models.Recipe, {
-            foreignKey: {
-                allowNull: false
-            }
+        Ingredients.belongsToMany(models.Recipe, {
+            through: "recipe_ingrediants",
+            as: "ingrediants",
+            foreignKey: ingrediant_id
         });
     };
 
