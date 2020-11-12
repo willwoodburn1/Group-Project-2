@@ -13,10 +13,10 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Recipe.associate = function (models) {
-        Recipe.belongsTo(models.Chef, {
-            foreignKey: {
-                allowNull: false
-            }
+        Recipe.belongsToMany(models.Ingrediants, {
+            through: "recipe_ingrediants",
+            as: "recipe",
+            foreignKey: recipe_id
         });
     };
 
