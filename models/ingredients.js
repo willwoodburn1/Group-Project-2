@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
         Ingredients.belongsToMany(models.Recipe, {
             through: "recipe_ingredients",
             as: "ingredients",
-            foreignKey: "ingredient_id"
+            foreignKey: ingredient_id
         });
     };
 
