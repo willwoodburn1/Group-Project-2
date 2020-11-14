@@ -26,7 +26,7 @@ module.exports = function(app) {
         res.render("index");
     })
 
-    app.get("/create-recipe", function(req, res) {
+    app.get("/create-recipe", isAuthenticated, function(req, res) {
         res.render("create-recipe");
     })
 
