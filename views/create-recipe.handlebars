@@ -1,0 +1,36 @@
+<div id="create-recipe">
+    <h1>create a recipe</h1>
+    <form>
+        <h4>Recipe name</h4>
+        <input id="recipe-name" name="recipe-name" type="text"><br>
+        <h4>Display image</h4>
+        <input id="recipe-image" name="recipe-image" type="text"><br>
+        <h4>Ingredients</h4>
+        <table>
+            <tr>
+                <th>unit</th>
+                <th>ingredient</th>
+            </tr>
+            <tr>
+                <td>added unit</td>
+                <td>added ingredient</td>
+            </tr>
+            <tr>
+                <td><input id="recipe-unit" name="recipe-unit"
+                        type="text"></td>
+                <td><input id="recipe-item" name="recipe-item"
+                        type="text"></td>
+            </tr>
+        </table>
+        <button>add another ingredient</button><br>
+
+        <h4>Method</h4>
+        <input id="recipe-method" name="recipe-method"
+            type="text"><br>
+        <button>add another step</button>
+        <br>
+        <button type="submit">submit recipe</button>
+    </form>
+</div>
+
+<script type="text/javascript" src="/js/create-recipe.js"></script>

@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
     var Recipe = sequelize.define("Recipe", {
         title: {
             type: DataTypes.STRING,
@@ -12,11 +12,11 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    Recipe.associate = function (models) {
+    Recipe.associate = function(models) {
         Recipe.belongsToMany(models.Ingredients, {
             through: "recipe_ingredients",
             as: "recipe",
-            foreignKey: recipe_id
+            foreignKey: "recipe_id"
         });
     };
 
