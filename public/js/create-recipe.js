@@ -5,7 +5,7 @@
 // Ingredients List
 // Input box to search for ingredients
 // Submit ingredient button to initiate search for ingredients
-// For each ingredient 2 more input boxes should be created, 1 for measure and 1 for quantity
+// For each ingredient 2 more input boxes should be created, 1 for measure (selection dropbox of the different measure types) and 1 for quantity
 // Method Textarea
 // Add Images Option
 // Final submit recipe button
