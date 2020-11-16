@@ -30,6 +30,7 @@ module.exports = function (app) {
         res.render("create-recipe");
     })
 
+
     app.get("view-recipe/:id", function (req, res) {
         // Query the database for the recipe with that ID
         const recipe = getRecipe(req.params.id);
@@ -38,6 +39,9 @@ module.exports = function (app) {
         res.render("view-recipe", {
             recipe
         });
+
+    app.get("/view-recipe", function(req, res) {
+        res.render("view-recipe");
     })
 
     // Here we've add our isAuthenticated middleware to this route.

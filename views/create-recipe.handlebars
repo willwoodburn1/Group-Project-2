@@ -1,36 +1,115 @@
 <div id="create-recipe">
+
     <h1>create a recipe</h1>
     <form id="recipeForm">
+
+    <h1>CREATE A RECIPE</h1>
+    <form>
+
         <h4>Recipe name</h4>
-        <input id="recipe-name" name="recipe-name" type="text"><br>
-        <h4>Display image</h4>
-        <input id="recipe-image" name="recipe-image" type="text"><br>
+        <input id="recipe-name" name="recipe-name" type="text" />
+        <button id="add-recipe-name">add name</button><br>
+        <h4>Display image link</h4>
+        <input id="recipe-image" name="recipe-image" type="text" />
+        <button id="add-recipe-image">add image</button><br>
+
         <h4>Ingredients</h4>
+        <h5>Search for ingredient</h5>
+        <input id="recipe-item" name="recipe-item" type="text" /><br>
+
+        <div class="ingredient-results">
+            <!-- repeat for each result found in db and through api -->
+            {{#each ingredient}}
+            <div>
+                <p class="results-name">ingredient name</p>
+                <p>$<span class="results-price">price</span></p>
+            </div>
+            {{/each}}
+        </div>
+
         <table>
+            <th>Quantity</th>
+            <th>Measure</th>
+            <th>Name</th>
+            <th>Average Price</th>
+            <!-- when a result is clicked, this table is filled except for quantity and measure -->
             <tr>
-                <th>unit</th>
-                <th>ingredient</th>
-            </tr>
-            <tr>
-                <td>added unit</td>
-                <td>added ingredient</td>
-            </tr>
-            <tr>
-                <td><input id="recipe-unit" name="recipe-unit"
-                        type="text"></td>
-                <td><input id="recipe-item" name="recipe-item"
-                        type="text"></td>
+                <td>
+                    <input id="ingredient-quantity" name="ingredient-quantity" type="text" />
+                </td>
+                <td>
+                    <select name="measures" id="ingredient-measures">
+                        <!-- repeat for each unit of measure -->
+                        {{#each measure}}
+                        <option value="measure-name" id="measure-name">unit of measure</option>
+                        {{/each}}
+                    </select>
+                </td>
+                <td id="ingredient-name">ingredient name</td>
+                <td id="ingredient-price">ingredient price</td>
             </tr>
         </table>
-        <button>add another ingredient</button><br>
+        <button id="add-ingredient">add ingredient</button><br>
+
+        <!-- show if manually adding ingredients -->
+        <a class="add-manually">ingredient not found?</a>
+        <table class="manual-ingredients">
+            <th>Quantity</th>
+            <th>Measure</th>
+            <th>Name</th>
+            <th>Average Price</th>
+            <tr>
+                <td>
+                    <input id="manual-quantity" name="manual-quantity" type="text" />
+                </td>
+                <td>
+                    <select name="measures" id="ingredient-measures">
+                        <!-- repeat for each unit of measure -->
+                        {{#each measure}}
+                        <option value="measure-name" id="measure-name">unit of measure</option>
+                        {{/each}}
+                    </select>
+                </td>
+                <td>
+                    <input id="manual-name" name="manual-name" type="text" />
+                </td>
+                <td>
+                    <input id="manual-price" name="manual-price" type="text" />
+                </td>
+            </tr>
+        </table>
+        <button id="add-ingredient">add ingredient</button><br>
 
         <h4>Method</h4>
-        <input id="recipe-method" name="recipe-method"
-            type="text"><br>
-        <button>add another step</button>
-        <br>
-        <button type="submit">submit recipe</button>
+        <textarea id="recipe-method" name="recipe-method"></textarea><br>
+        <button>add another step</button><br>
     </form>
+</div>
+
+<h1>PREVIEW RECIPE</h1>
+<div id="preview-recipe">
+    <h1 class="title">Recipe Title</h1>
+    <img alt="recipe-image"><br>
+    <p class="author">Chef's Name</p>
+
+    <h2>Ingredients</h2>
+    <table class="ingredients">
+        <th>Quantity</th>
+        <th>Measure</th>
+        <th>Name</th>
+        <th>Average Price</th>
+        <tr>
+            <td class="quantity">Quantity</td>
+            <td class="measure">Measure</td>
+            <td class="name">Name</td>
+            <td class="price">Average Price</td>
+        </tr>
+    </table>
+
+    <h2>Method</h2>
+    <p class="method">steps</p>
+
+    <button type="submit">submit recipe</button>
 </div>
 
 <script type="text/javascript" src="/js/create-recipe.js"></script>
