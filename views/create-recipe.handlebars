@@ -1,14 +1,16 @@
 <div id="create-recipe">
-    <h1>create a recipe</h1>
+    <h1>CREATE A RECIPE</h1>
     <form>
         <h4>Recipe name</h4>
-        <input id="recipe-name" name="recipe-name" type="text" /><br />
+        <input id="recipe-name" name="recipe-name" type="text" />
+        <button id="add-recipe-name">add name</button><br>
         <h4>Display image link</h4>
-        <input id="recipe-image" name="recipe-image" type="text" /><br />
+        <input id="recipe-image" name="recipe-image" type="text" />
+        <button id="add-recipe-image">add image</button><br>
 
         <h4>Ingredients</h4>
         <h5>Search for ingredient</h5>
-        <input id="recipe-item" name="recipe-item" type="text" /><br />
+        <input id="recipe-item" name="recipe-item" type="text" /><br>
 
         <div class="ingredient-results">
             <!-- repeat for each result found in db and through api -->
@@ -74,10 +76,35 @@
         <button id="add-ingredient">add ingredient</button><br>
 
         <h4>Method</h4>
-        <textarea id="recipe-method" name="recipe-method"></textarea><br />
-        <button>add another step</button><br />
-        <button type="submit">submit recipe</button>
+        <textarea id="recipe-method" name="recipe-method"></textarea><br>
+        <button>add another step</button><br>
     </form>
+</div>
+
+<h1>PREVIEW RECIPE</h1>
+<div id="preview-recipe">
+    <h1 class="title">Recipe Title</h1>
+    <img alt="recipe-image"><br>
+    <p class="author">Chef's Name</p>
+
+    <h2>Ingredients</h2>
+    <table class="ingredients">
+        <th>Quantity</th>
+        <th>Measure</th>
+        <th>Name</th>
+        <th>Average Price</th>
+        <tr>
+            <td class="quantity">Quantity</td>
+            <td class="measure">Measure</td>
+            <td class="name">Name</td>
+            <td class="price">Average Price</td>
+        </tr>
+    </table>
+
+    <h2>Method</h2>
+    <p class="method">steps</p>
+
+    <button type="submit">submit recipe</button>
 </div>
 
 <script type="text/javascript" src="/js/create-recipe.js"></script>
