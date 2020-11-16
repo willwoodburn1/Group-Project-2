@@ -1,4 +1,13 @@
 // Create Recipe Form code goes here
+$(document).ready(function() {
+    var recipeForm = $("#recipeForm");
+    var recipeName = $("#recipe-name");
+    var recipeMethod = $("#recipe-method");
+    var recipeItem = $("#recipe-item");
+    var recipeUnit = $("#recipe-unit");
+
+
+});
 
 // create-recipe.handlebars should contain
 // Title
