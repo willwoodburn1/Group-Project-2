@@ -30,6 +30,10 @@ module.exports = function(app) {
         res.render("create-recipe");
     })
 
+    app.get("/view-recipe", function(req, res) {
+        res.render("view-recipe");
+    })
+
     // Here we've add our isAuthenticated middleware to this route.
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
     app.get("/members", isAuthenticated, function(req, res) {
