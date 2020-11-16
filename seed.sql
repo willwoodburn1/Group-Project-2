@@ -1,8 +1,8 @@
 USE meal_budgeter;
 
-INSERT INTO users (name, email, password, createdAt, updatedAt) VALUES ('User1', 'user1@email.com', '$2a$10$MtdGCk8X7B6dN.m21zmEoeK6AIqiHC0MwQxToCfKJcLK27P.UFwgi', NOW(), NOW());
+INSERT INTO users (username, password, createdAt, updatedAt) VALUES ('User1', '$2a$10$MtdGCk8X7B6dN.m21zmEoeK6AIqiHC0MwQxToCfKJcLK27P.UFwgi', NOW(), NOW());
 
-INSERT INTO users (name, email, password, createdAt, updatedAt) VALUES ('User2', 'user2@email.com', '$2a$10$MtdGCk8X7B6dN.m21zmEoeK6AIqiHC0MwQxToCfKJcLK27P.UFwgi', NOW(), NOW());
+INSERT INTO users (username, password, createdAt, updatedAt) VALUES ('User2', '$2a$10$MtdGCk8X7B6dN.m21zmEoeK6AIqiHC0MwQxToCfKJcLK27P.UFwgi', NOW(), NOW());
 
 -- INSERT INTO measure (name) VALUES('CUP'), ('TEASPOON'), ('TABLESPOON');
 
