@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Chef.associate = function(models) {
-        Chef.hasMany(models.Post, {
+        Chef.hasMany(models.Recipe, {
             onDelete: "cascade"
         });
     };
