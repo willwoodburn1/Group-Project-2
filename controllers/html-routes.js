@@ -3,11 +3,15 @@ var path = require("path");
 
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
+const db = require("../models");
 
 module.exports = function(app) {
 
     app.get("/", function(req, res) {
-        res.render("index");
+        db.Recipe.findAll().then(function(data) {
+            console.log(data);
+            res.render("index", { recipes: data });
+        })
     });
 
     app.get("/signup", function(req, res) {
