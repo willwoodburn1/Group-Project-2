@@ -1,8 +1,10 @@
 <main>
-    <input type="text" placeholder="STATE YOUR PRICE OR RECIPE TAG?">
-    <button type="submit">submit</button>
-</main>
-<section>
+
+    <form id="budget-form">
+        <label for="">How much would you like to spend?</label>
+        <input type="text" id="budget-input">
+        <input type="submit" value="Submit">
+    </form>
 
     <ul>
         {{#each recipes}}
@@ -34,6 +36,6 @@
         {{/each}}
     </ul>
     
-</section>
+</main>
 
 <script type="text/javascript" src="/js/index.js"></script>
