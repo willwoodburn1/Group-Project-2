@@ -29,7 +29,6 @@ require("./controllers/ingredients-controller")(app);
 require("./controllers/recipes-controller")(app);
 require("./controllers/recipe-ingredients-controller")(app);
 
-
 db.sequelize.sync().then(function() {
     app.listen(PORT, function() {
         console.log("App listening on http://localhost:" + PORT);
