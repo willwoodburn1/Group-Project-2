@@ -21,4 +21,20 @@ module.exports = function(app) {
         })
     })
 
+    app.post("api/recipes", function(req, res) {
+        db.Recipe.create(req.body).then(function(recipe) {
+            res.json(recipe);
+        })
+    });
+
+    app.delete("/api/recipes/:id", function(req, res) {
+        db.Recipe.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(data) {
+            res.json(data)
+        })
+    })
+
 }
