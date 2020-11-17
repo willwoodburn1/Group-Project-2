@@ -3,9 +3,9 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-    // get measures
-    app.get("api/measure/:id", function(req, res) {
-        db.Measure.findOne({
+    // get recipe
+    app.get("api/recipes/:id", function(req, res) {
+        db.Recipe.findOne({
             where: {
                 id: req.params.id
             }

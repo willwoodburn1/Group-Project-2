@@ -2,16 +2,14 @@
 var db = require("../models");
 
 module.exports = function(app) {
-
-    // get measures
-    app.get("api/measure/:id", function(req, res) {
-        db.Measure.findOne({
+    // get recipe and ingredients list with the recipe_id
+    app.get("api/recipesIngredients/:id", function(req, res) {
+        db.recipes_ingredients.findAll({
             where: {
-                id: req.params.id
+                recipes_id: req.params.id
             }
         }).then(function(data) {
             res.json(data);
         })
     })
-
 }
