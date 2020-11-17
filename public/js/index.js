@@ -18,7 +18,8 @@ $(document).ready(function() {
     })
 
     function findRecipes(budget) {
-        $.get("/api/recipes", function(data) {
+        $.get(`/api/recipes/less-than/:${budget}`, function(data) {
+            console.log(budget);
             console.log(data);
         })
     }
