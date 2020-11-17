@@ -3,8 +3,6 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-
-
     // get measures
     app.get("api/measure/:id", function(req, res) {
         db.Measure.findOne({
@@ -15,7 +13,5 @@ module.exports = function(app) {
             res.json(data);
         })
     })
-
-
 
 }
