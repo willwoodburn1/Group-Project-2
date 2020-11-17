@@ -23,7 +23,7 @@ app.use(passport.session());
 // Routes
 // =============================================================
 require("./controllers/passport-controller")(app);
-require("./controllers/routes-controller")(app);
+require("./controllers/html-routes")(app);
 require("./controllers/users-controller")(app);
 require("./controllers/ingredients-controller")(app);
 require("./controllers/recipes-controller")(app);
