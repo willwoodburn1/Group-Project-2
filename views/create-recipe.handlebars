@@ -1,21 +1,19 @@
 <div id="create-recipe">
-
-    <h1>create a recipe</h1>
-    <form id="recipeForm">
-
     <h1>CREATE A RECIPE</h1>
-    <form>
+    <form id="recipeForm">
 
         <h4>Recipe name</h4>
         <input id="recipe-name" name="recipe-name" type="text" />
         <button id="add-recipe-name">add name</button><br>
+
         <h4>Display image link</h4>
         <input id="recipe-image" name="recipe-image" type="text" />
         <button id="add-recipe-image">add image</button><br>
 
         <h4>Ingredients</h4>
         <h5>Search for ingredient</h5>
-        <input id="recipe-item" name="recipe-item" type="text" /><br>
+        <input id="recipe-item" name="recipe-item" type="search" />
+        <button id="ingredient-search">search</button><br>
 
         <div class="ingredient-results">
             <!-- repeat for each result found in db and through api -->
@@ -89,7 +87,7 @@
 <h1>PREVIEW RECIPE</h1>
 <div id="preview-recipe">
     <h1 class="title">Recipe Title</h1>
-    <img alt="recipe-image"><br>
+    <img alt="image"><br>
     <p class="author">Chef's Name</p>
 
     <h2>Ingredients</h2>
@@ -107,8 +105,9 @@
     </table>
 
     <h2>Method</h2>
-    <p class="method">steps</p>
-
+    <ol class="method">
+        <li>steps</li>
+    </ol>
     <button type="submit">submit recipe</button>
 </div>
 
