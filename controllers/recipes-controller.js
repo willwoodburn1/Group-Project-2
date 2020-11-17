@@ -4,7 +4,7 @@ var db = require("../models");
 module.exports = function(app) {
 
     // get all the recipes
-    app.get("api/recipes", function(req, res) {
+    app.get("/api/recipes", function(req, res) {
         db.Recipe.findAll().then(function(data) {
             res.json(data);
         })
