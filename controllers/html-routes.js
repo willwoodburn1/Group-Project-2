@@ -5,71 +5,73 @@ var path = require("path");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 
-module.exports = function (app) {
-	app.get("/", function (req, res) {
-		db.Recipe.findAll().then(function (data) {
-			res.render("index", { recipes: data });
-		});
-	});
+module.exports = function(app) {
 
-	app.get("/signup", function (req, res) {
-		res.render("signup");
-	});
+    app.get("/", function(req, res) {
+        db.Recipe.findAll().then(function(data) {
+            res.render("index", { recipes: data });
+        })
+    });
 
-	app.get("/login", function (req, res) {
-		// If the user already has an account send them to the members page
-		if (req.user) {
-			res.redirect("/");
-		}
-		res.render("login");
-	});
+    app.get("/signup", function(req, res) {
+        res.render("signup");
+    })
 
-	app.get("logout", function (req, res) {
-		res.render("index");
-	});
+    app.get("/login", function(req, res) {
+        // If the user already has an account send them to the members page
+        if (req.user) {
+            res.redirect("/");
+        }
+        res.render("login");
+    });
 
-	app.get("/create-recipe", isAuthenticated, function (req, res) {
-		let measures = [
-			{ measure: "unit" },
-			{ measure: "cup" },
-			{ measure: "tsp" },
-			{ measure: "tbsp" },
-			{ measure: "g" },
-			{ measure: "kg" },
-			{ measure: "mL" },
-			{ measure: "litre" },
-			{ measure: "mg" },
-			{ measure: "lb" },
-			{ measure: "oz" },
-			{ measure: "fl oz" },
-			{ measure: "cm" },
-		];
+    app.get("logout", function(req, res) {
+        res.render("index");
+    })
 
-		db.Ingredients.findAll().then(function (data) {
-			res.render("create-recipe", {
-				search: data,
-				units: measures,
-			});
-		});
-	});
+    app.get("/create-recipe", isAuthenticated, function (req, res) {
+        let measures = [
+          { measure: "unit" },
+          { measure: "cup" },
+          { measure: "tsp" },
+          { measure: "tbsp" },
+          { measure: "g" },
+          { measure: "kg" },
+          { measure: "mL" },
+          { measure: "litre" },
+          { measure: "mg" },
+          { measure: "lb" },
+          { measure: "oz" },
+          { measure: "fl oz" },
+          { measure: "cm" },
+        ];
 
-	app.get("view-recipe/:id", function (req, res) {
-		// Query the database for the recipe with that ID
-		const recipe = getRecipe(req.params.id);
+        db.Ingredients.findAll().then(function (data) {
+          res.render("create-recipe", {
+            search: data,
+            units: measures,
+          });
+       });
+    });
 
-		// Pass through the recipe data into the view
-		res.render("view-recipe", {
-			recipe,
-		});
-	});
 
-	app.get("/view-recipe", function (req, res) {
-		res.render("view-recipe");
-	});
+    app.get("view-recipe/:id", function(req, res) {
+        // Query the database for the recipe with that ID
+        const recipe = getRecipe(req.params.id);
 
-	// Here we've add our isAuthenticated middleware to this route.
-	// If a user who is not logged in tries to access this route they will be redirected to the signup page
-	app.get("/members", isAuthenticated, function (req, res) {
-		res.render("members");
-	});
-};
+        // Pass through the recipe data into the view
+        res.render("view-recipe", {
+            recipe
+        });
+    })
+
+    app.get("/view-recipe", function(req, res) {
+        res.render("view-recipe");
+    })
+
+    // Here we've add our isAuthenticated middleware to this route.
+    // If a user who is not logged in tries to access this route they will be redirected to the signup page
+    app.get("/members", isAuthenticated, function(req, res) {
+        res.render("members");
+    });
+}
