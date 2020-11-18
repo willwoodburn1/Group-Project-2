@@ -50,14 +50,18 @@ $(document).ready(function () {
 		}
 	});
 
-	// add single ingredient to list
-	$(".search-item").on("click", function(event) {
+	// add single ingredient id, name, price to display
+	$(".search-item").on("click", function (event) {
 		event.preventDefault();
-		console.log(event)
 
-		let ingredients = [];
-		let recipeIngredients = 
-	})
+		let id = event.currentTarget.children[0].id;
+		let name = event.currentTarget.children[1].id;
+		let price = event.currentTarget.children[2].id;
+		
+		$("#ingredient-id").text(id);
+		$("#ingredient-name").text(name);
+		$("#ingredient-price").text(price);
+	});
 
 });
 
