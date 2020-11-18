@@ -54,6 +54,9 @@ $(document).ready(function () {
 	$(".search-item").on("click", function(event) {
 		event.preventDefault();
 		console.log(event)
+
+		let ingredients = [];
+		let recipeIngredients = 
 	})
 
 });
