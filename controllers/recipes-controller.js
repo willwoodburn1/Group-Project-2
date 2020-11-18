@@ -45,7 +45,7 @@ module.exports = function(app) {
         //     }
         // })
         db.sequelize.query(`
-        SELECT r.title, SUM(i.price)
+        SELECT r.id, r.title, SUM(i.price)
         FROM recipes r 
         JOIN recipe_ingredients ri on r.id = ri.recipe_id 
         JOIN ingredients i on i.id = ri.ingredient_id
@@ -53,7 +53,6 @@ module.exports = function(app) {
         HAVING SUM(i.price)<${price};
         `, { type: sequelize.QueryTypes.SELECT })
             .then(function(data) {
-                console.log(data)
                 res.json(data);
             })
     })
