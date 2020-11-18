@@ -44,14 +44,16 @@ module.exports = function(app) {
         //         })
         //     }
         // })
-        db.sequelize.query(`SELECT r.title, SUM(i.price)
+        db.sequelize.query(`
+        SELECT r.title, SUM(i.price)
         FROM recipes r 
         JOIN recipe_ingredients ri on r.id = ri.recipe_id 
         JOIN ingredients i on i.id = ri.ingredient_id
         GROUP BY r.title
-        HAVING SUM(i.price)<${price};`)
+        HAVING SUM(i.price)<${price};
+        `, { type: sequelize.QueryTypes.SELECT })
             .then(function(data) {
-                console.log(data);
+                console.log(data)
                 res.json(data);
             })
     })
