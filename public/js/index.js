@@ -37,7 +37,10 @@ $(document).ready(function() {
                 recipeItem.html(`
                     <div>
                         <h1>${recipe.title}</h1>
+                        <label>Cost: $${recipe.cost}</label>
+                        <br>
                         <a href="/view-recipe/${recipe.id}">View Recipe</a>
+                        <br>
                         <img src="https://picsum.photos/250/150" alt="placeholder-image">
                     </div>
                 `);
