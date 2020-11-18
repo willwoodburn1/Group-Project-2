@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    let searchList = $("#search-list");
+
     let budgetForm = $("#budget-form");
     let budgetInput = $("#budget-input");
 
@@ -18,8 +20,23 @@ $(document).ready(function() {
     })
 
     function findRecipes(budget) {
-        $.get(`/api/recipes/less-than/${budget}`, function(data) {
+        $.get(`/api/recipes/less-than/${budget}`, renderSearchResults);
+    }
 
+    function renderSearchResults(data) {
+        searchList.html("");
+        data.forEach(recipe => {
+            console.log(recipe);
+            let recipeItem = $("<li>");
+            recipeItem.html(`
+            <div>
+                <h1>${recipe.title}</h1>
+                <a href="/view-recipe/${recipe.id}">View Recipe</a>
+                <img src="https://picsum.photos/250/150" alt="placeholder-image">
+            </div>
+            `);
+            console.log(recipeItem);
+            searchList.append(recipeItem);
         })
     }
 
