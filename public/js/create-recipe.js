@@ -9,9 +9,7 @@ $(document).ready(function () {
 		image: $(".image").attr("src"),
 		author: $(".author").text(),
 		ingredients: [],
-		method: [
-			"step1", "step2",
-		]
+		method: [],
 	};
 
 	// add recipe name
@@ -69,10 +67,12 @@ $(document).ready(function () {
 		let id = event.currentTarget.children[0].id;
 		let name = event.currentTarget.children[1].id;
 		let price = event.currentTarget.children[2].id;
-		
+
 		$("#ingredient-id").text(id);
 		$("#ingredient-name").text(name);
 		$("#ingredient-price").text(price);
+
+		// todo: hide display table and add button until clicked on search item
 	});
 
 	// add single ingredient to list
@@ -82,63 +82,90 @@ $(document).ready(function () {
 		let measure = $("#ingredient-measures").val();
 
 		let ingredient = {
+			id: $("#ingredient-id").text(),
 			quantity: quantity,
 			measure: measure,
-			id: $("#ingredient-id").text(),
 			name: $("#ingredient-name").text(),
 			price: $("#ingredient-price").text(),
-		}
+		};
 
-		$(".ingredients").append(
-			`<tr>
-				<td class="quantity">${ingredient.quantity}</td>
-				<td class="measure">${ingredient.measure}</td>
-				<td class="name">${ingredient.name}</td>
-				<td>$<span class="price">${ingredient.price}</span></td>
-			</tr>`
-		)
-		recipe.ingredients.push(ingredient)
-		// console.log(recipe)
+		if (quantity && measure) {
+			$(".ingredients").append(
+				`<tr>
+					<td class="quantity">${ingredient.quantity}</td>
+					<td class="measure">${ingredient.measure}</td>
+					<td class="name">${ingredient.name}</td>
+					<td>$<span class="price">${ingredient.price}</span></td>
+				</tr>`
+			);
+			recipe.ingredients.push(ingredient);
+			console.log(recipe);
+		}
 	});
 
 	// show add manual ingredient if not in db
 	// toggle display auto to manual fill ingredient
 	$("#manual-fill").hide();
-
-	$(".toggle-manually").on("click", function(event) {
+	$(".toggle-manually").on("click", function (event) {
 		event.preventDefault();
 
 		$("#manual-fill").toggle();
 		$("#auto-fill").toggle();
-	})
+	});
 
+	// add single ingredient manually (post & get)
+	$("#add-manual").on("click", function (event) {
+		event.preventDefault();
 
-	// add single ingredient manually (post)
-	// $("#add-ingredient").on("click", function (event) {
+		let ingredient = {
+			id: "ingredient not posted",
+			quantity: $("#manual-quantity").val().trim(),
+			measure: $("#manual-measures").val(),
+			name: $("#manual-name").val().trim(),
+			price: $("#manual-price").val().trim(),
+		};
+
+		if (ingredient.quantity && ingredient.name && ingredient.price) {
+			$(".ingredients").append(
+				`<tr>
+					<td class="quantity">${ingredient.quantity}</td>
+					<td class="measure">${ingredient.measure}</td>
+					<td class="name">${ingredient.name}</td>
+					<td>$<span class="price">${ingredient.price}</span></td>
+				</tr>`
+			);
+
+			// post new ingredient
+			$.post("/api/ingredients", {
+				item: ingredient.name,
+				price: ingredient.price,
+			}).done(function () {
+				// get ingredient id
+				$.get("/api/ingredients/" + ingredient.name)
+					.then(function (data) {
+						ingredient.id = `${data[0].id}`;
+					})
+					.done(function () {
+						// push to ingredients list
+						recipe.ingredients.push(ingredient);
+						console.log(recipe);
+						$("#manual-quantity").val("");
+						$("#manual-name").val("");
+						$("#manual-price").val("");
+					});
+			});
+		}
+	});
+
+	// add method step
+	// $("#add-method-step").on("click", function(event) {
 	// 	event.preventDefault();
-	// 	let quantity = $("#ingredient-quantity").val().trim();
-	// 	let measure = $("#ingredient-measures").val();
 
-	// 	let ingredient = {
-	// 		quantity: quantity,
-	// 		measure: measure,
-	// 		id: $("#ingredient-id").text(),
-	// 		name: $("#ingredient-name").text(),
-	// 		price: $("#ingredient-price").text(),
-	// 	}
+	// 	let step = "";
 
-	// 	$(".ingredients").append(
-	// 		`<tr>
-	// 			<td class="quantity">${ingredient.quantity}</td>
-	// 			<td class="measure">${ingredient.measure}</td>
-	// 			<td class="name">${ingredient.name}</td>
-	// 			<td>$<span class="price">${ingredient.price}</span></td>
-	// 		</tr>`
-	// 	)
-	// 	recipe.ingredients.push(ingredient)
-	// 	console.log(recipe)
-	// });
-
+	// 	// append method to preview
+	// 	$("#recipe-method").val().trim();
+	// })
 });
 
 // create-recipe.handlebars should contain
