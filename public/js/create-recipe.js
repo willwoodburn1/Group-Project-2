@@ -40,9 +40,9 @@ $(document).ready(function () {
 
 		for (var item of items) {
 			let result = item.getElementsByClassName("results-name")[0];
-			let searchText = result.textContent || result.innerText;
+			let resultText = result.textContent || result.innerText;
 
-			if (searchText.toUpperCase().indexOf(search) > -1) {
+			if (resultText.toUpperCase().indexOf(search) > -1) {
 				item.style.display = "";
 			} else {
 				item.style.display = "none";
