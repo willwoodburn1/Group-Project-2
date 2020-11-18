@@ -22,13 +22,6 @@ module.exports = function (app) {
         })
     })
 
-    // app.get("/", function(req, res) {
-    //     db.Recipe.findAll().then(function(data) {
-    //         console.log(data);
-    //         res.render("index", { recipes: data });
-    //     })
-    // });
-
     // get ingredient from item name
     app.get("/api/ingredients/:item", function(req, res) {
         db.Ingredients.findAll({
@@ -39,6 +32,8 @@ module.exports = function (app) {
             res.json(data);
         })
     })
+
+    
 
     // add new ingredients
     app.post("/api/ingredients", function (req, res) {
