@@ -33,8 +33,6 @@ module.exports = function (app) {
         })
     })
 
-    
-
     // add new ingredients
     app.post("/api/ingredients", function (req, res) {
         db.Ingredients.create(req.body).then(function (ingredients) {
