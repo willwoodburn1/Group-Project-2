@@ -6,36 +6,10 @@
         <input type="submit" value="Submit">
     </form>
 
-    <ul>
-        {{#each recipes}}
-        <li>
-            <!-- repeat for each recipe -->
-            <div>
-                <h1>{{this.dataValues.title}}</h1>
-                <a href="/view-recipe/{{this.dataValues.id}}">View Recipe</a>
-                <div>
-                    <div class="rating">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                    </div>
-                    <div>total time?</div>
-                    <div>servings?</div>
-                </div>
-
-                <div>
-                    <div>tag name</div>
-                    <div>tag name</div>
-                    <div>tag name</div>
-                </div>
-                <img src="https://picsum.photos/250/150" alt="placeholder-image">
-            </div>
-        </li>
-        {{/each}}
+    <ul id="search-list">
+        
     </ul>
-    
+
 </main>
 
 <script type="text/javascript" src="/js/index.js"></script>
