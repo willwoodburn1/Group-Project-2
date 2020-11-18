@@ -9,6 +9,7 @@ module.exports = function (app) {
             res.json(data);
         })
     })
+    
 
     // search ingredients by id
     app.get("api/ingredients/:id", function (req, res) {
@@ -17,6 +18,24 @@ module.exports = function (app) {
                 id: req.params.id
             }
         }).then(function (data) {
+            res.json(data);
+        })
+    })
+
+    // app.get("/", function(req, res) {
+    //     db.Recipe.findAll().then(function(data) {
+    //         console.log(data);
+    //         res.render("index", { recipes: data });
+    //     })
+    // });
+
+    // get ingredient from item name
+    app.get("/api/ingredients/:item", function(req, res) {
+        db.Ingredients.findAll({
+            where: {
+                item: req.params.item
+            }
+        }).then(function(data) {
             res.json(data);
         })
     })
