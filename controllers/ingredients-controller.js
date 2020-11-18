@@ -9,6 +9,13 @@ module.exports = function (app) {
             res.json(data);
         })
     })
+
+    // get measures
+    app.get("/api/measures", function (req, res) {
+        db.Measure.findAll().then(function (data) {
+            res.json(data);
+        })
+    })
     
 
     // search ingredients by id
