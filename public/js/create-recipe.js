@@ -1,8 +1,5 @@
 // Create Recipe Form code goes here
 $(document).ready(function () {
-	let title;
-	let image;
-	let author;
 
 	let recipe = {
 		title: $(".title").text(),
@@ -174,31 +171,20 @@ $(document).ready(function () {
 
 	// submit recipe
 	$("#submit-recipe").on("click", function() {
-		
+		$.post("/api/recipes", {
+			title: recipe.title,
+			method: recipe.method,
+			// to add image-link to model
+		})
+
 	})
 });
-
-// Method
-// Textarea
 
 // Images
 // How to add images to the database?
 
 // Submit the recipe
 //
-// To go into the ingredients database
-// Name
-// Price
-// Category?
-//
-// To go into the recipe database
-// Title
-// Method
-// Images
-//
-// To go into the measures database if measure does not exist
-// Measure name
-//
 // RecipeIngredients Database
 // for every ingredient
-// insert chef_id, recipe_id, ingredient_id, measure_id, quantity
+// insert chef_id, recipe_id, ingredient_id, quantity
