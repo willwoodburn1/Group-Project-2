@@ -1,12 +1,14 @@
 // Create Recipe Form code goes here
 $(document).ready(function () {
-	let Title = title;
+	let title;
 	let image;
 	let author;
 
 	let recipe = {
-
-	}
+		title: title,
+		image: image,
+		author: author,
+	};
 
 	// add recipe name
 	$("#add-recipe-name").on("click", function (event) {
@@ -19,7 +21,7 @@ $(document).ready(function () {
 	$("#add-recipe-image").on("click", function (event) {
 		event.preventDefault();
 		$("img").attr("src", $("#recipe-image").val().trim());
-		image = $("#recipe-image").val().trim()
+		image = $("#recipe-image").val().trim();
 	});
 
 	// get chef name
@@ -33,47 +35,27 @@ $(document).ready(function () {
 	// search for ingredients in db
 	$("#ingredient-search").on("click", function (event) {
 		event.preventDefault();
-		let search = $("#recipe-item").val().trim().toLowerCase();
+		let search = $("#recipe-item").val().trim().toUpperCase();
+		let items = $(".search-item");
 
-		// console.log($(".search-item")[0].children("p"));
-		// for (let i = 0; i < $(".search-item").length; i++) {
+		for (var item of items) {
+			let result = item.getElementsByClassName("results-name")[0];
+			let searchText = result.textContent || result.innerText;
 
-		// 	let item = $(".search-item")[i];
-
-		// 	if (item) {
-
-		// 		let txtValue = item.textContent || item.innerText;
-
-		// 		if (txtValue.toLowerCase() = search) {
-		// 			$(".search-item")[i].style.display = "";
-		// 		} else {
-		// 			$(".search-item")[i].style.display = "none";
-		// 		}
-		// 	}
-		// }
-
-		// for (let i = 0; i < tr.length; i++) {
-		// 	td = tr[i].getElementsByTagName("td")[0];
-		// 	if (td) {
-		// 		txtValue = td.textContent || td.innerText;
-		// 		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		// 			tr[i].style.display = "";
-		// 		} else {
-		// 			tr[i].style.display = "none";
-		// 		}
-		// 	}
-		// }
-
-		$.get("/api/ingredients/" + search).then(function (data) {
-			location.replace("/create-recipe/" + search);
-			$(".title").text(title)
-		});
+			if (searchText.toUpperCase().indexOf(search) > -1) {
+				item.style.display = "";
+			} else {
+				item.style.display = "none";
+			}
+		}
 	});
 
-	// get single ingredient
+	// add single ingredient to list
+	$(".search-item").on("click", function(event) {
+		event.preventDefault();
+		console.log(event)
+	})
 
-	// if less than 20 results, 20-amount
-	// api call for 20-amount
 });
 
 // create-recipe.handlebars should contain
