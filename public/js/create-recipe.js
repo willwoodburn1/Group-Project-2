@@ -5,9 +5,21 @@ $(document).ready(function () {
 	let author;
 
 	let recipe = {
-		title: title,
-		image: image,
-		author: author,
+		title: $(".title"),
+		image: $(".image"),
+		author: $(".author"),
+		ingredients: [
+			{
+				quantity: quantity,
+				measure: measure,
+				id: id,
+				name: name,
+				price: price,
+			}
+		],
+		method: [
+			"step1", "step2",
+		]
 	};
 
 	// add recipe name
@@ -61,6 +73,21 @@ $(document).ready(function () {
 		$("#ingredient-id").text(id);
 		$("#ingredient-name").text(name);
 		$("#ingredient-price").text(price);
+	});
+
+	// add single ingredient to list
+	$("#add-ingredient").on("click", function (event) {
+		event.preventDefault();
+		let quantity = $("#ingredient-quantity").val().trim();
+		let measure = $("#ingredient-quantity").val();
+
+		let ingredient = {
+			quantity: quantity,
+			measure: measure,
+			id: $("#ingredient-id").text(),
+			name: $("#ingredient-name").text(),
+			price: $("#ingredient-price").text(),
+		}
 	});
 
 });
