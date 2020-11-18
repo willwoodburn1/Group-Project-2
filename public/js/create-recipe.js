@@ -33,6 +33,14 @@ $(document).ready(function () {
 		}
 	});
 
+	// load measures
+	$.get("/api/measures").then(function (data) {
+		for (var measure of data) {
+			$(".ingredient-measures").append(`
+			<option value="${measure.measure_metric}" class="measure-name">${measure.measure_metric}</option>`);
+		}
+	});
+
 	// search for ingredients in db
 	$("#not-found").hide();
 	$("#ingredient-search").on("click", function (event) {
@@ -180,29 +188,26 @@ $(document).ready(function () {
 			UserId: recipe.author_id,
 			// to add image-link to model
 		}).done(function () {
-			$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(
-				function (data) {
-					recipe.recipe_id = data.id;
-
-					// todo: post to recipe_ingredients for every ingredient
-					recipe.ingredients.forEach((element) => {
-						// console.log(element.id)
-						$.post("/api/recipesIngredients", {
-							recipe_id: recipe.recipe_id,
-							ingredient_id: element.id,
-						});
-					});
-				}
-			);
+			getRecipeId()
+				
 		});
 	});
+
+	function getRecipeId() {
+		$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(
+			function (data) {
+				recipe.recipe_id = data.id;
+				recipe.ingredients.forEach((element) => {
+					$.post("/api/recipesIngredients", {
+						recipe_id: recipe.recipe_id,
+						ingredient_id: element.id,
+					}).done(function () {
+						window.location.replace("/");
+					}).catch(function (err) {
+						console.log(err);
+					});;
+				});
+			}
+		);
+	}
 });
-
-// Images
-// How to add images to the database?
-
-// Submit the recipe
-//
-// RecipeIngredients Database
-// for every ingredient
-// insert chef_id, recipe_id, ingredient_id, quantity
