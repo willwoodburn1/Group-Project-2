@@ -175,8 +175,9 @@ $(document).ready(function () {
 			title: recipe.title,
 			method: recipe.method,
 			// to add image-link to model
+		}, function(data) {
+			console.log(data)
 		})
-
 	})
 });
 
