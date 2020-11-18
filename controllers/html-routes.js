@@ -29,27 +29,8 @@ module.exports = function (app) {
 	});
 
 	app.get("/create-recipe", isAuthenticated, function (req, res) {
-		let measures = [
-			{ measure: "unit" },
-			{ measure: "cup" },
-			{ measure: "tsp" },
-			{ measure: "tbsp" },
-			{ measure: "g" },
-			{ measure: "kg" },
-			{ measure: "mL" },
-			{ measure: "litre" },
-			{ measure: "mg" },
-			{ measure: "lb" },
-			{ measure: "oz" },
-			{ measure: "fl oz" },
-			{ measure: "cm" },
-		];
-
 		db.Ingredients.findAll().then(function (data) {
-			res.render("create-recipe", {
-				search: data,
-				units: measures,
-			});
+			res.render("create-recipe", { search: data });
 		});
 	});
 
