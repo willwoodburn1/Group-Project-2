@@ -20,6 +20,7 @@
             <!-- repeat for each result found in db -->
             {{#each search}}
             <button class="search-item">
+                <p class="results-id">{{dataValues.id}}</p>
                 <p class="results-name">{{dataValues.item}}</p>
                 <p>$<span class="results-price">{{dataValues.price}}</span></p>
             </button>
