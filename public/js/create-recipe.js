@@ -1,12 +1,13 @@
 // Create Recipe Form code goes here
 $(document).ready(function () {
-
 	let recipe = {
+		recipe_id: "",
+		author_id: "",
 		title: $(".title").text(),
 		image: $(".image").attr("src"),
 		author: $(".author").text(),
 		ingredients: [],
-		method: [],
+		method: "",
 	};
 
 	// add recipe name
@@ -28,6 +29,7 @@ $(document).ready(function () {
 		if (data.username) {
 			$(".author").text(data.username);
 			recipe.author = data.username;
+			recipe.author_id = data.id
 		}
 	});
 
@@ -138,9 +140,9 @@ $(document).ready(function () {
 				price: ingredient.price,
 			}).done(function () {
 				// get ingredient id
-				$.get("/api/ingredients/" + ingredient.name)
+				$.get(`/api/ingredients/${ingredient.name}/${ingredient.price}`)
 					.then(function (data) {
-						ingredient.id = `${data[0].id}`;
+						ingredient.id = `${data.id}`;
 					})
 					.done(function () {
 						// push to ingredients list
@@ -155,30 +157,44 @@ $(document).ready(function () {
 	});
 
 	// add method step
-	$("#add-method-step").on("click", function(event) {
+	$("#add-method-step").on("click", function (event) {
 		event.preventDefault();
 
 		// append method to preview
 		let step = $("#recipe-method").val().trim();
 
 		if (step) {
-			$(".method").append(`<li>${step}</li>`)
-			recipe.method.push(step);
-			$("#recipe-method").val("")
-			console.log(recipe)
+			$(".method").append(`<li>${step}</li>`);
+
+			recipe.method += `<li>${step}</li>`;
+			$("#recipe-method").val("");
+			console.log(recipe);
 		}
-	})
+	});
 
 	// submit recipe
-	$("#submit-recipe").on("click", function() {
+	$("#submit-recipe").on("click", function () {
 		$.post("/api/recipes", {
 			title: recipe.title,
 			method: recipe.method,
+			UserId: recipe.author_id,
 			// to add image-link to model
-		}, function(data) {
-			console.log(data)
-		})
-	})
+		}).done(function () {
+			$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(function (data) {
+				recipe.recipe_id = data.id;
+			});
+		});
+
+		// todo: post to recipe_ingredients for every ingredient
+		recipe.ingredients.forEach(element => {
+			// console.log(element.id)
+			$.post("/api/recipesIngredients" + recipe.recipe_id, {
+				recipe_id: recipe.recipe_id,
+				ingredient_id: element.id
+			})
+		});
+		
+	});
 });
 
 // Images
