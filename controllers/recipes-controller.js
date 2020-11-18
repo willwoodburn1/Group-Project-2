@@ -29,23 +29,31 @@ module.exports = function(app) {
 
     app.get("/api/recipes/less-than/:price", function(req, res) {
         let price = req.params.price;
-        Recipe.findAll({
-            include: [{
-                model: db.Ingredients,
-                through: "recipe_ingredients",
-                as: "ingredients",
-                required: true
-            }],
-            attributes: ["recipe.title", [sequelize.fn("sum", sequelize.col("ingredients.price")), "cost"], ],
-            group: ["recipe.title"],
-            having: {
-                "ingredients.price": sequelize.where(sequelize.fn("sum", sequelize.col("ingredients.price")), {
-                    [Op.lt]: price
-                })
-            }
-        }).then(function(data) {
-            res.json(data);
-        })
+        // Recipe.findAll({
+        //     include: [{
+        //         model: db.Ingredients,
+        //         through: "recipe_ingredients",
+        //         as: "ingredients",
+        //         required: true
+        //     }],
+        //     attributes: ["recipe.title", [sequelize.fn("sum", sequelize.col("ingredients.price")), "cost"], ],
+        //     group: ["recipe.id"],
+        //     having: {
+        //         "ingredients.price": sequelize.where(sequelize.fn("sum", sequelize.col("ingredients.price")), {
+        //             [Op.lt]: price
+        //         })
+        //     }
+        // })
+        db.sequelize.query(`SELECT r.title, SUM(i.price)
+        FROM recipes r 
+        JOIN recipe_ingredients ri on r.id = ri.recipe_id 
+        JOIN ingredients i on i.id = ri.ingredient_id
+        GROUP BY r.title
+        HAVING SUM(i.price)<${price};`)
+            .then(function(data) {
+                console.log(data);
+                res.json(data);
+            })
     })
 
     app.post("api/recipes", function(req, res) {
