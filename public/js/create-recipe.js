@@ -1,34 +1,31 @@
 // Create Recipe Form code goes here
 $(document).ready(function () {
-	let title = $("#recipe-name");
-	let image = $("#recipe-image");
-	let author = $(".author");
-    var ingredientSearch = $("#recipe-item");
-    
-    let recipe = {
-        title: recipeTitle,
-        image: recipeImage,
-        author: recipeAuthor,
-        ingredients,
-        method,
-    }
+	let Title = title;
+	let image;
+	let author;
+
+	let recipe = {
+
+	}
 
 	// add recipe name
 	$("#add-recipe-name").on("click", function (event) {
 		event.preventDefault();
-		$(".title").text(title.val().trim());
+		$(".title").text($("#recipe-name").val().trim());
+		title = $("#recipe-name").val().trim();
 	});
 
 	// add image link
 	$("#add-recipe-image").on("click", function (event) {
 		event.preventDefault();
-		$("img").attr("src", image.val().trim());
+		$("img").attr("src", $("#recipe-image").val().trim());
+		image = $("#recipe-image").val().trim()
 	});
 
 	// get chef name
 	$.get("/api/user_data").then(function (data) {
 		if (data.username) {
-			author.text(data.username);
+			$(".author").text(data.username);
 			author = data.username;
 		}
 	});
@@ -36,19 +33,21 @@ $(document).ready(function () {
 	// search for ingredients in db
 	$("#ingredient-search").on("click", function (event) {
 		event.preventDefault();
-        let search = ingredientSearch.val().trim();
-        let results = []
-        results.push()
+		let search = $("#recipe-item").val().trim().toLowerCase();
 
-        console.log($(".search-item").length);
-        // for (let i = 0; i < $(".search-item").length; i++) {
-		// 	td = tr[i].getElementsByTagName("td")[0];
-		// 	if (td) {
-		// 		txtValue = td.textContent || td.innerText;
-		// 		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		// 			tr[i].style.display = "";
+		// console.log($(".search-item")[0].children("p"));
+		// for (let i = 0; i < $(".search-item").length; i++) {
+
+		// 	let item = $(".search-item")[i];
+
+		// 	if (item) {
+
+		// 		let txtValue = item.textContent || item.innerText;
+
+		// 		if (txtValue.toLowerCase() = search) {
+		// 			$(".search-item")[i].style.display = "";
 		// 		} else {
-		// 			tr[i].style.display = "none";
+		// 			$(".search-item")[i].style.display = "none";
 		// 		}
 		// 	}
 		// }
@@ -65,12 +64,10 @@ $(document).ready(function () {
 		// 	}
 		// }
 
-		// $.get("/api/ingredients/" + search).then(function(data) {
-		//     data.forEach(element => {
-		//         console.log(element.item)
-
-		//     });
-		// })
+		$.get("/api/ingredients/" + search).then(function (data) {
+			location.replace("/create-recipe/" + search);
+			$(".title").text(title)
+		});
 	});
 
 	// get single ingredient
