@@ -17,10 +17,22 @@ module.exports = function(app) {
     })
 
     // get a recipe using the recipe id
-    app.get("api/recipes/:id", function(req, res) {
+    app.get("/api/recipes/:id", function(req, res) {
         Recipe.findOne({
             where: {
                 id: req.params.id
+            }
+        }).then(function(data) {
+            res.json(data);
+        })
+    })
+
+    // get a recipe using the recipe name and user id
+    app.get("/api/recipes/:title/:UserId", function(req, res) {
+        Recipe.findOne({
+            where: {
+                title: req.params.title,
+                UserId: req.params.UserId,
             }
         }).then(function(data) {
             res.json(data);
@@ -57,7 +69,7 @@ module.exports = function(app) {
             })
     })
 
-    app.post("api/recipes", function(req, res) {
+    app.post("/api/recipes", function(req, res) {
         Recipe.create(req.body).then(function(recipe) {
             res.json(recipe);
         })
