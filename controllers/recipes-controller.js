@@ -36,7 +36,7 @@ module.exports = function(app) {
                 as: "ingredients",
                 required: true
             }],
-            attributes: ["recipe.title", [sequelize.fn("sum", sequelize.col("ingredients.price")), "test"], ],
+            attributes: ["recipe.title", [sequelize.fn("sum", sequelize.col("ingredients.price")), "cost"], ],
             group: ["recipe.title"],
             having: {
                 "ingredients.price": sequelize.where(sequelize.fn("sum", sequelize.col("ingredients.price")), {
