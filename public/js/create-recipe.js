@@ -4,51 +4,45 @@ $(document).ready(function () {
 	let image;
 	let author;
 
-	// let recipe = {
-	// 	title: $(".title"),
-	// 	image: $(".image"),
-	// 	author: $(".author"),
-	// 	ingredients: [
-	// 		{
-	// 			quantity: quantity,
-	// 			measure: measure,
-	// 			id: id,
-	// 			name: name,
-	// 			price: price,
-	// 		}
-	// 	],
-	// 	method: [
-	// 		"step1", "step2",
-	// 	]
-	// };
+	let recipe = {
+		title: $(".title").text(),
+		image: $(".image").attr("src"),
+		author: $(".author").text(),
+		ingredients: [],
+		method: [
+			"step1", "step2",
+		]
+	};
 
 	// add recipe name
 	$("#add-recipe-name").on("click", function (event) {
 		event.preventDefault();
 		$(".title").text($("#recipe-name").val().trim());
-		title = $("#recipe-name").val().trim();
+		recipe.title = $("#recipe-name").val().trim();
 	});
 
 	// add image link
 	$("#add-recipe-image").on("click", function (event) {
 		event.preventDefault();
 		$("img").attr("src", $("#recipe-image").val().trim());
-		image = $("#recipe-image").val().trim();
+		recipe.image = $(".image").attr("src");
 	});
 
 	// get chef name
 	$.get("/api/user_data").then(function (data) {
 		if (data.username) {
 			$(".author").text(data.username);
-			author = data.username;
+			recipe.author = data.username;
 		}
 	});
 
 	// search for ingredients in db
+	$("#not-found").hide();
 	$("#ingredient-search").on("click", function (event) {
 		event.preventDefault();
 		let search = $("#recipe-item").val().trim().toUpperCase();
 		let items = $(".search-item");
+		let count = 1;
 
 		for (var item of items) {
 			let result = item.getElementsByClassName("results-name")[0];
@@ -56,9 +50,15 @@ $(document).ready(function () {
 
 			if (resultText.toUpperCase().indexOf(search) > -1) {
 				item.style.display = "";
+				count -= 1;
 			} else {
 				item.style.display = "none";
 			}
+		}
+		if (count >= 0) {
+			$("#not-found").show();
+		} else {
+			$("#not-found").hide();
 		}
 	});
 
@@ -79,7 +79,7 @@ $(document).ready(function () {
 	$("#add-ingredient").on("click", function (event) {
 		event.preventDefault();
 		let quantity = $("#ingredient-quantity").val().trim();
-		let measure = $("#ingredient-quantity").val();
+		let measure = $("#ingredient-measures").val();
 
 		let ingredient = {
 			quantity: quantity,
@@ -88,7 +88,56 @@ $(document).ready(function () {
 			name: $("#ingredient-name").text(),
 			price: $("#ingredient-price").text(),
 		}
+
+		$(".ingredients").append(
+			`<tr>
+				<td class="quantity">${ingredient.quantity}</td>
+				<td class="measure">${ingredient.measure}</td>
+				<td class="name">${ingredient.name}</td>
+				<td>$<span class="price">${ingredient.price}</span></td>
+			</tr>`
+		)
+		recipe.ingredients.push(ingredient)
+		// console.log(recipe)
 	});
+
+	// show add manual ingredient if not in db
+	// toggle display auto to manual fill ingredient
+	$("#manual-fill").hide();
+
+	$(".toggle-manually").on("click", function(event) {
+		event.preventDefault();
+
+		$("#manual-fill").toggle();
+		$("#auto-fill").toggle();
+	})
+
+
+	// add single ingredient manually (post)
+	// $("#add-ingredient").on("click", function (event) {
+	// 	event.preventDefault();
+	// 	let quantity = $("#ingredient-quantity").val().trim();
+	// 	let measure = $("#ingredient-measures").val();
+
+	// 	let ingredient = {
+	// 		quantity: quantity,
+	// 		measure: measure,
+	// 		id: $("#ingredient-id").text(),
+	// 		name: $("#ingredient-name").text(),
+	// 		price: $("#ingredient-price").text(),
+	// 	}
+
+	// 	$(".ingredients").append(
+	// 		`<tr>
+	// 			<td class="quantity">${ingredient.quantity}</td>
+	// 			<td class="measure">${ingredient.measure}</td>
+	// 			<td class="name">${ingredient.name}</td>
+	// 			<td>$<span class="price">${ingredient.price}</span></td>
+	// 		</tr>`
+	// 	)
+	// 	recipe.ingredients.push(ingredient)
+	// 	console.log(recipe)
+	// });
 
 });
 
