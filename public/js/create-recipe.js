@@ -158,48 +158,25 @@ $(document).ready(function () {
 	});
 
 	// add method step
-	// $("#add-method-step").on("click", function(event) {
-	// 	event.preventDefault();
+	$("#add-method-step").on("click", function(event) {
+		event.preventDefault();
 
-	// 	let step = "";
+		// append method to preview
+		let step = $("#recipe-method").val().trim();
 
-	// 	// append method to preview
-	// 	$("#recipe-method").val().trim();
-	// })
+		if (step) {
+			$(".method").append(`<li>${step}</li>`)
+			recipe.method.push(step);
+			$("#recipe-method").val("")
+			console.log(recipe)
+		}
+	})
+
+	// submit recipe
+	$("#submit-recipe").on("click", function() {
+		
+	})
 });
-
-// create-recipe.handlebars should contain
-// Title
-// Ingredients List
-// Input box to search for ingredients
-// Submit ingredient button to initiate search for ingredients
-// For each ingredient 2 more input boxes should be created, 1 for measure (selection dropbox of the different measure types) and 1 for quantity
-// Method Textarea
-// Add Images Option
-// Final submit recipe button
-
-// Title
-
-// Ingredients List
-// Search box to input ingredient
-// Users enter ingredient name into the search box
-// Submit button
-// User clicks the submit button
-
-// Check local database if ingredient already exists
-// If exists then add to ingredients list
-// If not then make the API call
-//
-// API Call
-// If ingredient is found
-// Get price and add to ingredients list
-// If not found
-// Ask user to input ingredient manually with price and category (category optional)
-
-// Household ingredients
-// If ingredient is household (salt, herbs, spices, etc...)
-// No need for price
-// Everything else needs a price
 
 // Method
 // Textarea
