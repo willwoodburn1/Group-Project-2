@@ -13,26 +13,6 @@ module.exports = function(app) {
         })
     });
 
-    app.get("/create-recipe/:item", function (req, res) {
-        db.Ingredients.findAll({
-            where: {
-                item: req.params.item
-            }
-        }).then(function (data) {
-            res.render("create-recipe", { search: data });
-        })
-    })
-
-    // app.get("/create-recipe", function (req, res) {
-    //     db.Ingredients.findAll().then(function (data) {
-    //         console.log(data)
-    //         // if ($("#recipe-item").val().trim() = "") {
-    //         //     res.render("create-recipe");
-    //         // } else if ()
-    //         res.render("create-recipe", { search: data });
-    //     })
-    // })
-
     app.get("/signup", function(req, res) {
         res.render("signup");
     })
@@ -50,9 +30,10 @@ module.exports = function(app) {
     })
 
     app.get("/create-recipe", isAuthenticated, function(req, res) {
-        res.render("create-recipe");
+        db.Ingredients.findAll().then(function (data) {
+            res.render("create-recipe", { search: data });
+        })
     })
-
 
     app.get("view-recipe/:id", function(req, res) {
         // Query the database for the recipe with that ID
