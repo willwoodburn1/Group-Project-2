@@ -4,23 +4,23 @@ $(document).ready(function () {
 	let image;
 	let author;
 
-	let recipe = {
-		title: $(".title"),
-		image: $(".image"),
-		author: $(".author"),
-		ingredients: [
-			{
-				quantity: quantity,
-				measure: measure,
-				id: id,
-				name: name,
-				price: price,
-			}
-		],
-		method: [
-			"step1", "step2",
-		]
-	};
+	// let recipe = {
+	// 	title: $(".title"),
+	// 	image: $(".image"),
+	// 	author: $(".author"),
+	// 	ingredients: [
+	// 		{
+	// 			quantity: quantity,
+	// 			measure: measure,
+	// 			id: id,
+	// 			name: name,
+	// 			price: price,
+	// 		}
+	// 	],
+	// 	method: [
+	// 		"step1", "step2",
+	// 	]
+	// };
 
 	// add recipe name
 	$("#add-recipe-name").on("click", function (event) {
