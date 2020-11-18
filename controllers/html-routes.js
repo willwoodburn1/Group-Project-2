@@ -9,7 +9,6 @@ module.exports = function(app) {
 
     app.get("/", function(req, res) {
         db.Recipe.findAll().then(function(data) {
-            console.log(data);
             res.render("index", { recipes: data });
         })
     });
