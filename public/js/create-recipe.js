@@ -4,7 +4,7 @@ $(document).ready(function () {
 		recipe_id: "",
 		author_id: "",
 		title: $(".title").text(),
-		image: $(".image").attr("src"),
+		image: $(".image").attr("src", "https://picsum.photos/250/150"),
 		author: $(".author").text(),
 		ingredients: [],
 		method: "",
@@ -29,7 +29,7 @@ $(document).ready(function () {
 		if (data.username) {
 			$(".author").text(data.username);
 			recipe.author = data.username;
-			recipe.author_id = data.id
+			recipe.author_id = data.id;
 		}
 	});
 
@@ -180,20 +180,21 @@ $(document).ready(function () {
 			UserId: recipe.author_id,
 			// to add image-link to model
 		}).done(function () {
-			$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(function (data) {
-				recipe.recipe_id = data.id;
-			});
-		});
+			$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(
+				function (data) {
+					recipe.recipe_id = data.id;
 
-		// todo: post to recipe_ingredients for every ingredient
-		recipe.ingredients.forEach(element => {
-			// console.log(element.id)
-			$.post("/api/recipesIngredients" + recipe.recipe_id, {
-				recipe_id: recipe.recipe_id,
-				ingredient_id: element.id
-			})
+					// todo: post to recipe_ingredients for every ingredient
+					recipe.ingredients.forEach((element) => {
+						// console.log(element.id)
+						$.post("/api/recipesIngredients", {
+							recipe_id: recipe.recipe_id,
+							ingredient_id: element.id,
+						});
+					});
+				}
+			);
 		});
-		
 	});
 });
 
