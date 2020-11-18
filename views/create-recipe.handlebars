@@ -46,11 +46,7 @@
                         <input id="ingredient-quantity" name="ingredient-quantity" type="text" />
                     </td>
                     <td>
-                        <select name="measures" id="ingredient-measures">
-                            {{#each units}}
-                            <option value="{{measure}}" class="measure-name">{{measure}}</option>
-                            {{/each}}
-                        </select>
+                        <select name="measures" id="ingredient-measures" class="ingredient-measures"></select>
                     </td>
                     <td id="ingredient-name"></td>
                     <td>$<span id="ingredient-price"></span></td>
@@ -70,11 +66,7 @@
                         <input id="manual-quantity" name="manual-quantity" type="text" />
                     </td>
                     <td>
-                        <select name="measures" id="manual-measures">
-                            {{#each units}}
-                            <option value="{{measure}}" class="measure-name">{{measure}}</option>
-                            {{/each}}
-                        </select>
+                        <select name="measures" class="ingredient-measures" id="manual-measures"></select>
                     </td>
                     <td>
                         <input id="manual-name" name="manual-name" type="text" />
@@ -112,12 +104,12 @@
         <th>Measure</th>
         <th>Name</th>
         <th>Average Price</th>
-        <tr>
+        {{!-- <tr>
             <td class="quantity">Quantity</td>
             <td class="measure">Measure</td>
             <td class="name">Name</td>
             <td>$<span class="price">Average price</span></td>
-        </tr>
+        </tr> --}}
     </table>
 
     <h2>Method</h2>
