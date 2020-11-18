@@ -16,12 +16,13 @@
         <button id="ingredient-search">search</button><br>
 
         <div class="ingredient-results">
+            <h2>RESULTS</h2>
             <!-- repeat for each result found in db and through api -->
-            {{#each ingredient}}
-            <div>
-                <p class="results-name">ingredient name</p>
-                <p>$<span class="results-price">price</span></p>
-            </div>
+            {{#each search}}
+            <button class="search-item">
+                <p class="results-name">{{dataValues.item}}</p>
+                <p>$<span class="results-price">{{dataValues.price}}</span></p>
+            </button>
             {{/each}}
         </div>
 
