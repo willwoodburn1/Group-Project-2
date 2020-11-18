@@ -45,7 +45,7 @@ module.exports = function(app) {
         //     }
         // })
         db.sequelize.query(`
-        SELECT r.id, r.title, SUM(i.price)
+        SELECT r.id, r.title, SUM(i.price) AS "cost"
         FROM recipes r 
         JOIN recipe_ingredients ri on r.id = ri.recipe_id 
         JOIN ingredients i on i.id = ri.ingredient_id
