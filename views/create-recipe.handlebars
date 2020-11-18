@@ -2,51 +2,56 @@
     <h1>CREATE A RECIPE</h1>
     <form id="recipeForm">
 
+        {{!-- input title --}}
         <h4>Recipe name</h4>
         <input id="recipe-name" name="recipe-name" type="text" />
         <button id="add-recipe-name">add name</button><br>
 
+        {{!-- input image link --}}
         <h4>Display image link</h4>
         <input id="recipe-image" name="recipe-image" type="text" />
         <button id="add-recipe-image">add image</button><br>
 
+        {{!-- search for ingredients --}}
         <h4>Ingredients</h4>
         <h5>Search for ingredient</h5>
         <input id="recipe-item" name="recipe-item" type="search" />
         <button id="ingredient-search">search</button><br>
 
+        {{!-- search ingredients results table --}}
         <div class="ingredient-results">
             <h2>RESULTS</h2>
-            <!-- repeat for each result found in db -->
             {{#each search}}
             <button class="search-item">
-                <p class="results-id">{{dataValues.id}}</p>
-                <p class="results-name">{{dataValues.item}}</p>
-                <p>$<span class="results-price">{{dataValues.price}}</span></p>
+                <p class="results-id" id="{{dataValues.id}}">{{dataValues.id}}</p>
+                <p class="results-name" id="{{dataValues.item}}">{{dataValues.item}}</p>
+                <p id="{{dataValues.price}}">$<span class="results-price">{{dataValues.price}}</span></p>
             </button>
             {{/each}}
         </div>
 
+        {{!-- user's single chosen ingredient --}}
         <table>
             <th>Quantity</th>
             <th>Measure</th>
+            <th>id</th>
             <th>Name</th>
             <th>Average Price</th>
-            <!-- when a result is clicked, this table is filled except for quantity and measure -->
+            <!-- this table is filled automatically except for quantity and measure -->
             <tr>
                 <td>
                     <input id="ingredient-quantity" name="ingredient-quantity" type="text" />
                 </td>
                 <td>
                     <select name="measures" id="ingredient-measures">
-                        <!-- repeat for each unit of measure -->
                         {{#each measure}}
-                        <option value="measure-name" id="measure-name">unit of measure</option>
+                        <option value="measure-name" class="measure-name">unit of measure</option>
                         {{/each}}
                     </select>
                 </td>
+                <td id="ingredient-id">ingredient id</td>
                 <td id="ingredient-name">ingredient name</td>
-                <td id="ingredient-price">ingredient price</td>
+                <td>$<span id="ingredient-price">ingredient price</span></td>
             </tr>
         </table>
         <button id="add-ingredient">add ingredient</button><br>
@@ -64,7 +69,6 @@
                 </td>
                 <td>
                     <select name="measures" id="ingredient-measures">
-                        <!-- repeat for each unit of measure -->
                         {{#each measure}}
                         <option value="measure-name" id="measure-name">unit of measure</option>
                         {{/each}}
@@ -78,18 +82,22 @@
                 </td>
             </tr>
         </table>
-        <button id="add-ingredient">add ingredient</button><br>
+        <button id="add-ingredient">add new ingredient</button><br>
 
+        {{!-- add method steps --}}
         <h4>Method</h4>
         <textarea id="recipe-method" name="recipe-method"></textarea><br>
         <button>add another step</button><br>
     </form>
 </div>
 
+{{!-- --------------------------------------------- --}}
+
+{{!-- PREVIEW OF USER RECIPE --}}
 <h1>PREVIEW RECIPE</h1>
 <div id="preview-recipe">
     <h1 class="title">Recipe Title</h1>
-    <img alt="image"><br>
+    <img alt="image" class="image"><br>
     <p class="author">Chef's Name</p>
 
     <h2>Ingredients</h2>
