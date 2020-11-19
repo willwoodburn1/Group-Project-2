@@ -27,18 +27,6 @@ module.exports = function(app) {
         })
     })
 
-    // get a recipe using the recipe name and user id
-    app.get("/api/recipes/:title/:UserId", function(req, res) {
-        Recipe.findOne({
-            where: {
-                title: req.params.title,
-                UserId: req.params.UserId,
-            }
-        }).then(function(data) {
-            res.json(data);
-        })
-    })
-
     app.get("/api/recipes/less-than/:price", function(req, res) {
         let price = req.params.price;
         // Recipe.findAll({
@@ -67,6 +55,18 @@ module.exports = function(app) {
             .then(function(data) {
                 res.json(data);
             })
+    })
+
+    // get a recipe using the recipe name and user id
+    app.get("/api/recipes/:title/:UserId", function(req, res) {
+        Recipe.findOne({
+            where: {
+                title: req.params.title,
+                UserId: req.params.UserId,
+            }
+        }).then(function(data) {
+            res.json(data);
+        })
     })
 
     app.post("/api/recipes", function(req, res) {
