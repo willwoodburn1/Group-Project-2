@@ -5,52 +5,58 @@
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 
-module.exports = function (app) {
-	app.get("/", function (req, res) {
-		db.Recipe.findAll().then(function (data) {
-			res.render("index", { recipes: data });
-		});
-	});
+module.exports = function(app) {
+    app.get("/", function(req, res) {
+        db.Recipe.findAll().then(function(data) {
+            res.render("index", { recipes: data });
+        });
+    });
 
-	app.get("/signup", function (req, res) {
-		res.render("signup");
-	});
+    app.get("/signup", function(req, res) {
+        res.render("signup");
+    });
 
-	app.get("/login", function (req, res) {
-		// If the user already has an account send them to the members page
-		if (req.user) {
-			res.redirect("/");
-		}
-		res.render("login");
-	});
+    app.get("/login", function(req, res) {
+        // If the user already has an account send them to the members page
+        if (req.user) {
+            res.redirect("/");
+        }
+        res.render("login");
+    });
 
-	app.get("logout", function (req, res) {
-		res.render("index");
-	});
+    app.get("logout", function(req, res) {
+        res.render("index");
+    });
 
-	app.get("/create-recipe", isAuthenticated, function (req, res) {
-		db.Ingredients.findAll().then(function (data) {
-			res.render("create-recipe", { search: data });
-		});
-	});
+    app.get("/create-recipe", isAuthenticated, function(req, res) {
+        db.Ingredients.findAll().then(function(data) {
+            res.render("create-recipe", { search: data });
+        });
+    });
 
-	app.get("view-recipe/:id", function (req, res) {
-		// Query the database for the recipe with that ID
-		const recipe = getRecipe(req.params.id);
+    app.get("view-recipe/:id", function(req, res) {
+        // Query the database for the recipe with that ID
+        const recipe = getRecipe(req.params.id);
 
-		// Pass through the recipe data into the view
-		res.render("view-recipe", {
-			recipe,
-		});
-	});
+        // Pass through the recipe data into the view
+        res.render("view-recipe", {
+            recipe,
+        });
+    });
 
-	app.get("/view-recipe", function (req, res) {
-		res.render("view-recipe");
-	});
+    app.get("/view-recipe", function(req, res) {
+        res.render("view-recipe");
+    });
 
-	// Here we've add our isAuthenticated middleware to this route.
-	// If a user who is not logged in tries to access this route they will be redirected to the signup page
-	app.get("/members", isAuthenticated, function (req, res) {
-		res.render("members");
-	});
+    // Here we've add our isAuthenticated middleware to this route.
+    // If a user who is not logged in tries to access this route they will be redirected to the signup page
+    app.get("/members", isAuthenticated, function(req, res) {
+        db.Recipes.findAll({
+            where: {
+                user_id: "??"
+            }
+        }).then(function(data) {
+            res.render("members", { recipes: data });
+        })
+    });
 };
