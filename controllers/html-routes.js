@@ -40,7 +40,7 @@ module.exports = function (app) {
         // Query the database for the recipe with that ID
         console.log(req.params.id)
         db.sequelize.query(`
-        SELECT u.username, r.title, r.method, i.item
+        SELECT u.username, r.title, r.method, i.item, SUM(i.price)
         FROM recipes r
         JOIN users u on u.id = r.UserId
         JOIN recipe_ingredients ri on r.id = ri.recipe_id
