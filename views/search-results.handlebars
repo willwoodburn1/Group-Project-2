@@ -1,0 +1,14 @@
+<ul>
+    {{#each recipes}}
+    <li>
+        <div>
+            <h1>{{title}}</h1>
+            <label>Cost: ${{cost}}</label>
+            <br>
+            <a href="/view-recipe/{{id}}">View Recipe</a>
+            <br>
+            <img src="https://picsum.photos/250/150" alt="placeholder-image">
+        </div>
+    </li>
+    {{/each}}
+</ul>
