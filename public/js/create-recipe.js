@@ -185,8 +185,8 @@ $(document).ready(function () {
 		$.post("/api/recipes", {
 			title: recipe.title,
 			method: recipe.method,
+			image: recipe.image,
 			UserId: recipe.author_id,
-			// to add image-link to model
 		}).done(function () {
 			getRecipeId()
 				
