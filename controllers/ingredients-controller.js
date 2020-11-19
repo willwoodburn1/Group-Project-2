@@ -16,6 +16,17 @@ module.exports = function (app) {
             res.json(data);
         })
     })
+
+    // get measure id from measure name
+    app.get("/api/measures/:measure_metric", function(req, res) {
+        db.Measure.findOne({
+            where: {
+                measure_metric: req.params.measure_metric
+            }
+        }).then(function (data) {
+            res.json(data);
+        })
+    })
     
 
     // search ingredients by id
