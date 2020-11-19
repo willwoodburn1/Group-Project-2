@@ -10,13 +10,44 @@ module.exports = function (app) {
         })
     })
 
+    // get measures
+    app.get("/api/measures", function (req, res) {
+        db.Measure.findAll().then(function (data) {
+            res.json(data);
+        })
+    })
+    
+
     // search ingredients by id
-    app.get("api/ingredients/:id", function (req, res) {
+    app.get("/api/ingredients/:id", function (req, res) {
         db.Ingredients.findOne({
             where: {
                 id: req.params.id
             }
         }).then(function (data) {
+            res.json(data);
+        })
+    })
+
+    // get ingredient from item name
+    app.get("/api/ingredients/:item", function(req, res) {
+        db.Ingredients.findAll({
+            where: {
+                item: req.params.item
+            }
+        }).then(function(data) {
+            res.json(data);
+        })
+    })
+
+    // get ingredient from item name
+    app.get("/api/ingredients/:item/:price", function(req, res) {
+        db.Ingredients.findOne({
+            where: {
+                item: req.params.item,
+                price: req.params.price,
+            }
+        }).then(function(data) {
             res.json(data);
         })
     })

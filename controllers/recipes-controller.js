@@ -17,7 +17,7 @@ module.exports = function(app) {
     })
 
     // get a recipe using the recipe id
-    app.get("api/recipes/:id", function(req, res) {
+    app.get("/api/recipes/:id", function(req, res) {
         Recipe.findOne({
             where: {
                 id: req.params.id
@@ -45,7 +45,7 @@ module.exports = function(app) {
         //     }
         // })
         db.sequelize.query(`
-        SELECT r.id, r.title, SUM(i.price)
+        SELECT r.id, r.title, SUM(i.price) AS "cost"
         FROM recipes r 
         JOIN recipe_ingredients ri on r.id = ri.recipe_id 
         JOIN ingredients i on i.id = ri.ingredient_id
@@ -57,7 +57,19 @@ module.exports = function(app) {
             })
     })
 
-    app.post("api/recipes", function(req, res) {
+    // get a recipe using the recipe name and user id
+    app.get("/api/recipes/:title/:UserId", function(req, res) {
+        Recipe.findOne({
+            where: {
+                title: req.params.title,
+                UserId: req.params.UserId,
+            }
+        }).then(function(data) {
+            res.json(data);
+        })
+    })
+
+    app.post("/api/recipes", function(req, res) {
         Recipe.create(req.body).then(function(recipe) {
             res.json(recipe);
         })

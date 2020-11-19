@@ -12,12 +12,40 @@ INSERT INTO recipes (title, method, createdAt, updatedAt, UserId) VALUES('Boiled
 
 INSERT INTO recipes (title, method, createdAt, updatedAt, UserId) VALUES('Chocolate Cake', 'Add eggs, flour, chocolate to pan. Bake at 350 for 1 hour', NOW(), NOW(), 2);
 
-INSERT INTO recipe_ingredients (createdAt, updatedAt, recipe_id, ingredient_id) VALUES (NOW(), NOW(), 1, 1);
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("unit", NOW(), NOW());
 
-INSERT INTO recipe_ingredients (createdAt, updatedAt, recipe_id, ingredient_id)  VALUES (NOW(), NOW(), 2, 1);
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("cup", NOW(), NOW());
 
-INSERT INTO recipe_ingredients (createdAt, updatedAt, recipe_id, ingredient_id)  VALUES (NOW(), NOW(), 2, 2);
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("tsp", NOW(), NOW());
 
-INSERT INTO recipe_ingredients (createdAt, updatedAt, recipe_id, ingredient_id)  VALUES (NOW(), NOW(), 2, 3);
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("tbsp", NOW(), NOW());
 
-INSERT INTO recipe_ingredients (createdAt, updatedAt, recipe_id, ingredient_id)  VALUES (NOW(), NOW(), 2, 4);
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("g", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("kg", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("ml", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("litre", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("unit", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("mg", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("lb", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("oz", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("fl oz", NOW(), NOW());
+
+INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("cm", NOW(), NOW());
+
+INSERT INTO recipe_ingredients (amount, createdAt, updatedAt, ingredient_id, measure_id, recipe_id) VALUES (1, NOW(), NOW(), 1, 1, 1);
+
+INSERT INTO recipe_ingredients (amount, createdAt, updatedAt, ingredient_id, measure_id, recipe_id)  VALUES (1, NOW(), NOW(), 1, 1, 2);
+
+INSERT INTO recipe_ingredients (amount, createdAt, updatedAt, ingredient_id, measure_id, recipe_id)  VALUES (0.5, NOW(), NOW(), 2, 3, 2);
+
+INSERT INTO recipe_ingredients (amount, createdAt, updatedAt, ingredient_id, measure_id, recipe_id)  VALUES (1, NOW(), NOW(), 3, 2, 2);
+
+INSERT INTO recipe_ingredients (amount, createdAt, updatedAt, ingredient_id, measure_id, recipe_id)  VALUES (100, NOW(), NOW(), 4, 5, 2);

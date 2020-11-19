@@ -24,20 +24,30 @@ $(document).ready(function() {
     }
 
     function renderSearchResults(data) {
-        searchList.html("");
-        data.forEach(recipe => {
-            console.log(recipe);
-            let recipeItem = $("<li>");
-            recipeItem.html(`
-            <div>
-                <h1>${recipe.title}</h1>
-                <a href="/view-recipe/${recipe.id}">View Recipe</a>
-                <img src="https://picsum.photos/250/150" alt="placeholder-image">
-            </div>
+        console.log(data)
+        if (data.length === 0) {
+            searchList.html(`
+                <p>There are no recipes cheaper than this<p/>
             `);
-            console.log(recipeItem);
-            searchList.append(recipeItem);
-        })
+        } else {
+            searchList.html("");
+            data.forEach(recipe => {
+                console.log(recipe);
+                let recipeItem = $("<li>");
+                recipeItem.html(`
+                    <div>
+                        <h1>${recipe.title}</h1>
+                        <label>Cost: $${recipe.cost}</label>
+                        <br>
+                        <a href="/view-recipe/${recipe.id}">View Recipe</a>
+                        <br>
+                        <img src="https://picsum.photos/250/150" alt="placeholder-image">
+                    </div>
+                `);
+                console.log(recipeItem);
+                searchList.append(recipeItem);
+            })
+        }
     }
 
 })
