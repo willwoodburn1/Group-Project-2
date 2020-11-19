@@ -63,7 +63,7 @@ module.exports = function(app) {
     app.get("/members", isAuthenticated, function(req, res) {
         let userId = req.user.id;
         db.sequelize.query(`
-		SELECT recipes.title
+		SELECT recipes.title, recipes.id
 		FROM recipes
 		JOIN users ON recipes.UserId=users.id
 		WHERE users.id=${userId};
