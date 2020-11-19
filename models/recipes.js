@@ -9,15 +9,16 @@ module.exports = function(sequelize, DataTypes) {
         },
         method: {
             type: DataTypes.TEXT,
+        },
+        image: {
+            type: DataTypes.STRING
         }
     });
 
     Recipe.associate = function(models) {
-        Recipe.belongsToMany(models.Ingredients, {
-            through: "recipe_ingredients",
-            as: "ingredients",
+        Recipe.hasOne(models.Recipe_Ingredients, {
             foreignKey: "recipe_id"
-        });
+        })
     };
 
     return Recipe;
