@@ -5,3 +5,20 @@ body{
 .checked {
     color: orange;
 }
+
+footer {
+    border: 1px solid red;
+    bottom: 1px;
+    width: 100%;
+    text-align: center;
+}
+
+.mainContent {
+    border: 1px solid blue;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#preview-recipe {
+    border: 1px solid green;
+}
