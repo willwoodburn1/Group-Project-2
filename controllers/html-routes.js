@@ -6,18 +6,18 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
-module.exports = function (app) {
-    app.get("/", function (req, res) {
-        db.Recipe.findAll().then(function (data) {
+module.exports = function(app) {
+    app.get("/", function(req, res) {
+        db.Recipe.findAll().then(function(data) {
             res.render("index", { recipes: data });
         })
     });
 
-    app.get("/signup", function (req, res) {
+    app.get("/signup", function(req, res) {
         res.render("signup");
     })
 
-    app.get("/login", function (req, res) {
+    app.get("/login", function(req, res) {
         // If the user already has an account send them to the members page
         if (req.user) {
             res.redirect("/");
@@ -25,18 +25,18 @@ module.exports = function (app) {
         res.render("login");
     });
 
-    app.get("logout", function (req, res) {
+    app.get("logout", function(req, res) {
         res.render("index");
     })
 
-    app.get("/create-recipe", isAuthenticated, function (req, res) {
-		db.Ingredients.findAll().then(function (data) {
-			res.render("create-recipe", { search: data });
-		});
-	});
+    app.get("/create-recipe", isAuthenticated, function(req, res) {
+        db.Ingredients.findAll().then(function(data) {
+            res.render("create-recipe", { search: data });
+        });
+    });
 
 
-    app.get("/view-recipe/:id", function (req, res) {
+    app.get("/view-recipe/:id", function(req, res) {
         // Query the database for the recipe with that ID
         console.log(req.params.id)
         db.sequelize.query(`
@@ -47,21 +47,29 @@ module.exports = function (app) {
         JOIN ingredients i on i.id = ri.ingredient_id
         WHERE r.id = ${req.params.id};
         `, { type: sequelize.QueryTypes.SELECT })
-            .then(function (data) {
+            .then(function(data) {
                 console.log(data)
                 res.render("view-recipe", { recipe: data });
             })
 
     })
 
-    app.get("/view-recipe", function (req, res) {
+    app.get("/view-recipe", function(req, res) {
         res.render("view-recipe");
     })
 
     // Here we've add our isAuthenticated middleware to this route.
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
-    app.get("/members", isAuthenticated, function (req, res) {
-        res.render("members");
+    app.get("/members", isAuthenticated, function(req, res) {
+        let userId = req.user.id;
+        db.sequelize.query(`
+		SELECT recipes.title, recipes.id
+		FROM recipes
+		JOIN users ON recipes.UserId=users.id
+		WHERE users.id=${userId};
+		`, { type: sequelize.QueryTypes.SELECT }).then(function(data) {
+            console.log(data);
+            res.render("members", { recipes: data });
+        })
     });
 }
-
