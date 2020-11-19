@@ -24,7 +24,13 @@
         <div id="user-recipes">
             <h1><strong>My Recipes</strong></h1>
             <div>
-                include recipe list from index - if by user
+                <ul>
+                    {{#each recipes}}
+                    <li>
+                        <a href="/view-recipe/{{id}}">{{title}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
                 <button>edit recipe</button>
             </div>
         </div>
@@ -45,17 +51,6 @@
             <p>* number of meals cooked?</p>
         </div>
     </div>
-
-
-
-<main>
-    <ul>
-        {{#each recipes}}
-        <li>
-            <a href="/view-recipe/{{id}}">{{title}}</a>
-        </li>
-        {{/each}}
-    </ul>
 
 </main>
 
