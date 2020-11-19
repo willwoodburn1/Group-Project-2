@@ -30,8 +30,10 @@ module.exports = function (app) {
     })
 
     app.get("/create-recipe", isAuthenticated, function (req, res) {
-        res.render("create-recipe");
-    })
+		db.Ingredients.findAll().then(function (data) {
+			res.render("create-recipe", { search: data });
+		});
+	});
 
 
     app.get("/view-recipe/:id", function (req, res) {
