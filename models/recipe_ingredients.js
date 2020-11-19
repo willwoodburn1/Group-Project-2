@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     var Recipe_Ingredients = sequelize.define("Recipe_Ingredients", {
-        amount: {
+        quantity: {
             type: DataTypes.INTEGER
         }
     });
