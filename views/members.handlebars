@@ -1,3 +1,53 @@
+
+<aside>
+    <a href="#account-info" class="account-info">account info |</a>
+    <a href="#user-recipes" class="user-recipes">my recipes |</a>
+    <a href="#saved-recipes" class="saved-recipes">saved recipes |</a>
+    <a href="/create-recipe" class="create-recipe">create a recipe</a>
+</aside>
+<main>
+    <!-- only display section when clicked?^ -->
+
+
+    {{!-- <div id="account-info">
+        <h1>account info</h1>
+        <div>
+            <h3>account stats? (optional)</h3>
+            <p>number of created recipes</p>
+            <p>number of saved recipes</p>
+            <p>number of reviews</p>
+            <p>number of meals cooked?</p>
+        </div>
+    </div> --}}
+
+    <div id="membersWrapper">
+        <div id="user-recipes">
+            <h1><strong>My Recipes</strong></h1>
+            <div>
+                include recipe list from index - if by user
+                <button>edit recipe</button>
+            </div>
+        </div>
+        <div id="saved-recipes">
+            <h1><strong> Saved Recipes</strong></h1>
+            <div>
+                include recipe list from index - if saved
+            </div>
+        </div>
+    </div>
+    <div id="account-info">
+        <h1><strong> Account Info </strong> </h1>
+        <div>
+            <h3>Account Stats? (optional)</h3>
+            <p>* number of created recipes</p>
+            <p>* number of saved recipes</p>
+            <p>* number of reviews</p>
+            <p>* number of meals cooked?</p>
+        </div>
+    </div>
+
+
+
 <main>
     <ul>
         {{#each recipes}}
@@ -6,6 +56,7 @@
         </li>
         {{/each}}
     </ul>
+
 </main>
 
 <script type="text/javascript" src="/js/members.js"></script>

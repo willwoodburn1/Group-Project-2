@@ -7,20 +7,33 @@ body{
     color: orange;
 }
 
+button {
+    background-color: orange;
+}
+
+a {
+    color: red;
+}
+
+.appName {
+    color: white;
+    font-size: 64px;
+}
+
 footer {
-    bottom: 1px;
+    bottom: 0px;
     width: 100%;
     text-align: center;
-    /* background-color: lightsteelblue; */
     background-color: lightseagreen;
     margin-top: 20px;
+    color:white;
 }
 
 .mainContent {
     text-align: center;
-    /* background-color: lightsteelblue; */
     background-color: lightseagreen;
     margin-bottom: 20px;
+    color: white;
 }
 
 /* Create Recipe Page --> create-recipe.handlebars */
@@ -43,13 +56,56 @@ footer {
     margin-left: 20px;  
     text-align: center;  
     background-color: lightsteelblue;
-    /* background-color: lightseagreen; */
+   
 }
 
 #create-recipe {
     width: 48%;
     margin-left: 20px;
     background-color: lightsteelblue;
-    /* background-color: lightseagreen; */
+    
 
 }
+
+/* Members page --> members.handlebars */
+
+#membersWrapper {
+    display: flex;
+    margin-top: 10px;
+}
+
+#account-info {
+    border: 1px solid red;
+    width: 70%;
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 220px;
+    background-color: lightsteelblue;
+}
+
+#user-recipes {
+    border: 1px solid black;
+    width: 48%;
+    margin-left: 20px;
+    background-color: lightsteelblue;
+    text-align: center;
+}
+
+#saved-recipes {
+    border: 1px solid green;
+    width: 48%;
+    margin-left: 20px;
+    background-color: lightsteelblue;
+    text-align: center;
+}
+
+h1 {
+    text-decoration: underline;
+}
+
+/* Login Form --> login.handlebars */
+
+.loginForm {
+    
+}
+
