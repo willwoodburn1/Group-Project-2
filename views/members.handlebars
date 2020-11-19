@@ -1,3 +1,4 @@
+
 <aside>
     <a href="#account-info" class="account-info">account info |</a>
     <a href="#user-recipes" class="user-recipes">my recipes |</a>
@@ -45,6 +46,16 @@
         </div>
     </div>
 
+
+
+<main>
+    <ul>
+        {{#each recipes}}
+        <li>
+            <a href="/view-recipe/{{id}}">{{title}}</a>
+        </li>
+        {{/each}}
+    </ul>
 
 </main>
 

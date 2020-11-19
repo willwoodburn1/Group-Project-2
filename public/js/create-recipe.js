@@ -88,10 +88,13 @@ $(document).ready(function () {
 		let quantity = $("#ingredient-quantity").val().trim();
 		let measure = $("#ingredient-measures").val();
 
+		let measureId = getMeasureId(measure);
+
 		let ingredient = {
 			id: $("#ingredient-id").text(),
 			quantity: quantity,
 			measure: measure,
+			measure_id: measureId,
 			name: $("#ingredient-name").text(),
 			price: $("#ingredient-price").text(),
 		};
@@ -124,10 +127,13 @@ $(document).ready(function () {
 	$("#add-manual").on("click", function (event) {
 		event.preventDefault();
 
+		let measureId = getMeasureId($("#manual-measures").val());
+
 		let ingredient = {
 			id: "ingredient not posted",
 			quantity: $("#manual-quantity").val().trim(),
 			measure: $("#manual-measures").val(),
+			measure_id: measureId,
 			name: $("#manual-name").val().trim(),
 			price: $("#manual-price").val().trim(),
 		};
@@ -185,11 +191,24 @@ $(document).ready(function () {
 		$.post("/api/recipes", {
 			title: recipe.title,
 			method: recipe.method,
+			image: recipe.image,
 			UserId: recipe.author_id,
-			// to add image-link to model
 		}).done(function () {
 			getRecipeId()
 				
+			recipe.ingredients.forEach((element) => {
+				$.post("/api/recipesIngredients", {
+					quantity: element.quantity,
+					// post measure_id
+					measure_id: element.measure_id,
+					recipe_id: recipe.recipe_id,
+					ingredient_id: element.id,
+				}).done(function () {
+					window.location.replace("/");
+				}).catch(function (err) {
+					console.log(err);
+				});;
+			});
 		});
 	});
 
@@ -197,17 +216,16 @@ $(document).ready(function () {
 		$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(
 			function (data) {
 				recipe.recipe_id = data.id;
-				recipe.ingredients.forEach((element) => {
-					$.post("/api/recipesIngredients", {
-						recipe_id: recipe.recipe_id,
-						ingredient_id: element.id,
-					}).done(function () {
-						window.location.replace("/");
-					}).catch(function (err) {
-						console.log(err);
-					});;
-				});
 			}
 		);
 	}
+
+	function getMeasureId(measure_metric) {
+		$.get(`/api/measures/${measure_metric}`).then(
+			function (data) {
+				return data.id;
+			}
+		);
+	}
+
 });
