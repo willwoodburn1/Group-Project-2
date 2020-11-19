@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
     var Recipe_Ingredients = sequelize.define("Recipe_Ingredients", {
         quantity: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         }
     });
 
