@@ -46,13 +46,24 @@ module.exports = function (app) {
         })
     })
 
-    // get ingredient from item name
+    // get ingredient from search item name
     app.get("/api/ingredients/search/:item", function(req, res) {
         db.Ingredients.findAll({
             where: {
                 item: {
                     [Op.like]: `%${req.params.item}%`
                 }
+            }
+        }).then(function(data) {
+            res.json(data);
+        })
+    })
+
+    // get ingredient from item name
+    app.get("/api/ingredients/item/:item", function(req, res) {
+        db.Ingredients.findOne({
+            where: {
+                item: req.params.item,
             }
         }).then(function(data) {
             res.json(data);
