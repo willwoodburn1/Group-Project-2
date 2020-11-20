@@ -239,7 +239,7 @@ $(document).ready(function () {
 				measure: $("#manual-measures").val(),
 				measure_id: measureId,
 				name: $("#manual-name").val().trim().toLowerCase(),
-				price: $("#manual-price").val().trim(),
+				price: $("#manual-price").val().trim().toFixed(2),
 			};
 
 			if (ingredient.quantity && ingredient.name && ingredient.price) {
