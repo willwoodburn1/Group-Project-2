@@ -17,6 +17,9 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Recipe, {
             onDelete: "cascade"
         });
+        User.hasMany(models.Ratings, {
+            foreignKey: "user_id"
+        })
     };
 
     User.prototype.validPassword = function(password) {

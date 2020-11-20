@@ -18,6 +18,9 @@ module.exports = function(sequelize, DataTypes) {
     Recipe.associate = function(models) {
         Recipe.hasOne(models.Recipe_Ingredients, {
             foreignKey: "recipe_id"
+        });
+        Recipe.hasMany(models.Ratings, {
+            foreignKey: "recipe_id"
         })
     };
 
