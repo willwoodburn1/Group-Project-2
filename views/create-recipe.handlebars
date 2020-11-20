@@ -1,120 +1,126 @@
-<div id="create-recipe">
-    <h1>CREATE A RECIPE</h1>
-    <form id="recipeForm">
+<div class="createRecipeWrapper">
+    <div id="create-recipe">
+        <h1 id="createRecipeTitle"> CREATE A RECIPE</h1>
+        <form id="recipeForm">
 
-        {{!-- input title --}}
-        <h4>Recipe name</h4>
-        <input id="recipe-name" name="recipe-name" type="text" />
-        <button id="add-recipe-name">add name</button><br>
+            {{!-- input title --}}
+            <h4>Recipe name</h4>
+            <input id="recipe-name" name="recipe-name" type="text" />
+            <button id="add-recipe-name">add name</button><br>
 
-        {{!-- input image link --}}
-        <h4>Display image link</h4>
-        <input id="recipe-image" name="recipe-image" type="text" />
-        <button id="add-recipe-image">add image</button><br>
 
-        {{!-- search for ingredients --}}
-        <h4>Ingredients</h4>
-        <div id="auto-fill">
-            <h5>Search for ingredient</h5>
-            <input id="recipe-item" name="recipe-item" type="search" />
-            <button id="ingredient-search">search</button><br>
+            {{!-- input image link --}}
+            <h4>Display image link</h4>
+            <input id="recipe-image" name="recipe-image" type="text" />
+            <button id="add-recipe-image">add image</button><br>
 
-            {{!-- search ingredients results table --}}
-            <div class="ingredient-results">
-                <h2>RESULTS</h2>
-                {{#each search}}
-                <button class="search-item">
-                    <p class="results-id" id="{{dataValues.id}}"></p>
-                    <p class="results-name" id="{{dataValues.item}}">{{dataValues.item}}</p>
-                    <p id="{{dataValues.price}}">$<span class="results-price">{{dataValues.price}}</span></p>
-                </button>
-                {{/each}}
-                <p id="not-found">Sorry, that ingredient is not found! :( <br>Toggle type to manual to insert an ingredient manually</p>
+            {{!-- search for ingredients --}}
+            <h4>Ingredients</h4>
+            <div id="auto-fill">
+                <h5>Search for ingredient</h5>
+                <input id="recipe-item" name="recipe-item" type="search" />
+                <button id="ingredient-search">search</button><br>
+
+                {{!-- search ingredients results table --}}
+                <div class="ingredient-results">
+                    <h2>RESULTS</h2>
+                    {{#each search}}
+                    <button class="search-item">
+                        <p class="results-id" id="{{dataValues.id}}"></p>
+                        <p class="results-name" id="{{dataValues.item}}">{{dataValues.item}}</p>
+                        <p id="{{dataValues.price}}">$<span class="results-price">{{dataValues.price}}</span></p>
+                    </button>
+                    {{/each}}
+                    <p id="not-found">Sorry, that ingredient is not found! :( <br>Toggle type to manual to insert an
+                        ingredient manually</p>
+                </div>
+
+                {{!-- user's single chosen ingredient --}}
+                <table>
+                    <th>id</th>
+                    <th>Quantity</th>
+                    <th>Measure</th>
+                    <th>Name</th>
+                    <th>Average unit price</th>
+                    <!-- this table is filled automatically except for quantity and measure -->
+                    <tr>
+                        <td id="ingredient-id"></td>
+                        <td>
+                            <input id="ingredient-quantity" name="ingredient-quantity" type="text" />
+                        </td>
+                        <td>
+                            <select name="measures" id="ingredient-measures" class="ingredient-measures"></select>
+                        </td>
+                        <td id="ingredient-name"></td>
+                        <td>$<span id="ingredient-price"></span></td>
+                    </tr>
+                </table>
+                <button id="add-ingredient">add ingredient</button><br>
             </div>
 
-            {{!-- user's single chosen ingredient --}}
-            <table>
-                <th>id</th>
+            <div id="manual-fill">
+                <table class="manual-ingredients">
+                    <th>Quantity</th>
+                    <th>Measure</th>
+                    <th>Name</th>
+                    <th>Average unit price</th>
+                    <tr>
+                        <td>
+                            <input id="manual-quantity" name="manual-quantity" type="text" />
+                        </td>
+                        <td>
+                            <select name="measures" class="ingredient-measures" id="manual-measures"></select>
+                        </td>
+                        <td>
+                            <input id="manual-name" name="manual-name" type="text" />
+                        </td>
+                        <td>
+                            $ <input id="manual-price" name="manual-price" type="text" />
+                        </td>
+                    </tr>
+                </table>
+                <button id="add-manual">add new ingredient</button><br>
+            </div>
+
+            <!-- show if manually adding ingredients -->
+            <a class="toggle-manually">add ingredient toggle (manual/auto)</a>
+
+            {{!-- add method steps --}}
+            <h4>Method</h4>
+            <textarea id="recipe-method" name="recipe-method"></textarea><br>
+            <button id="add-method-step">add another step</button><br>
+        </form>
+    </div>
+
+    {{!-- --------------------------------------------- --}}
+
+    {{!-- PREVIEW OF USER RECIPE --}}
+    <div id="preview-content">
+        <h1 id="previewRecipeTitle">PREVIEW RECIPE</h1>
+        <div id="preview-recipe">
+            <h1 class="title">Recipe Title</h1>
+            <img alt="image" class="image"><br>
+            <p>created by <span class="author">Chef's Name</span></p>
+
+            <h2>Ingredients</h2>
+            <table class="ingredients">
                 <th>Quantity</th>
                 <th>Measure</th>
                 <th>Name</th>
-                <th>Average unit price</th>
-                <!-- this table is filled automatically except for quantity and measure -->
-                <tr>
-                    <td id="ingredient-id"></td>
-                    <td>
-                        <input id="ingredient-quantity" name="ingredient-quantity" type="text" />
-                    </td>
-                    <td>
-                        <select name="measures" id="ingredient-measures" class="ingredient-measures"></select>
-                    </td>
-                    <td id="ingredient-name"></td>
-                    <td>$<span id="ingredient-price"></span></td>
-                </tr>
-            </table>
-            <button id="add-ingredient">add ingredient</button><br>
-        </div>
-
-        <div id="manual-fill">
-            <table class="manual-ingredients">
-                <th>Quantity</th>
-                <th>Measure</th>
-                <th>Name</th>
-                <th>Average unit price</th>
-                <tr>
-                    <td>
-                        <input id="manual-quantity" name="manual-quantity" type="text" />
-                    </td>
-                    <td>
-                        <select name="measures" class="ingredient-measures" id="manual-measures"></select>
-                    </td>
-                    <td>
-                        <input id="manual-name" name="manual-name" type="text" />
-                    </td>
-                    <td>
-                        $ <input id="manual-price" name="manual-price" type="text" />
-                    </td>
-                </tr>
-            </table>
-            <button id="add-manual">add new ingredient</button><br>
-        </div>
-
-        <!-- show if manually adding ingredients -->
-        <a class="toggle-manually">add ingredient toggle (manual/auto)</a>
-
-        {{!-- add method steps --}}
-        <h4>Method</h4>
-        <textarea id="recipe-method" name="recipe-method"></textarea><br>
-        <button id="add-method-step">add another step</button><br>
-    </form>
-</div>
-
-{{!-- --------------------------------------------- --}}
-
-{{!-- PREVIEW OF USER RECIPE --}}
-<h1>PREVIEW RECIPE</h1>
-<div id="preview-recipe">
-    <h1 class="title">Recipe Title</h1>
-    <img alt="image" class="image"><br>
-    <p>created by <span class="author">Chef's Name</span></p>
-
-    <h2>Ingredients</h2>
-    <table class="ingredients">
-        <th>Quantity</th>
-        <th>Measure</th>
-        <th>Name</th>
-        <th>Average Price</th>
-        {{!-- <tr>
+                <th>Average Price</th>
+                {{!-- <tr>
             <td class="quantity">Quantity</td>
             <td class="measure">Measure</td>
             <td class="name">Name</td>
             <td>$<span class="price">Average price</span></td>
         </tr> --}}
-    </table>
+            </table>
 
-    <h2>Method</h2>
-    <ol class="method"></ol>
-    <button type="submit" id="submit-recipe">submit recipe</button>
+            <h2>Method</h2>
+            <ol class="method"></ol>
+            <button type="submit" id="submit-recipe">submit recipe</button>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="/js/create-recipe.js"></script>

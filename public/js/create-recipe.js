@@ -88,26 +88,31 @@ $(document).ready(function () {
 		let quantity = $("#ingredient-quantity").val().trim();
 		let measure = $("#ingredient-measures").val();
 
-		let ingredient = {
-			id: $("#ingredient-id").text(),
-			quantity: quantity,
-			measure: measure,
-			name: $("#ingredient-name").text(),
-			price: $("#ingredient-price").text(),
-		};
+		$.get(`/api/measures/${measure}`).then(function (data) {
+			let measureId = data.id;
 
-		if (quantity && measure) {
-			$(".ingredients").append(
-				`<tr>
-					<td class="quantity">${ingredient.quantity}</td>
-					<td class="measure">${ingredient.measure}</td>
-					<td class="name">${ingredient.name}</td>
-					<td>$<span class="price">${ingredient.price}</span></td>
-				</tr>`
-			);
-			recipe.ingredients.push(ingredient);
-			console.log(recipe);
-		}
+			let ingredient = {
+				id: $("#ingredient-id").text(),
+				quantity: quantity,
+				measure: measure,
+				measure_id: measureId,
+				name: $("#ingredient-name").text(),
+				price: $("#ingredient-price").text(),
+			};
+
+			if (quantity && measure) {
+				$(".ingredients").append(
+					`<tr>
+                            <td class="quantity">${ingredient.quantity}</td>
+                            <td class="measure">${ingredient.measure}</td>
+                            <td class="name">${ingredient.name}</td>
+                            <td>$<span class="price">${ingredient.price}</span></td>
+                        </tr>`
+				);
+				recipe.ingredients.push(ingredient);
+				console.log(recipe);
+			}
+		});
 	});
 
 	// show add manual ingredient if not in db
@@ -124,44 +129,55 @@ $(document).ready(function () {
 	$("#add-manual").on("click", function (event) {
 		event.preventDefault();
 
-		let ingredient = {
-			id: "ingredient not posted",
-			quantity: $("#manual-quantity").val().trim(),
-			measure: $("#manual-measures").val(),
-			name: $("#manual-name").val().trim(),
-			price: $("#manual-price").val().trim(),
-		};
+		// let measureId = getMeasureId($("#manual-measures").val());
 
-		if (ingredient.quantity && ingredient.name && ingredient.price) {
-			$(".ingredients").append(
-				`<tr>
+		let measure = $("#manual-measures").val();
+
+		$.get(`/api/measures/${measure}`).then(function (data) {
+			let measureId = data.id;
+
+			let ingredient = {
+				id: "ingredient not posted",
+				quantity: $("#manual-quantity").val().trim(),
+				measure: $("#manual-measures").val(),
+				measure_id: measureId,
+				name: $("#manual-name").val().trim(),
+				price: $("#manual-price").val().trim(),
+			};
+
+			if (ingredient.quantity && ingredient.name && ingredient.price) {
+				$(".ingredients").append(
+					`<tr>
 					<td class="quantity">${ingredient.quantity}</td>
 					<td class="measure">${ingredient.measure}</td>
 					<td class="name">${ingredient.name}</td>
 					<td>$<span class="price">${ingredient.price}</span></td>
 				</tr>`
-			);
+				);
 
-			// post new ingredient
-			$.post("/api/ingredients", {
-				item: ingredient.name,
-				price: ingredient.price,
-			}).done(function () {
-				// get ingredient id
-				$.get(`/api/ingredients/${ingredient.name}/${ingredient.price}`)
-					.then(function (data) {
-						ingredient.id = `${data.id}`;
-					})
-					.done(function () {
-						// push to ingredients list
-						recipe.ingredients.push(ingredient);
-						console.log(recipe);
-						$("#manual-quantity").val("");
-						$("#manual-name").val("");
-						$("#manual-price").val("");
-					});
-			});
-		}
+				// post new ingredient
+				$.post("/api/ingredients", {
+					item: ingredient.name,
+					price: ingredient.price,
+				}).done(function () {
+					// get ingredient id
+					$.get(
+						`/api/ingredients/${ingredient.name}/${ingredient.price}`
+					)
+						.then(function (data) {
+							ingredient.id = `${data.id}`;
+						})
+						.done(function () {
+							// push to ingredients list
+							recipe.ingredients.push(ingredient);
+							console.log(recipe);
+							$("#manual-quantity").val("");
+							$("#manual-name").val("");
+							$("#manual-price").val("");
+						});
+				});
+			}
+		});
 	});
 
 	// add method step
@@ -173,7 +189,6 @@ $(document).ready(function () {
 
 		if (step) {
 			$(".method").append(`<li>${step}</li>`);
-
 			recipe.method += `<li>${step}</li>`;
 			$("#recipe-method").val("");
 			console.log(recipe);
@@ -185,29 +200,32 @@ $(document).ready(function () {
 		$.post("/api/recipes", {
 			title: recipe.title,
 			method: recipe.method,
+			image: recipe.image,
 			UserId: recipe.author_id,
-			// to add image-link to model
 		}).done(function () {
-			getRecipeId()
-				
+			// getRecipeId()
+
+			$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(
+				function (data) {
+					recipe.recipe_id = data.id;
+
+					recipe.ingredients.forEach((element) => {
+						$.post("/api/recipesIngredients", {
+							quantity: element.quantity,
+							// post measure_id
+							measure_id: element.measure_id,
+							recipe_id: recipe.recipe_id,
+							ingredient_id: element.id,
+						})
+							.done(function () {
+								window.location.replace("/");
+							})
+							.catch(function (err) {
+								console.log(err);
+							});
+					});
+				}
+			);
 		});
 	});
-
-	function getRecipeId() {
-		$.get(`/api/recipes/${recipe.title}/${recipe.author_id}`).then(
-			function (data) {
-				recipe.recipe_id = data.id;
-				recipe.ingredients.forEach((element) => {
-					$.post("/api/recipesIngredients", {
-						recipe_id: recipe.recipe_id,
-						ingredient_id: element.id,
-					}).done(function () {
-						window.location.replace("/");
-					}).catch(function (err) {
-						console.log(err);
-					});;
-				});
-			}
-		);
-	}
 });
