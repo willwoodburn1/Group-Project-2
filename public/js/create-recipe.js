@@ -49,7 +49,6 @@ $(document).ready(function () {
 	});
 
 	// display search results on search
-	$("#not-found").hide();
 	$("#ingredient-search").on("click", function (event) {
 		$(".result-items").empty();
 		event.preventDefault();
@@ -75,7 +74,7 @@ $(document).ready(function () {
 
 		// search for products in api
 		// api call to spoonacular - gets product name and price
-		$.get(`https://api.spoonacular.com/food/products/suggest?query=${search}&number=10&apiKey=${API_KEY}`)
+		$.get(`https://api.spoonacular.com/food/products/suggest?query=${search}&number=5&apiKey=${API_KEY}`)
 		.then(function (response) {
 			for (let data of response.results) {
 
@@ -94,7 +93,7 @@ $(document).ready(function () {
 								if (data !== null) {
 									return;
 								} else {
-									$(".result-items").prepend(`
+									$(".result-items").append(`
 								<button type="button" class="search-item api">
 									<div class="results-id"></div>
 									<div class="results-name" id="${ingredient.name}">${ingredient.name}</div>
@@ -120,10 +119,7 @@ $(document).ready(function () {
 					// USD * 1.37 = AUD
 					let ingredient = {
 						name: response.name,
-						price: (
-							(response.estimatedCost.value / 100) *
-							1.37
-						).toFixed(3),
+						price: ( (response.estimatedCost.value / 100) * 1.37 ).toFixed(3),
 					};
 
 					$.get(`/api/ingredients/item/${ingredient.name}`).then(
@@ -131,7 +127,7 @@ $(document).ready(function () {
 							if (data !== null) {
 								return;
 							} else {
-								$(".result-items").prepend(`
+								$(".result-items").append(`
 							<button type="button" class="search-item api">
 								<div class="results-id"></div>
 								<div class="results-name" id="${ingredient.name}">${ingredient.name}</div>
@@ -142,7 +138,7 @@ $(document).ready(function () {
 					);
 				});
 			}
-		});
+		})
 	});
 
 	// display in table - single ingredient id, name, price
@@ -266,7 +262,7 @@ $(document).ready(function () {
 						`/api/ingredients/${ingredient.name}/${ingredient.price}`
 					)
 						.then(function (data) {
-							ingredient.id = `${data.id}`;
+							ingredient.id = data.id;
 						})
 						.done(function () {
 							// push to ingredients list
