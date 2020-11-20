@@ -21,16 +21,17 @@
                 <input id="recipe-item" name="recipe-item" type="search" />
                 <button id="ingredient-search">search</button><br>
 
-                {{!-- search ingredients results table --}}
+                {{!-- search ingredients results --}}
                 <div class="ingredient-results">
                     <h2>RESULTS</h2>
-                    {{#each search}}
+                    <div class="result-items"></div>
+                    {{!-- {{#each search}}
                     <button class="search-item">
-                        <p class="results-id" id="{{dataValues.id}}"></p>
-                        <p class="results-name" id="{{dataValues.item}}">{{dataValues.item}}</p>
-                        <p id="{{dataValues.price}}">$<span class="results-price">{{dataValues.price}}</span></p>
+                        <div class="results-id" id="{{dataValues.id}}"></div>
+                        <div class="results-name" id="{{dataValues.item}}">{{dataValues.item}}</div>
+                        <div id="{{dataValues.price}}">$<span class="results-price">{{dataValues.price}}</span></div>
                     </button>
-                    {{/each}}
+                    {{/each}} --}}
                     <p id="not-found">Sorry, that ingredient is not found! :( <br>Toggle type to manual to insert an
                         ingredient manually</p>
                 </div>
@@ -108,12 +109,6 @@
                 <th>Measure</th>
                 <th>Name</th>
                 <th>Average Price</th>
-                {{!-- <tr>
-            <td class="quantity">Quantity</td>
-            <td class="measure">Measure</td>
-            <td class="name">Name</td>
-            <td>$<span class="price">Average price</span></td>
-        </tr> --}}
             </table>
 
             <h2>Method</h2>
