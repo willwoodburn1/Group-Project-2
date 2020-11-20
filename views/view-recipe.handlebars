@@ -1,25 +1,17 @@
-<h1 id="title">Recipe {{#recipe}}{{this.title}}{{/recipe}}</h1>
-
-<ul>
-    <li></li>
-</ul>
-
-<script src="/js/view-recipe.js"></script>
-
 <div id="recipedetails">
-    <h1>{{#recipe}}{{this.title}}{{/recipe}}</h1>
-    <label>{{#recipe}}{{this.username}}{{/recipe}}</label>
-    <ul>Ingredients List
-        {{#each recipe}}
-        <li>
-            <span>Amount</span> <span>Measure</span> <span>{{this.item}}</span>
-        </li>
-        {{/each}}
-    </ul>
-    <h2>Method</h2>
+    <h1>{{title}}</h1>
+    <label>{{username}}</label>
     {{#each recipe}}
-    <p>{{this.method}}</p>
+    <ul>Ingredients List
+
+        <li>
+            <span>Amount</span><span>{{this.measure_metric}}</span> <span>{{this.item}}</span>
+        </li>
+
+    </ul>
     {{/each}}
+    <h2>Method</h2>
+    <p>{{method}}</p>
     <img src="https://picsum.photos/250/150" alt="placeholder-image">
 </div>
 
