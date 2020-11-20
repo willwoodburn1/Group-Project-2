@@ -10,6 +10,13 @@ $(document).ready(function () {
 		method: "",
 	};
 
+	var API_KEY = "";
+
+	// get api key
+	$.get("/api/spoonacular/key").then(function(KEY) {
+		API_KEY = KEY;
+	})
+
 	// add recipe name
 	$("#add-recipe-name").on("click", function (event) {
 		event.preventDefault();
@@ -41,34 +48,71 @@ $(document).ready(function () {
 		}
 	});
 
-	// search for ingredients in db
+	// display search results on search
 	$("#not-found").hide();
 	$("#ingredient-search").on("click", function (event) {
+		$(".result-items").empty();
 		event.preventDefault();
-		let search = $("#recipe-item").val().trim().toUpperCase();
-		let items = $(".search-item");
-		let count = 1;
+		let search = $("#recipe-item").val().trim().toLowerCase();
 
-		for (var item of items) {
-			let result = item.getElementsByClassName("results-name")[0];
-			let resultText = result.textContent || result.innerText;
+		// search for ingredients in db
+		$.get(`/api/ingredients/search/${search}`).then(function (data) {
+			
 
-			if (resultText.toUpperCase().indexOf(search) > -1) {
-				item.style.display = "";
-				count -= 1;
-			} else {
-				item.style.display = "none";
+			for (var item of data) {
+				let ingredient = {
+					id: item.id,
+					name: item.item,
+					price: item.price,
+				}
+
+				$(".result-items").append(`
+				<button type="button" class="search-item">
+					<div class="results-id" id="${ingredient.id}"></div>
+					<div class="results-name" id="${ingredient.name}">${ingredient.name}</div>
+					<div id="${ingredient.price}">$<span class="results-price">${ingredient.price}</span></div>
+				</button>`)
 			}
-		}
-		if (count >= 0) {
-			$("#not-found").show();
-		} else {
-			$("#not-found").hide();
-		}
+		})
+
+		// search for products in api
+		// api call to spoonacular - gets product name and price
+		$.get(`https://api.spoonacular.com/food/products/suggest?query=${search}&number=5&apiKey=${API_KEY}`)
+		.then(function (response) {
+			for (var data of response.results) {
+
+				// ingredient details - gets price
+				$.get(`https://api.spoonacular.com/food/products/${data.id}?apiKey=${API_KEY}`)
+				.then(function(response) {
+					// USD * 1.37 = AUD
+					console.log(response)
+					if (response.price) {
+						let ingredient = {
+							name: response.title,
+							price: ((response.price / 100) * 1.37).toFixed(2)
+						}
+	
+						$(".result-items").prepend(`
+						<button type="button" class="search-item api">
+							<div class="results-id"></div>
+							<div class="results-name" id="${ingredient.name}">${ingredient.name}</div>
+							<div id="${ingredient.price}">$<span class="results-price">${ingredient.price}</span></div>
+						</button>`)
+
+						// post to ingredient db
+					} else {
+						console.log("all 0 prices")
+					}
+				})
+			}
+		})
+
+		// search for ingredients in api - gets ingredient name and price
 	});
 
-	// add single ingredient id, name, price to display
-	$(".search-item").on("click", function (event) {
+    // display in table - single ingredient id, name, price
+    // todo: display api results
+	$(".result-items").on("click", ".search-item", function (event) {
 		event.preventDefault();
 
 		let id = event.currentTarget.children[0].id;
@@ -103,11 +147,11 @@ $(document).ready(function () {
 			if (quantity && measure) {
 				$(".ingredients").append(
 					`<tr>
-                            <td class="quantity">${ingredient.quantity}</td>
-                            <td class="measure">${ingredient.measure}</td>
-                            <td class="name">${ingredient.name}</td>
-                            <td>$<span class="price">${ingredient.price}</span></td>
-                        </tr>`
+						<td class="quantity">${ingredient.quantity}</td>
+						<td class="measure">${ingredient.measure}</td>
+						<td class="name">${ingredient.name}</td>
+						<td>$<span class="price">${ingredient.price}</span></td>
+					</tr>`
 				);
 				recipe.ingredients.push(ingredient);
 				console.log(recipe);
