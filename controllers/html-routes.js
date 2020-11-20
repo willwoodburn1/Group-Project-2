@@ -40,16 +40,31 @@ module.exports = function(app) {
         // Query the database for the recipe with that ID
         console.log(req.params.id)
         db.sequelize.query(`
-        SELECT u.username, r.title, r.method, i.item
+        SELECT u.id AS 'user_id',
+        u.username,
+        r.id AS 'recipe_id',
+        r.title,
+        r.method,
+        i.id AS 'ingredient_id',
+        i.item,
+        m.id AS 'measure_id',
+        m.measure_metric
         FROM recipes r
         JOIN users u on u.id = r.UserId
         JOIN recipe_ingredients ri on r.id = ri.recipe_id
         JOIN ingredients i on i.id = ri.ingredient_id
+        JOIN measures m on m.id = ri.measure_id
         WHERE r.id = ${req.params.id};
         `, { type: sequelize.QueryTypes.SELECT })
             .then(function(data) {
                 console.log(data)
-                res.render("view-recipe", { recipe: data });
+                console.log(data)
+                res.render("view-recipe", {
+                    recipe: data,
+                    title: data[0].title,
+                    method: data[0].method,
+                    username: data[0].username
+                });
             })
 
     })
