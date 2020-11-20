@@ -88,7 +88,7 @@ $(document).ready(function () {
 							name: response.title,
 							price: ((response.price / 100) * 1.37).toFixed(2) // USD * 1.37 = AUD
 						}
-						
+
 						$.get(`/api/ingredients/item/${ingredient.name}`).then(
 							function (data) {
 								if (data !== null) {
@@ -163,10 +163,7 @@ $(document).ready(function () {
 			$("#ingredient-id").text(id);
 		} else {
 			// post new ingredient to db
-			console.log("api class found");
-
 			$.get(`/api/ingredients/item/${name}`).then(function (data) {
-				console.log(data);
 				if (data !== null) {
 					return;
 				} else {
