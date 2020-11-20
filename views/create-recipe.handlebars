@@ -11,29 +11,20 @@
 
             {{!-- input image link --}}
             <h4>Display image link</h4>
-            <input id="recipe-image" name="recipe-image" type="text" />
+            <input id="recipe-image" name="recipe-image" type="text" placeholder="leave blank for default image" />
             <button id="add-recipe-image">add image</button><br>
 
             {{!-- search for ingredients --}}
             <h4>Ingredients</h4>
             <div id="auto-fill">
                 <h5>Search for ingredient</h5>
-                <input id="recipe-item" name="recipe-item" type="search" />
+                <input id="recipe-item" name="recipe-item" type="search" placeholder="search for ingredient" />
                 <button id="ingredient-search">search</button><br>
 
                 {{!-- search ingredients results --}}
                 <div class="ingredient-results">
                     <h2>RESULTS</h2>
                     <div class="result-items"></div>
-                    {{!-- {{#each search}}
-                    <button class="search-item">
-                        <div class="results-id" id="{{dataValues.id}}"></div>
-                        <div class="results-name" id="{{dataValues.item}}">{{dataValues.item}}</div>
-                        <div id="{{dataValues.price}}">$<span class="results-price">{{dataValues.price}}</span></div>
-                    </button>
-                    {{/each}} --}}
-                    <p id="not-found">Sorry, that ingredient is not found! :( <br>Toggle type to manual to insert an
-                        ingredient manually</p>
                 </div>
 
                 {{!-- user's single chosen ingredient --}}
@@ -47,7 +38,7 @@
                     <tr>
                         <td id="ingredient-id"></td>
                         <td>
-                            <input id="ingredient-quantity" name="ingredient-quantity" type="text" />
+                            <input id="ingredient-quantity" name="ingredient-quantity" type="text" placeholder="quantity" />
                         </td>
                         <td>
                             <select name="measures" id="ingredient-measures" class="ingredient-measures"></select>
@@ -67,16 +58,16 @@
                     <th>Average unit price</th>
                     <tr>
                         <td>
-                            <input id="manual-quantity" name="manual-quantity" type="text" />
+                            <input id="manual-quantity" name="manual-quantity" type="text" placeholder="quantity" />
                         </td>
                         <td>
                             <select name="measures" class="ingredient-measures" id="manual-measures"></select>
                         </td>
                         <td>
-                            <input id="manual-name" name="manual-name" type="text" />
+                            <input id="manual-name" name="manual-name" type="text" placeholder="item name" />
                         </td>
                         <td>
-                            $ <input id="manual-price" name="manual-price" type="text" />
+                            $ <input id="manual-price" name="manual-price" type="text" placeholder="price" />
                         </td>
                     </tr>
                 </table>
@@ -88,7 +79,7 @@
 
             {{!-- add method steps --}}
             <h4>Method</h4>
-            <textarea id="recipe-method" name="recipe-method"></textarea><br>
+            <textarea id="recipe-method" name="recipe-method" placeholder="method step"></textarea><br>
             <button id="add-method-step">add another step</button><br>
         </form>
     </div>
