@@ -59,7 +59,7 @@ module.exports = function (app) {
         })
     })
 
-    // get ingredient from item name
+    // get exact ingredient from item name
     app.get("/api/ingredients/item/:item", function(req, res) {
         db.Ingredients.findOne({
             where: {
