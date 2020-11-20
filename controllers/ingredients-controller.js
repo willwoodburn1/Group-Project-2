@@ -1,7 +1,14 @@
 // Requiring our models
 var db = require("../models");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 module.exports = function (app) {
+
+    // get api key
+    app.get("/api/spoonacular/key", function(req, res) {
+        res.send(process.env.API_KEY)
+    })
 
     // get the ingredients
     app.get("/api/ingredients", function (req, res) {
@@ -27,7 +34,6 @@ module.exports = function (app) {
             res.json(data);
         })
     })
-    
 
     // search ingredients by id
     app.get("/api/ingredients/:id", function (req, res) {
@@ -41,10 +47,12 @@ module.exports = function (app) {
     })
 
     // get ingredient from item name
-    app.get("/api/ingredients/:item", function(req, res) {
+    app.get("/api/ingredients/search/:item", function(req, res) {
         db.Ingredients.findAll({
             where: {
-                item: req.params.item
+                item: {
+                    [Op.like]: `%${req.params.item}%`
+                }
             }
         }).then(function(data) {
             res.json(data);
