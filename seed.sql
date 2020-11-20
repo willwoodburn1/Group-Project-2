@@ -1,4 +1,4 @@
-CREATE DATABASE meal_budgeter;
+-- CREATE DATABASE meal_budgeter;
 
 USE meal_budgeter;
 
