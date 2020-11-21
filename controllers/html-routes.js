@@ -64,9 +64,10 @@ module.exports = function(app) {
                     recipe_ingredients.quantity as ingredient_quantity,
                     measures.measure_metric as ingredient_measure,
                     ingredients.item as ingredient_name,
-                    ingredients.price as ingredient_price
-                FROM recipes
-
+                    ingredients.price as ingredient_price,
+                    FORMAT(AVG(ratings.rating), 1) as 'rating'
+                FROM 
+                    recipes
                 JOIN 
                     recipe_ingredients ON (recipes.id = recipe_ingredients.recipe_id)
                 JOIN
@@ -75,8 +76,12 @@ module.exports = function(app) {
                     ingredients ON (recipe_ingredients.ingredient_id = ingredients.id)
                 JOIN
                     users ON (recipes.UserId = users.id)
-                WHERE recipes.id = ${req.params.id};`, {
-                type: sequelize.QueryTypes.SELECT 
+                LEFT JOIN 
+                    ratings ON (ratings.recipe_id = recipes.id)
+                WHERE recipes.id = ${req.params.id}
+                GROUP BY ingredient_name;
+                `, {
+                type: sequelize.QueryTypes.SELECT
             })
 
             res.render("view-recipe", {
@@ -97,20 +102,26 @@ module.exports = function(app) {
         res.render("view-recipe");
     })
 
-    app.post("/view-recipes/less-than", function(req, res) {
-        let price = req.body.price;
-        db.sequelize.query(`
-        SELECT r.id, r.title, r.image, FORMAT(SUM(i.price), 2) AS "cost"
-        FROM recipes r 
-        JOIN recipe_ingredients ri on r.id = ri.recipe_id 
-        JOIN ingredients i on i.id = ri.ingredient_id
-        GROUP BY r.title
-        HAVING SUM(i.price)<${price};
-        `, { type: sequelize.QueryTypes.SELECT })
-            .then(function(data) {
-                res.render("search-results", { recipes: data });
-            })
+    // When user enters a dollar amount in the search box
+    // The recipes worth less than the inputted amount are search for here
+    app.post("/view-recipes/less-than", async function(req, res) {
+        try {
+            let price = req.body.price;
+            let recipeResults = await db.sequelize.query(`
+                SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(ra.rating), 1) AS 'rating'
+                FROM recipes r 
+                JOIN recipe_ingredients ri on r.id = ri.recipe_id 
+                JOIN ingredients i on i.id = ri.ingredient_id
+                LEFT JOIN ratings ra on ra.recipe_id=r.id
+                GROUP BY r.title
+                HAVING SUM(i.price)<${price};
+                `, { type: sequelize.QueryTypes.SELECT })
 
+            res.render("search-results", { recipes: recipeResults });
+
+        } catch (error) {
+            console.log(error);
+        }
     })
 
     // Here we've add our isAuthenticated middleware to this route.
