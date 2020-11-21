@@ -40,6 +40,14 @@ INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("fl oz", NOW
 
 INSERT INTO measures (measure_metric, createdAt, updatedAt) VALUES ("cm", NOW(), NOW());
 
+INSERT INTO ratings (rating, createdAt, updatedAt, recipe_id, user_id) VALUES (2, NOW(), NOW(), 1, 1);
+
+INSERT INTO ratings (rating, createdAt, updatedAt, recipe_id, user_id) VALUES (3, NOW(), NOW(), 1, 2);
+
+INSERT INTO ratings (rating, createdAt, updatedAt, recipe_id, user_id) VALUES (4, NOW(), NOW(), 2, 1);
+
+INSERT INTO ratings (rating, createdAt, updatedAt, recipe_id, user_id) VALUES (5, NOW(), NOW(), 2, 2);
+
 INSERT INTO recipe_ingredients (quantity, createdAt, updatedAt, measure_id, recipe_id, ingredient_id) VALUES (2, NOW(), NOW(), 1, 1, 1);
 
 INSERT INTO recipe_ingredients (quantity, createdAt, updatedAt, measure_id, recipe_id, ingredient_id)  VALUES (2, NOW(), NOW(), 1, 2, 1);
