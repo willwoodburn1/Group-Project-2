@@ -2,7 +2,10 @@
     <h1>{{title}}</h1>
     <label>{{username}}</label>
     {{!-- <label>Rating: {{rating}}</label> --}}
-    {{#if logged_user_id}}
+    {{#if rated_before}}
+    <br>
+    <label>Rate Recipe: You have rated this recipe</label>
+    {{else if logged_user_id}}
     <form method="post" action="/api/rate-recipe/{{recipe_id}}/{{logged_user_id}}">
         <label for="rating">Rate Recipe</label>
         <select name="rating" id="rating">
@@ -14,6 +17,9 @@
         </select>
         <input type="submit" value="Submit">
     </form>
+    {{else}}
+    <br>
+    <label>Rate Recipe: You must be logged in to rate this recipe</label>
     {{/if}}
     {{#each recipe}}
     <ul>Ingredients List
