@@ -92,7 +92,7 @@ module.exports = function(app) {
     app.post("/view-recipes/less-than", function(req, res) {
         let price = req.body.price;
         db.sequelize.query(`
-        SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost"
+        SELECT r.id, r.title, r.image, FORMAT(SUM(i.price), 2) AS "cost"
         FROM recipes r 
         JOIN recipe_ingredients ri on r.id = ri.recipe_id 
         JOIN ingredients i on i.id = ri.ingredient_id
