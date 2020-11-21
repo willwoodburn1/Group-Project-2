@@ -15,6 +15,12 @@ a {
     color: red;
 }
 
+img {
+    width: 80%;
+    object-fit: cover;
+    max-height: 300px;
+}
+
 .appName {
     color: white;
     font-size: 64px;
