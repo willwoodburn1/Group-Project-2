@@ -55,7 +55,7 @@
         
        <ul>
            {{#each comments}}
-           <li>{{this.dataValues.comment}}</li>
+           <li>Comment: {{comment}}, User: {{username}}</li>
            {{/each}}
            {{#if logged_user_id}}
            {{!-- Add new comment --}}
