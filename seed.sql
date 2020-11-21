@@ -48,6 +48,14 @@ INSERT INTO ratings (rating, createdAt, updatedAt, recipe_id, user_id) VALUES (4
 
 INSERT INTO ratings (rating, createdAt, updatedAt, recipe_id, user_id) VALUES (5, NOW(), NOW(), 2, 2);
 
+INSERT INTO comments (comment, createdAt, updatedAt, recipe_id, user_id) VALUES ("Very eggy, Yum!", NOW(), NOW(), 1, 1);
+
+INSERT INTO comments (comment, createdAt, updatedAt, recipe_id, user_id) VALUES ("Hated it", NOW(), NOW(), 1, 2);
+
+INSERT INTO comments (comment, createdAt, updatedAt, recipe_id, user_id) VALUES ("Very chocolatey, Yum!", NOW(), NOW(), 2, 1);
+
+INSERT INTO comments (comment, createdAt, updatedAt, recipe_id, user_id) VALUES ("Too much chocolate", NOW(), NOW(), 2, 2);
+
 INSERT INTO recipe_ingredients (quantity, createdAt, updatedAt, measure_id, recipe_id, ingredient_id) VALUES (2, NOW(), NOW(), 1, 1, 1);
 
 INSERT INTO recipe_ingredients (quantity, createdAt, updatedAt, measure_id, recipe_id, ingredient_id)  VALUES (2, NOW(), NOW(), 1, 2, 1);
