@@ -1,6 +1,27 @@
 <div id="recipedetails">
     
     <h1>{{recipe.0.title}}</h1>
+    
+    {{#if rated_before}}
+    <br>
+    <label>Rate Recipe: You have rated this recipe</label>
+        {{else if logged_user_id}}
+        <form method="post" action="/api/rate-recipe/{{recipe.0.recipe_id}}/{{logged_user_id}}">
+            <label for="rating">Rate Recipe</label>
+            <select name="rating" id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        {{else}}
+    <br>
+    <label>Rate Recipe: You must be logged in to rate this recipe</label>
+    {{/if}}
+    
     <img src="{{recipe.0.image}}" alt="placeholder-image">
     <p>Created by {{recipe.0.chef}}</p>
     
