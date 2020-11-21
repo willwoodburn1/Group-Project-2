@@ -84,19 +84,18 @@ module.exports = function(app) {
                 type: sequelize.QueryTypes.SELECT
             });
 
-            let commentsData = await db.Comments.findAll({
-                where: {
-                    recipe_id: recipeData[0].recipe_id
-                }
-            });
+            let commentsData = await db.sequelize.query(`
+                SELECT comments.comment, users.username 
+                FROM comments
+                JOIN users ON users.id=comments.user_id
+                WHERE comments.recipe_id=${recipeData[0].recipe_id};
+            `, { type: sequelize.QueryTypes.SELECT });
+
+            console.log(commentsData);
 
             res.render("view-recipe", {
                 recipe: recipeData,
                 comments: commentsData,
-                // recipe_id: recipeData[0].recipe_id,
-                // title: recipeData[0].title,
-                // method: recipeData[0].method,
-                // username: recipeData[0].username,
                 logged_user_id: logged_user_id,
                 rated_before: rated_before
             });
