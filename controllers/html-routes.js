@@ -36,36 +36,53 @@ module.exports = function(app) {
 
     app.get("/view-recipe/:id", function(req, res) {
         // Query the database for the recipe with that ID
-        console.log(req.params.id)
         db.sequelize.query(`
-        SELECT u.id AS 'user_id',
-        u.username,
-        r.id AS 'recipe_id',
-        r.title,
-        r.method,
-        i.id AS 'ingredient_id',
-        i.item,
-        m.id AS 'measure_id',
-        m.measure_metric
-        FROM recipes r
-        JOIN users u on u.id = r.UserId
-        JOIN recipe_ingredients ri on r.id = ri.recipe_id
-        JOIN ingredients i on i.id = ri.ingredient_id
-        JOIN measures m on m.id = ri.measure_id
-        WHERE r.id = ${req.params.id};
-        `, { type: sequelize.QueryTypes.SELECT })
-            .then(function(data) {
-                console.log(data)
-                console.log(data)
-                res.render("view-recipe", {
-                    recipe: data,
-                    title: data[0].title,
-                    method: data[0].method,
-                    username: data[0].username
-                });
-            })
+        SELECT 
+            recipes.id as recipe_id, 
+            recipes.title,
+            recipes.method,
+            recipes.image,
+            recipes.UserId,
+            recipe_ingredients.quantity as ingredient_quantity,
+            measures.measure_metric as measure_name,
+            ingredients.item as ingredient_name,
+            ingredients.price as ingredient_price
+        FROM recipes
 
+        JOIN 
+            recipe_ingredients ON (recipes.id = recipe_ingredients.recipe_id)
+        JOIN
+            measures ON (recipe_ingredients.measure_id = measures.id)
+        JOIN
+            ingredients ON (recipe_ingredients.ingredient_id = ingredients.id)
+        WHERE recipes.id = ${req.params.id};`, { 
+            type: sequelize.QueryTypes.SELECT 
+        }).then(function(data) {
+            console.log(data)
+            res.render("view-recipe", {
+                recipe: data,
+                // title: data[0].title,
+                // method: data[0].method,
+                // username: data[0].username
+            });
+        })
     })
+
+    // SELECT u.id AS 'user_id',
+    //     u.username,
+    //     r.id AS 'recipe_id',
+    //     r.title,
+    //     r.method,
+    //     i.id AS 'ingredient_id',
+    //     i.item,
+    //     m.id AS 'measure_id',
+    //     m.measure_metric
+    //     FROM recipes r
+    //     JOIN users u on u.id = r.UserId
+    //     JOIN recipe_ingredients ri on r.id = ri.recipe_id
+    //     JOIN ingredients i on i.id = ri.ingredient_id
+    //     JOIN measures m on m.id = ri.measure_id
+    //     WHERE r.id = ${req.params.id};
 
     app.get("/view-recipe", function(req, res) {
         res.render("view-recipe");
