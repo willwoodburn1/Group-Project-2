@@ -82,10 +82,17 @@ module.exports = function(app) {
                 GROUP BY ingredient_name;
                 `, {
                 type: sequelize.QueryTypes.SELECT
-            })
+            });
+
+            let commentsData = await db.Comments.findAll({
+                where: {
+                    recipe_id: recipeData[0].recipe_id
+                }
+            });
 
             res.render("view-recipe", {
                 recipe: recipeData,
+                comments: commentsData,
                 // recipe_id: recipeData[0].recipe_id,
                 // title: recipeData[0].title,
                 // method: recipeData[0].method,
