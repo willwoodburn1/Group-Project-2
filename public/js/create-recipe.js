@@ -4,7 +4,7 @@ $(document).ready(function () {
 		recipe_id: "",
 		author_id: "",
 		title: $(".title").text(),
-		image: $(".image").attr("src", "https://picsum.photos/250/150"),
+		image: $(".image").attr("src", "https://picsum.photos/450/250"),
 		author: $(".author").text(),
 		ingredients: [],
 		method: "",
@@ -119,7 +119,7 @@ $(document).ready(function () {
 					// USD * 1.37 = AUD
 					let ingredient = {
 						name: response.name,
-						price: ( (response.estimatedCost.value / 100) * 1.37 ).toFixed(3),
+						price: ( (response.estimatedCost.value / 100) * 1.37 ).toFixed(4),
 					};
 
 					$.get(`/api/ingredients/item/${ingredient.name}`).then(
@@ -206,6 +206,8 @@ $(document).ready(function () {
 						);
 						recipe.ingredients.push(ingredient);
 						console.log(recipe);
+
+						$("#ingredient-quantity").val("");
 					}
 				});
 			}
@@ -239,7 +241,7 @@ $(document).ready(function () {
 				measure: $("#manual-measures").val(),
 				measure_id: measureId,
 				name: $("#manual-name").val().trim().toLowerCase(),
-				price: $("#manual-price").val().trim().toFixed(2),
+				price: $("#manual-price").val().trim(),
 			};
 
 			if (ingredient.quantity && ingredient.name && ingredient.price) {
@@ -248,7 +250,7 @@ $(document).ready(function () {
 					<td class="quantity">${ingredient.quantity}</td>
 					<td class="measure">${ingredient.measure}</td>
 					<td class="name">${ingredient.name}</td>
-					<td>$<span class="price">${ingredient.price}</span></td>
+					<td>$<span class="price">${ingredient.price.toFixed(2)}</span></td>
 				</tr>`
 				);
 
@@ -315,7 +317,7 @@ $(document).ready(function () {
 							ingredient_id: element.id,
 						})
 							.done(function () {
-								window.location.replace("/");
+								window.location.replace("/members");
 							})
 							.catch(function (err) {
 								console.log(err);
