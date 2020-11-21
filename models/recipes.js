@@ -21,6 +21,9 @@ module.exports = function(sequelize, DataTypes) {
         });
         Recipe.hasMany(models.Ratings, {
             foreignKey: "recipe_id"
+        });
+        Recipe.hasMany(models.Comments, {
+            foreignKey: "recipe_id"
         })
     };
 

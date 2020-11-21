@@ -19,6 +19,9 @@ module.exports = function(sequelize, DataTypes) {
         });
         User.hasMany(models.Ratings, {
             foreignKey: "user_id"
+        });
+        User.hasMany(models.Comments, {
+            foreignKey: "user_id"
         })
     };
 
