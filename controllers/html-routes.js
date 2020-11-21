@@ -89,20 +89,26 @@ module.exports = function(app) {
         res.render("view-recipe");
     })
 
-    app.post("/view-recipes/less-than", function(req, res) {
-        let price = req.body.price;
-        db.sequelize.query(`
-        SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost"
-        FROM recipes r 
-        JOIN recipe_ingredients ri on r.id = ri.recipe_id 
-        JOIN ingredients i on i.id = ri.ingredient_id
-        GROUP BY r.title
-        HAVING SUM(i.price)<${price};
-        `, { type: sequelize.QueryTypes.SELECT })
-            .then(function(data) {
-                res.render("search-results", { recipes: data });
-            })
+    // When user enters a dollar amount in the search box
+    // The recipes worth less than the inputted amount are search for here
+    app.post("/view-recipes/less-than", async function(req, res) {
+        try {
+            let price = req.body.price;
+            let recipeResults = await db.sequelize.query(`
+                SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(coalesce(ra.rating, 0)), 1) AS 'rating'
+                FROM recipes r 
+                JOIN recipe_ingredients ri on r.id = ri.recipe_id 
+                JOIN ingredients i on i.id = ri.ingredient_id
+                JOIN ratings ra on ra.recipe_id=r.id
+                GROUP BY r.title
+                HAVING SUM(i.price)<${price};
+                `, { type: sequelize.QueryTypes.SELECT })
 
+            res.render("search-results", { recipes: recipeResults });
+
+        } catch (error) {
+            console.log(error);
+        }
     })
 
     // Here we've add our isAuthenticated middleware to this route.
