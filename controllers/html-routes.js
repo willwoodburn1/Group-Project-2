@@ -54,29 +54,37 @@ module.exports = function(app) {
             }
             // Query the database for the recipe with that ID
             let recipeData = await db.sequelize.query(`
-                SELECT u.id AS 'user_id',
-                u.username,
-                r.id AS 'recipe_id',
-                r.title,
-                r.method,
-                i.id AS 'ingredient_id',
-                i.item,
-                m.id AS 'measure_id',
-                m.measure_metric
-                FROM recipes r
-                JOIN users u on u.id = r.UserId
-                JOIN recipe_ingredients ri on r.id = ri.recipe_id
-                JOIN ingredients i on i.id = ri.ingredient_id
-                JOIN measures m on m.id = ri.measure_id
-                WHERE r.id = ${req.params.id};
-                `, { type: sequelize.QueryTypes.SELECT })
+                SELECT 
+                    recipes.id as recipe_id, 
+                    recipes.title,
+                    recipes.method,
+                    recipes.image,
+                    recipes.UserId as user_id,
+                    users.username as chef,
+                    recipe_ingredients.quantity as ingredient_quantity,
+                    measures.measure_metric as ingredient_measure,
+                    ingredients.item as ingredient_name,
+                    ingredients.price as ingredient_price
+                FROM recipes
+
+                JOIN 
+                    recipe_ingredients ON (recipes.id = recipe_ingredients.recipe_id)
+                JOIN
+                    measures ON (recipe_ingredients.measure_id = measures.id)
+                JOIN
+                    ingredients ON (recipe_ingredients.ingredient_id = ingredients.id)
+                JOIN
+                    users ON (recipes.UserId = users.id)
+                WHERE recipes.id = ${req.params.id};`, {
+                type: sequelize.QueryTypes.SELECT 
+            })
 
             res.render("view-recipe", {
                 recipe: recipeData,
-                recipe_id: recipeData[0].recipe_id,
-                title: recipeData[0].title,
-                method: recipeData[0].method,
-                username: recipeData[0].username,
+                // recipe_id: recipeData[0].recipe_id,
+                // title: recipeData[0].title,
+                // method: recipeData[0].method,
+                // username: recipeData[0].username,
                 logged_user_id: logged_user_id,
                 rated_before: rated_before
             });
