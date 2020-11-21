@@ -21,15 +21,13 @@
     <br>
     <label>Rate Recipe: You must be logged in to rate this recipe</label>
     {{/if}}
-    {{#each recipe}}
     <ul>Ingredients List
-
+        {{#each recipe}}
         <li>
             <span>Amount</span><span>{{this.measure_metric}}</span> <span>{{this.item}}</span>
         </li>
-
+        {{/each}}
     </ul>
-    {{/each}}
     <h2>Method</h2>
     <p>{{method}}</p>
     <img src="https://picsum.photos/250/150" alt="placeholder-image">
