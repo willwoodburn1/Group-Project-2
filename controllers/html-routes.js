@@ -34,37 +34,55 @@ module.exports = function(app) {
     });
 
 
-    app.get("/view-recipe/:id", function(req, res) {
-        // Query the database for the recipe with that ID
-        console.log(req.params.id)
-        db.sequelize.query(`
-        SELECT u.id AS 'user_id',
-        u.username,
-        r.id AS 'recipe_id',
-        r.title,
-        r.method,
-        i.id AS 'ingredient_id',
-        i.item,
-        m.id AS 'measure_id',
-        m.measure_metric
-        FROM recipes r
-        JOIN users u on u.id = r.UserId
-        JOIN recipe_ingredients ri on r.id = ri.recipe_id
-        JOIN ingredients i on i.id = ri.ingredient_id
-        JOIN measures m on m.id = ri.measure_id
-        WHERE r.id = ${req.params.id};
-        `, { type: sequelize.QueryTypes.SELECT })
-            .then(function(data) {
-                console.log(data)
-                console.log(data)
-                res.render("view-recipe", {
-                    recipe: data,
-                    title: data[0].title,
-                    method: data[0].method,
-                    username: data[0].username
-                });
-            })
+    app.get("/view-recipe/:id", async function(req, res) {
+        try {
+            let logged_user_id;
+            let rated_before = false;
+            // Check if a user is logged in
+            if (req.user) {
+                logged_user_id = req.user.id
+                    // Check if user has already rated the recipe
+                rated_before = await db.Ratings.findOne({
+                    where: {
+                        recipe_id: req.params.id,
+                        user_id: req.user.id
+                    }
+                })
+                if (rated_before) {
+                    rated_before = true
+                }
+            }
+            // Query the database for the recipe with that ID
+            let recipeData = await db.sequelize.query(`
+                SELECT u.id AS 'user_id',
+                u.username,
+                r.id AS 'recipe_id',
+                r.title,
+                r.method,
+                i.id AS 'ingredient_id',
+                i.item,
+                m.id AS 'measure_id',
+                m.measure_metric
+                FROM recipes r
+                JOIN users u on u.id = r.UserId
+                JOIN recipe_ingredients ri on r.id = ri.recipe_id
+                JOIN ingredients i on i.id = ri.ingredient_id
+                JOIN measures m on m.id = ri.measure_id
+                WHERE r.id = ${req.params.id};
+                `, { type: sequelize.QueryTypes.SELECT })
 
+            res.render("view-recipe", {
+                recipe: recipeData,
+                recipe_id: recipeData[0].recipe_id,
+                title: recipeData[0].title,
+                method: recipeData[0].method,
+                username: recipeData[0].username,
+                logged_user_id: logged_user_id,
+                rated_before: rated_before
+            });
+        } catch (error) {
+            console.log(error);
+        }
     })
 
     app.get("/view-recipe", function(req, res) {
@@ -72,7 +90,6 @@ module.exports = function(app) {
     })
 
     app.post("/view-recipes/less-than", function(req, res) {
-        console.log(req.body);
         let price = req.body.price;
         db.sequelize.query(`
         SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost"

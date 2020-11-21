@@ -1,15 +1,33 @@
 <div id="recipedetails">
     <h1>{{title}}</h1>
     <label>{{username}}</label>
-    {{#each recipe}}
+    {{!-- <label>Rating: {{rating}}</label> --}}
+    {{#if rated_before}}
+    <br>
+    <label>Rate Recipe: You have rated this recipe</label>
+    {{else if logged_user_id}}
+    <form method="post" action="/api/rate-recipe/{{recipe_id}}/{{logged_user_id}}">
+        <label for="rating">Rate Recipe</label>
+        <select name="rating" id="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    {{else}}
+    <br>
+    <label>Rate Recipe: You must be logged in to rate this recipe</label>
+    {{/if}}
     <ul>Ingredients List
-
+        {{#each recipe}}
         <li>
             <span>Amount</span><span>{{this.measure_metric}}</span> <span>{{this.item}}</span>
         </li>
-
+        {{/each}}
     </ul>
-    {{/each}}
     <h2>Method</h2>
     <p>{{method}}</p>
     <img src="https://picsum.photos/250/150" alt="placeholder-image">
