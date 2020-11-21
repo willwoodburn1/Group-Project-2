@@ -64,9 +64,10 @@ module.exports = function(app) {
                     recipe_ingredients.quantity as ingredient_quantity,
                     measures.measure_metric as ingredient_measure,
                     ingredients.item as ingredient_name,
-                    ingredients.price as ingredient_price
-                FROM recipes
-
+                    ingredients.price as ingredient_price,
+                    FORMAT(AVG(ratings.rating), 1) as 'rating'
+                FROM 
+                    recipes
                 JOIN 
                     recipe_ingredients ON (recipes.id = recipe_ingredients.recipe_id)
                 JOIN
@@ -75,7 +76,11 @@ module.exports = function(app) {
                     ingredients ON (recipe_ingredients.ingredient_id = ingredients.id)
                 JOIN
                     users ON (recipes.UserId = users.id)
-                WHERE recipes.id = ${req.params.id};`, {
+                LEFT JOIN 
+                    ratings ON (ratings.recipe_id = recipes.id)
+                WHERE recipes.id = ${req.params.id}
+                GROUP BY ingredient_name;
+                `, {
                 type: sequelize.QueryTypes.SELECT
             })
 
