@@ -36,35 +36,38 @@ module.exports = function(app) {
 
     app.get("/view-recipe/:id", function(req, res) {
         // Query the database for the recipe with that ID
-        console.log(req.params.id)
         db.sequelize.query(`
-        SELECT u.id AS 'user_id',
-        u.username,
-        r.id AS 'recipe_id',
-        r.title,
-        r.method,
-        i.id AS 'ingredient_id',
-        i.item,
-        m.id AS 'measure_id',
-        m.measure_metric
-        FROM recipes r
-        JOIN users u on u.id = r.UserId
-        JOIN recipe_ingredients ri on r.id = ri.recipe_id
-        JOIN ingredients i on i.id = ri.ingredient_id
-        JOIN measures m on m.id = ri.measure_id
-        WHERE r.id = ${req.params.id};
-        `, { type: sequelize.QueryTypes.SELECT })
+            SELECT u.id AS 'user_id',
+            u.username,
+            r.id AS 'recipe_id',
+            r.title,
+            r.method,
+            i.id AS 'ingredient_id',
+            i.item,
+            m.id AS 'measure_id',
+            m.measure_metric
+            FROM recipes r
+            JOIN users u on u.id = r.UserId
+            JOIN recipe_ingredients ri on r.id = ri.recipe_id
+            JOIN ingredients i on i.id = ri.ingredient_id
+            JOIN measures m on m.id = ri.measure_id
+            WHERE r.id = ${req.params.id};
+            `, { type: sequelize.QueryTypes.SELECT })
             .then(function(data) {
                 console.log(data)
-                console.log(data)
+                let logged_user_id
+                if (req.user) {
+                    logged_user_id = req.user.id
+                }
                 res.render("view-recipe", {
                     recipe: data,
+                    recipe_id: data[0].recipe_id,
                     title: data[0].title,
                     method: data[0].method,
-                    username: data[0].username
+                    username: data[0].username,
+                    logged_user_id: logged_user_id
                 });
             })
-
     })
 
     app.get("/view-recipe", function(req, res) {
@@ -72,7 +75,6 @@ module.exports = function(app) {
     })
 
     app.post("/view-recipes/less-than", function(req, res) {
-        console.log(req.body);
         let price = req.body.price;
         db.sequelize.query(`
         SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost"
