@@ -107,7 +107,7 @@ module.exports = function(app) {
                 FROM recipes r 
                 JOIN recipe_ingredients ri on r.id = ri.recipe_id 
                 JOIN ingredients i on i.id = ri.ingredient_id
-                JOIN ratings ra on ra.recipe_id=r.id
+                LEFT JOIN ratings ra on ra.recipe_id=r.id
                 GROUP BY r.title
                 HAVING SUM(i.price)<${price};
                 `, { type: sequelize.QueryTypes.SELECT })
