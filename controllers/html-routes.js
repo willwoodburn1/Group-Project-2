@@ -42,9 +42,9 @@ module.exports = function(app) {
             recipes.title,
             recipes.method,
             recipes.image,
-            recipes.UserId,
+            users.username as chef,
             recipe_ingredients.quantity as ingredient_quantity,
-            measures.measure_metric as measure_name,
+            measures.measure_metric as ingredient_measure,
             ingredients.item as ingredient_name,
             ingredients.price as ingredient_price
         FROM recipes
@@ -55,34 +55,15 @@ module.exports = function(app) {
             measures ON (recipe_ingredients.measure_id = measures.id)
         JOIN
             ingredients ON (recipe_ingredients.ingredient_id = ingredients.id)
+        JOIN
+            users ON (recipes.UserId = users.id)
         WHERE recipes.id = ${req.params.id};`, { 
             type: sequelize.QueryTypes.SELECT 
         }).then(function(data) {
             console.log(data)
-            res.render("view-recipe", {
-                recipe: data,
-                // title: data[0].title,
-                // method: data[0].method,
-                // username: data[0].username
-            });
+            res.render("view-recipe", { recipe: data });
         })
     })
-
-    // SELECT u.id AS 'user_id',
-    //     u.username,
-    //     r.id AS 'recipe_id',
-    //     r.title,
-    //     r.method,
-    //     i.id AS 'ingredient_id',
-    //     i.item,
-    //     m.id AS 'measure_id',
-    //     m.measure_metric
-    //     FROM recipes r
-    //     JOIN users u on u.id = r.UserId
-    //     JOIN recipe_ingredients ri on r.id = ri.recipe_id
-    //     JOIN ingredients i on i.id = ri.ingredient_id
-    //     JOIN measures m on m.id = ri.measure_id
-    //     WHERE r.id = ${req.params.id};
 
     app.get("/view-recipe", function(req, res) {
         res.render("view-recipe");
