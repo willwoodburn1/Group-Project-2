@@ -1,4 +1,4 @@
-# Group-Project-2![GitHub top language](https://img.shields.io/github/languages/top/willwoodburn1/Group-Project-2)
+# Group-Project-2 ![GitHub top language](https://img.shields.io/github/languages/top/willwoodburn1/Group-Project-2)
 
 ## Description <!-- omit in toc -->
 
