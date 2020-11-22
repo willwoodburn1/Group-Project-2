@@ -131,16 +131,31 @@ module.exports = function(app) {
 
     // Here we've add our isAuthenticated middleware to this route.
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
-    app.get("/members", isAuthenticated, function(req, res) {
-        let userId = req.user.id;
-        db.sequelize.query(`
-        SELECT recipes.title, recipes.id 
-        FROM recipes 
-        JOIN users ON recipes.UserId = users.id 
-        WHERE users.id = ${userId};
-        `, { type: sequelize.QueryTypes.SELECT }).then(function(data) {
-            console.log(data);
-            res.render("members", { recipes: data });
-        })
+    app.get("/members", isAuthenticated, async function(req, res) {
+        try {
+            let userId = req.user.id;
+            let recipesData = await db.sequelize.query(`
+                SELECT recipes.title, recipes.id 
+                FROM recipes 
+                JOIN users ON recipes.UserId = users.id 
+                WHERE users.id = ${userId};
+                `, { type: sequelize.QueryTypes.SELECT })
+
+            let savedRecipes = await db.sequelize.query(`
+                SELECT recipes.title
+                FROM favourites
+                JOIN recipes ON recipes.id=favourites.recipe_id
+                WHERE user_id=${userId};
+                `, { type: sequelize.QueryTypes.SELECT })
+
+            res.render("members", {
+                recipes: recipesData,
+                savedRecipes: savedRecipes
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+
     });
 }
