@@ -48,10 +48,10 @@ module.exports = function(app) {
     })
 
     app.delete("/api/recipesIngredients/:id", function(req, res) {
-        db.recipe_ingredients.destroy({
-            where: {
-                recipes_id: req.params.id
-            }
+        db.sequelize.query(`
+        DELETE FROM recipe_ingredients
+        WHERE recipe_id = ${req.params.id};`, {
+            type: sequelize.QueryTypes.DELETE
         }).then(function(data) {
             res.json(data);
         })
