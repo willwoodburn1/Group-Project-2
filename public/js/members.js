@@ -1,5 +1,10 @@
 $(document).ready(function () {
-	
+	$(".edit-recipe").on("click", (event) => {
+		event.preventDefault();
+		let recipe_id = event.currentTarget.id;
+
+		window.location.replace(`/edit-recipe/${recipe_id}`);
+	});
 
 	$(".delete-recipe").on("click", (event) => {
 		event.preventDefault();
