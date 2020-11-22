@@ -82,6 +82,15 @@ module.exports = function(app) {
                 type: sequelize.QueryTypes.SELECT
             });
 
+            let favouritesData = await db.sequelize.query(`
+                SELECT * 
+                FROM favourites
+                WHERE recipe_id = ${recipeData[0].recipe_id}
+                AND user_id = ${logged_user_id}
+                `, { type: sequelize.QueryTypes.SELECT });
+
+            console.log(favouritesData);
+
             let commentsData = await db.sequelize.query(`
                 SELECT comments.comment, users.username, ratings.rating
                 FROM comments
@@ -90,13 +99,12 @@ module.exports = function(app) {
                 WHERE comments.recipe_id=${recipeData[0].recipe_id};
             `, { type: sequelize.QueryTypes.SELECT });
 
-            console.log(commentsData);
-
             res.render("view-recipe", {
                 recipe: recipeData,
                 comments: commentsData,
                 logged_user_id: logged_user_id,
-                rated_before: rated_before
+                rated_before: rated_before,
+                favouritesData: favouritesData
             });
         } catch (error) {
             console.log(error);
