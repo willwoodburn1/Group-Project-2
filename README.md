@@ -61,7 +61,7 @@ Feel free to create a new issue or alternatively, make a pull request!
 
 ## Credits
 
-Group members:
+Team members:
 - [Tom Haigh](https://github.com/Conanas)
 - [Simone Cheah](https://github.com/smcheah)
 - [Sid Dhananjay](https://github.com/sid-666)
