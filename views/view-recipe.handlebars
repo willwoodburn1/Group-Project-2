@@ -58,6 +58,12 @@
            {{#each comments}}
            <li>
                <label>{{username}}</label>
+               <br>
+               {{#if rating}}
+                    <label>Rating: {{rating}}</label>
+               {{else}}
+                    <label>Rating: User has not rated</label>
+               {{/if}}
                <p>{{comment}}</p>
                <hr>
             </li>
