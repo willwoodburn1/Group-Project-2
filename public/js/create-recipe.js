@@ -250,7 +250,7 @@ $(document).ready(function () {
 					<td class="quantity">${ingredient.quantity}</td>
 					<td class="measure">${ingredient.measure}</td>
 					<td class="name">${ingredient.name}</td>
-					<td>$<span class="price">${ingredient.price.toFixed(2)}</span></td>
+					<td>$<span class="price">${ingredient.price}</span></td>
 				</tr>`
 				);
 
