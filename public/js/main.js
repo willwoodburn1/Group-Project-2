@@ -2,8 +2,6 @@
 /* eslint-disable no-undef */
 $(document).ready(function() {
 
-    let $recipeRating = $(".recipe-rating");
-
     // This file just does a GET request to figure out which user is logged in
     // and updates the HTML on the page
     $.get("/api/user_data").then(function(data) {
@@ -15,8 +13,8 @@ $(document).ready(function() {
         }
     });
 
-    function getStars() {
-        let rating = parseFloat($recipeRating.text());
+    $(".recipe-rating").each(function(i, item) {
+        let rating = parseFloat(item.textContent);
         rating = Math.round(rating * 2) / 2;
         let output = [];
         for (let i = rating; i > 0; i--) {
@@ -29,14 +27,7 @@ $(document).ready(function() {
         for (let i = (5 - rating); i >= 1; i--) {
             output.push(`<i class="far fa-star"></i>`);
         }
-        return output.join('');
-    }
-
-    function renderRatingStars() {
-        let stars = getStars();
-        $recipeRating.html(stars);
-    }
-
-    renderRatingStars();
+        item.innerHTML = output.join('');
+    })
 
 });
