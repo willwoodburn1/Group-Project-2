@@ -59,6 +59,20 @@ module.exports = function(app) {
         })
     });
 
+    app.put("/api/recipes/:id", function(req, res) {
+        Recipe.update({
+            title: req.body.title,
+            method: req.body.method,
+            image: req.body.image,
+        }, {
+            where: {
+                id: req.params.id
+            }
+        }).then(function(data) {
+            res.json(data)
+        })
+    })
+
     app.delete("/api/recipes/:id", function(req, res) {
         Recipe.destroy({
             where: {
