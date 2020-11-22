@@ -29,23 +29,23 @@ $(document).ready(function () {
 
 		pushIngredients();
 
-		for (var item of updatedIngredients) {
-			$.ajax({
-				method: "PUT",
-				url: `/api/recipesIngredients/${recipe_id}`,
-				data: {
-					quantity: item.quantity,
-					ingredient_id: item.id,
-					measure_id: item.measure_id
-				}
-			}).done(function() {
-				console.log("RECIPEINGREDIENT SUCCESS");
-			})
-			console.log(item);
-		}
+		$(document).ready(function() {
+			window.location.replace("/members");
+		});
 	}
 
 	async function pushIngredients() {
+		let recipe_id = window.location.pathname.replace("/edit-recipe/", "");
+
+		$.ajax({
+			method: "DELETE",
+			url: `/api/recipesIngredients/${recipe_id}`
+		}).then((result) => {
+			console.log("DELETED RECIPEINGREDIENTS")
+		}).catch((err) => {
+			console.log(err)
+		});
+
 		for (var item of $(".ingredients")) {
 			let ingredient = {
 				id: $(item)[0].children[0].innerText,
@@ -75,16 +75,37 @@ $(document).ready(function () {
 									ingredient.name = data.item;
 									ingredient.price = data.price;
 								}
-							);
+							).done(function() {
+								$.post("/api/recipesIngredients", {
+									quantity: ingredient.quantity,
+									measure_id: ingredient.measure_id,
+									recipe_id: recipe_id,
+									ingredient_id: ingredient.id,
+								}).done(function () {
+									console.log("POSTED RECIPEINGRED NULL")
+								}).catch(function (err) {
+									console.error(err);
+								});
+							})
 						});
 					} else {
-						return;
+						$.post("/api/recipesIngredients", {
+							quantity: ingredient.quantity,
+							measure_id: ingredient.measure_id,
+							recipe_id: recipe_id,
+							ingredient_id: ingredient.id,
+						}).done(function () {
+							console.log("POSTED RECIPEINGRED NOT NULL")
+						}).catch(function (err) {
+							console.error(err);
+						});
 					}
 				}
 			);
-			
-			updatedIngredients.push(ingredient);
-			console.log(updatedIngredients)
+
+			$(document).ready(function() {
+				updatedIngredients.push(ingredient);
+			});
 		}
 	}
 
