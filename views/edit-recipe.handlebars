@@ -1,0 +1,51 @@
+<h1>Edit Recipe</h1>
+<p>Click on a field to update!</p>
+
+<div id="recipedetails">
+    <table>
+        <tr>
+            <th>Recipe title</th>
+            <td class="title">{{recipe.0.title}}</td>
+        </tr>
+        <tr>
+            <th>Image link</th>
+            <td class="image-link">{{recipe.0.image}}</td>
+        </tr>
+        <tr>
+            <th>Ingredients</th>
+            <tr>
+                <th>QUANTITY</th>
+                <th>MEASURE</th>
+                <th>NAME</th>
+                <th>PRICE</th>
+            </tr>
+            {{#each recipe}}
+            <tr class="ingredient" id="{{ingredient_id}}">
+                <td class="quantity">{{ingredient_quantity}}</td>
+                <td class="measure">{{ingredient_measure}}</td>
+                <td class="name">{{ingredient_name}}</td>
+                <td class="price">${{ingredient_price}}</td>
+            </tr>
+            {{/each}}
+        </tr>
+        <tr>
+            <th>Method</th>
+        </tr>
+        <tr>
+            <td>
+                <ol class="method">
+                    {{{recipe.0.method}}}
+                </ol>
+            </td>
+        </tr>
+    </table>
+    <p>(Please include these "&ltli&gt step instruction &lt/li&gt" tags around each method step)</p>
+</div>
+
+<div>
+    Input new <label id="edit-name">Input name</label>:<br>
+    <textarea name="edit-input" id="edit-input"></textarea><br>
+    <button id="update">submit update</button>
+</div>
+
+<script type="text/javascript" src="/js/edit-recipe.js"></script>

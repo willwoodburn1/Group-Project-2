@@ -139,6 +139,34 @@ module.exports = function(app) {
         }
     })
 
+    // edit recipe page
+    app.get("/edit-recipe/:recipe_id", isAuthenticated, (req, res) => {
+        db.sequelize.query(`
+            SELECT 
+                recipes.id as recipe_id, 
+                recipes.title,
+                recipes.method,
+                recipes.image,
+                users.username as chef,
+                recipe_ingredients.quantity as ingredient_quantity,
+                measures.measure_metric as ingredient_measure,
+                ingredients.id as ingredient_id,
+                ingredients.item as ingredient_name,
+                ingredients.price as ingredient_price
+            FROM recipes
+
+            JOIN recipe_ingredients ON (recipes.id = recipe_ingredients.recipe_id)
+            JOIN measures ON (recipe_ingredients.measure_id = measures.id)
+            JOIN ingredients ON (recipe_ingredients.ingredient_id = ingredients.id)
+            JOIN users ON (recipes.UserId = users.id)
+
+            WHERE recipes.id = ${req.params.recipe_id};`, {
+            type: sequelize.QueryTypes.SELECT 
+        }).then(data => {
+            res.render("edit-recipe", { recipe: data })
+        });
+    });
+
     // Here we've add our isAuthenticated middleware to this route.
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
     app.get("/members", isAuthenticated, async function(req, res) {
