@@ -4,7 +4,7 @@ $(document).ready(function () {
 		recipe_id: "",
 		author_id: "",
 		title: $(".title").text(),
-		image: $(".image").attr("src", "https://picsum.photos/450/250"),
+		image: "https://picsum.photos/450/250",
 		author: $(".author").text(),
 		ingredients: [],
 		method: "",
