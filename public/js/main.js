@@ -7,6 +7,8 @@ $(document).ready(function() {
         if (data.username) {
             $(".member-name").text(data.username);
             $("#logout").show();
+            $("#signup").hide();
+            $("#login").hide();
         } else {
             $("#logout").hide();
         }
