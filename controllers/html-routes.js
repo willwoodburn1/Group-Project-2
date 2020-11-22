@@ -85,9 +85,10 @@ module.exports = function(app) {
             });
 
             let commentsData = await db.sequelize.query(`
-                SELECT comments.comment, users.username 
+                SELECT comments.comment, users.username, ratings.rating
                 FROM comments
                 JOIN users ON users.id=comments.user_id
+                LEFT JOIN ratings ON ratings.recipe_id=comments.recipe_id AND ratings.user_id=comments.user_id
                 WHERE comments.recipe_id=${recipeData[0].recipe_id};
             `, { type: sequelize.QueryTypes.SELECT });
 
