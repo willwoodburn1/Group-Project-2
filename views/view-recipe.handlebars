@@ -26,8 +26,17 @@
         {{else}}
     <br>
     <label>Rate Recipe: You must be logged in to rate this recipe</label>
-    {{/if}}
     <br>
+    {{/if}}
+    {{#if favouritesData}}
+    <br>
+    <label>This recipe is in your favourites</label>
+    {{else}}
+    <form method="post" action="/api/add-favourite/{{recipe.0.recipe_id}}/{{logged_user_id}}">
+        <input type="submit" value="Add to favourites">
+    </form>
+    <br>
+    {{/if}}
     <img src="{{recipe.0.image}}" alt="placeholder-image">
     <p>Created by {{recipe.0.chef}}</p>
     
