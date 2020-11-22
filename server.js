@@ -30,6 +30,7 @@ require("./controllers/recipes-controller")(app);
 require("./controllers/recipe-ingredients-controller")(app);
 require("./controllers/rate-recipe-controller")(app);
 require("./controllers/comments-controller")(app);
+require("./controllers/favourites-controller")(app);
 
 db.sequelize.sync().then(function() {
     app.listen(PORT, function() {
