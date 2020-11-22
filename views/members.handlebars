@@ -36,9 +36,19 @@
         </div>
         <div id="saved-recipes">
             <h1><strong> Saved Recipes</strong></h1>
-            <div>
-                include recipe list from index - if saved
-            </div>
+            <section>
+                {{#if savedRecipes}}
+                    <ul>
+                        {{#each savedRecipes}}
+                        <li>
+                            {{title}}
+                        </li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    You have no saved recipes
+                {{/if}}
+            </section>
         </div>
     </div>
     <div id="account-info">
