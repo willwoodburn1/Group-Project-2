@@ -1,4 +1,3 @@
-const { decodeBase64 } = require("bcryptjs");
 let db = require("../models");
 let sequelize = require("sequelize");
 
