@@ -3,7 +3,7 @@
     <h1>{{recipe.0.title}}</h1>
 
     {{#if recipe.0.rating}}
-    <label>Rating: {{recipe.0.rating}}</label>
+    <label>Rating: <span class="recipe-rating">{{recipe.0.rating}}</span></label>
     {{else}}
     <label>Rating: This recipe has not been rated yet</label>
     {{/if}}
@@ -60,7 +60,7 @@
                <label>{{username}}</label>
                <br>
                {{#if rating}}
-                    <label>Rating: {{rating}}</label>
+                    <label>Rating: <span class="recipe-rating">{{rating}}</span></label>
                {{else}}
                     <label>Rating: User has not rated</label>
                {{/if}}
