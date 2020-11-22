@@ -82,12 +82,14 @@ module.exports = function(app) {
                 type: sequelize.QueryTypes.SELECT
             });
 
-            let favouritesData = await db.sequelize.query(`
+            if (req.user) {
+                var favouritesData = await db.sequelize.query(`
                 SELECT * 
                 FROM favourites
                 WHERE recipe_id = ${recipeData[0].recipe_id}
                 AND user_id = ${logged_user_id}
                 `, { type: sequelize.QueryTypes.SELECT });
+            }
 
             console.log(favouritesData);
 
