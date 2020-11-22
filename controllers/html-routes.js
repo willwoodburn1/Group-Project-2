@@ -8,9 +8,7 @@ const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 module.exports = function(app) {
     app.get("/", function(req, res) {
-        db.Recipe.findAll().then(function(data) {
-            res.render("index", { recipes: data });
-        })
+        res.render("index");
     });
 
     app.get("/signup", function(req, res) {
