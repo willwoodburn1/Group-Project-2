@@ -161,11 +161,38 @@ module.exports = function(app) {
             JOIN users ON (recipes.UserId = users.id)
 
             WHERE recipes.id = ${req.params.recipe_id};`, {
-            type: sequelize.QueryTypes.SELECT 
+            type: sequelize.QueryTypes.SELECT
         }).then(data => {
             res.render("edit-recipe", { recipe: data })
         });
     });
+
+    app.post("/search-recipes-by-title", async function(req, res) {
+
+        try {
+            let title = req.body.title.toLowerCase().trim();
+            let recipesData = await db.sequelize.query(`
+            SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(ra.rating), 1) AS 'rating'
+            FROM recipes r 
+            JOIN recipe_ingredients ri on r.id = ri.recipe_id 
+            JOIN ingredients i on i.id = ri.ingredient_id
+            LEFT JOIN ratings ra on ra.recipe_id=r.id
+            WHERE r.title LIKE '%${title}%'
+            GROUP BY r.title;
+            `, {
+                type: sequelize.QueryTypes.SELECT
+            });
+
+            if (recipesData.length === 0) {
+                res.render("index", { noData: true });
+            } else {
+                res.render("search-results", { recipes: recipesData });
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    })
 
     // Here we've add our isAuthenticated middleware to this route.
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
