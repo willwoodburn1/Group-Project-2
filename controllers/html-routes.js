@@ -142,7 +142,7 @@ module.exports = function(app) {
                 `, { type: sequelize.QueryTypes.SELECT })
 
             let savedRecipes = await db.sequelize.query(`
-                SELECT recipes.title
+                SELECT recipes.title, favourites.recipe_id
                 FROM favourites
                 JOIN recipes ON recipes.id=favourites.recipe_id
                 WHERE user_id=${userId};
