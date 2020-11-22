@@ -53,16 +53,23 @@
 
         <h2>Comments</h2>
         
-       <ul>
+       <ul style="list-style-type:none;">
+           <hr>
            {{#each comments}}
-           <li>Comment: {{comment}}, User: {{username}}</li>
+           <li>
+               <label>{{username}}</label>
+               <p>{{comment}}</p>
+               <hr>
+            </li>
            {{/each}}
            {{#if logged_user_id}}
            {{!-- Add new comment --}}
            <li>
                <form method="post" action="/api/add-comment/{{recipe.0.recipe_id}}/{{logged_user_id}}">
                     <label for="comment">Add Comment</label>
-                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <br>
+                    <textarea name="comment" id="comment" cols="30" rows="2"></textarea>
+                    <br>
                     <input type="submit" value="Submit">
                </form>
            </li>
