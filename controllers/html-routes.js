@@ -7,9 +7,14 @@ const db = require("../models");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 module.exports = function(app) {
+
     app.get("/", function(req, res) {
         res.render("index");
     });
+
+    app.get("/search-by-name", function(req, res) {
+        res.render("search-by-name");
+    })
 
     app.get("/signup", function(req, res) {
         res.render("signup");
