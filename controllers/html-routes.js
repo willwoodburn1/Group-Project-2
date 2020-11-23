@@ -213,7 +213,7 @@ module.exports = function(app) {
         try {
             let title = req.body.title.toLowerCase().trim();
             let recipesData = await db.sequelize.query(`
-            SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(ra.rating), 1) AS 'rating'
+            SELECT r.id, r.title, r.image, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(ra.rating), 1) AS 'rating'
             FROM recipes r 
             JOIN recipe_ingredients ri on r.id = ri.recipe_id 
             JOIN ingredients i on i.id = ri.ingredient_id
