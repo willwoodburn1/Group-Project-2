@@ -9,7 +9,7 @@ module.exports = function(app) {
             comment: comment,
             recipe_id: recipe_id,
             user_id: user_id
-        }).then(function(data) {
+        }).then(function() {
             res.redirect(`/view-recipe/${recipe_id}`);
         })
     })

@@ -6,39 +6,38 @@
     <a href="/create-recipe" class="create-recipe">create a recipe</a>
 </aside>
 <main>
-    <!-- only display section when clicked?^ -->
-
-
-    {{!-- <div id="account-info">
-        <h1>account info</h1>
-        <div>
-            <h3>account stats? (optional)</h3>
-            <p>number of created recipes</p>
-            <p>number of saved recipes</p>
-            <p>number of reviews</p>
-            <p>number of meals cooked?</p>
-        </div>
-    </div> --}}
 
     <div id="membersWrapper">
         <div id="user-recipes">
             <h1><strong>My Recipes</strong></h1>
             <div>
-                <ul>
+                <table>
                     {{#each recipes}}
-                    <li>
-                        <a href="/view-recipe/{{id}}">{{title}}</a>
-                    </li>
+                    <tr>
+                        <td><a href="/view-recipe/{{id}}">{{title}}</a></td>
+                        <td><button id="{{id}}" class="edit-recipe">edit</button></td>
+                        <td><button id="{{id}}" class="delete-recipe">delete</button></td>
+                    </tr>
                     {{/each}}
-                </ul>
-                <button>edit recipe</button>
+                </table>
+                
             </div>
         </div>
         <div id="saved-recipes">
             <h1><strong> Saved Recipes</strong></h1>
-            <div>
-                include recipe list from index - if saved
-            </div>
+            <section>
+                {{#if savedRecipes}}
+                    <ul>
+                        {{#each savedRecipes}}
+                        <li>
+                            <a href="/view-recipe/{{recipe_id}}">{{title}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    You have no saved recipes
+                {{/if}}
+            </section>
         </div>
     </div>
     <div id="account-info">

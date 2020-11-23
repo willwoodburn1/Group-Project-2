@@ -24,7 +24,11 @@ module.exports = function(sequelize, DataTypes) {
         });
         Recipe.hasMany(models.Comments, {
             foreignKey: "recipe_id"
-        })
+        });
+        Recipe.belongsToMany(models.User, {
+            through: models.Favourites,
+            foreignKey: "recipe_id"
+        });
     };
 
     return Recipe;
