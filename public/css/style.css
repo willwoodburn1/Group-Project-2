@@ -112,6 +112,10 @@ footer {
     margin-top: 10px;
 }
 
+body {
+    background-color: lightblue;
+}
+
 #account-info {
     border: 1px solid red;
     width: 70%;
@@ -122,18 +126,22 @@ footer {
 }
 
 #user-recipes {
-    border: 1px solid black;
+    border: 1px solid red;
     width: 48%;
     margin-left: 20px;
-    background-color: lightsteelblue;
+    color: white;
+    background-color: rgb(13, 98, 209);
     text-align: center;
+    padding-bottom: 200px;
+
 }
 
 #saved-recipes {
-    border: 1px solid green;
+    border: 1px solid red;
     width: 48%;
     margin-left: 20px;
-    background-color: lightsteelblue;
+    color: white;
+    background-color: rgb(13, 98, 209);
     text-align: center;
 }
 
