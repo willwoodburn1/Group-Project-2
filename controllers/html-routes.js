@@ -7,9 +7,14 @@ const db = require("../models");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 module.exports = function(app) {
+
     app.get("/", function(req, res) {
         res.render("index");
     });
+
+    app.get("/search-by-name", function(req, res) {
+        res.render("search-by-name");
+    })
 
     app.get("/signup", function(req, res) {
         res.render("signup");
@@ -144,7 +149,7 @@ module.exports = function(app) {
         try {
             let price = req.body.price;
             let recipesData = await db.sequelize.query(`
-                SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost"
+                SELECT r.id, r.title, r.image, FORMAT(SUM(i.price), 2) AS "cost"
                 FROM recipes r 
                 JOIN recipe_ingredients ri on r.id = ri.recipe_id 
                 JOIN ingredients i on i.id = ri.ingredient_id
@@ -208,7 +213,7 @@ module.exports = function(app) {
         try {
             let title = req.body.title.toLowerCase().trim();
             let recipesData = await db.sequelize.query(`
-            SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(ra.rating), 1) AS 'rating'
+            SELECT r.id, r.title, r.image, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(ra.rating), 1) AS 'rating'
             FROM recipes r 
             JOIN recipe_ingredients ri on r.id = ri.recipe_id 
             JOIN ingredients i on i.id = ri.ingredient_id

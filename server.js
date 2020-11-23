@@ -32,8 +32,8 @@ require("./controllers/rate-recipe-controller")(app);
 require("./controllers/comments-controller")(app);
 require("./controllers/favourites-controller")(app);
 
-db.sequelize.sync().then(function() {
-    app.listen(PORT, function() {
+db.sequelize.sync().then(function () {
+    app.listen(PORT, function () {
         console.log("App listening on http://localhost:" + PORT);
     });
 });
