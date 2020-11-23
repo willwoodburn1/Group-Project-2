@@ -6,6 +6,9 @@ html, body{
     background-color: whitesmoke;
     font-family: 'Castoro', serif;
 }
+nav a {
+    margin-right: 20px;
+}
 .devdetails{
     width:100%;
     position:relative;
@@ -49,6 +52,8 @@ footer {
 .budgetsearchmain{
     height: 100vh;
     background-image: url(../images/search-image-background.jpg);
+    background-size: cover;
+    /*  */
     filter: contrast(100%); 
 }
 .budgetform{
