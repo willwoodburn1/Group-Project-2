@@ -1,7 +1,14 @@
 body{
     display: flex;
     flex-direction: column;
-    background-color: skyblue;
+    background-color: whitesmoke;
+}
+main{
+    height: 100vh;
+}
+.devdetails{
+    width:100%;
+    position:relative;
 }
 .checked {
     color: orange;
@@ -31,15 +38,40 @@ footer {
     width: 100%;
     text-align: center;
     background-color: lightseagreen;
-    margin-top: 20px;
     color:white;
 }
 
 .mainContent {
     text-align: center;
-    background-color: lightseagreen;
-    margin-bottom: 20px;
+    background-color: whitesmoke;
     color: white;
+}
+.budgetsearchmain{
+    height: 100vh;
+    background-image: url(../images/search-image-background.jpg);
+    filter: contrast(100%); 
+}
+.budgetform{
+    padding-left: 27vw; 
+    padding-top: 40vh;
+    filter: contrast(100%);  
+}
+.submitbutton{
+    margin-top: 10px;
+    margin-left: 10.5vw;
+    color: white;
+    border-radius: 20px;
+    background-color: coral;
+    border: white;
+    width: 25vw;
+    height: 50px;
+    
+}
+.priceinput{
+    width: 45vw;
+    border-radius: 20px;
+    border: white;
+    height: 50px;
 }
 
 /* Create Recipe Page --> create-recipe.handlebars */
@@ -110,8 +142,4 @@ h1 {
 }
 
 /* Login Form --> login.handlebars */
-
-.loginForm {
-    
-}
 

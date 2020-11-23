@@ -1,9 +1,14 @@
-<main>
+<main class="budgetsearchmain">
 
-    <form id="budget-form" method="post" action="/view-recipes/less-than">
-        <label for="price">How much would you like to spend?</label>
-        <input type="text" id="budget-input" name="price">
-        <input type="submit" value="Submit">
+    <form class="budgetform" id="budget-form" method="post" action="/view-recipes/less-than">
+        <label for="price"
+            style="color: rgb(240, 222, 62); font-size: 40px; font-weight: bold; filter:brightness(200%)">How much
+            would you like to
+            spend?</label>
+        <br>
+        <input type="text" class="priceinput" id="budget-input" name="price">
+        <br>
+        <input class="submitbutton" type="submit" value="Submit">
     </form>
 
 </main>
