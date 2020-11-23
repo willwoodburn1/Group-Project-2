@@ -1,0 +1,22 @@
+<main class="budgetsearchmain">
+
+    <form class="budgetform" id="budget-form" method="post" action="/search-recipes-by-title">
+        <label for="title"
+            style="color: rgb(240, 222, 62); font-size: 40px; font-weight: bold; filter:brightness(200%)">Enter Recipe Name Here</label>
+        <br>
+        <input type="text" class="priceinput" id="budget-input" name="title">
+        <br>
+        <input class="submitbutton" type="submit" value="Submit">
+    </form>
+
+    {{!-- <form class="search-form" method="post" action="/search-recipes-by-title">
+        <label for="title">Search by Recipe Name</label>
+        <input type="text" id="title-input" name="title">
+        <input type="submit" value="Submit">
+    </form> --}}
+
+    {{#if noData}}
+    <label>No Recipes found, please try again</label>
+    {{/if}}
+
+</main>
