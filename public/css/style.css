@@ -1,10 +1,10 @@
-body{
+@import url('https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap');
+
+html, body{
     display: flex;
     flex-direction: column;
     background-color: whitesmoke;
-}
-main{
-    height: 100vh;
+    font-family: 'Castoro', serif;
 }
 .devdetails{
     width:100%;
@@ -151,3 +151,89 @@ h1 {
 
 /* Login Form --> login.handlebars */
 
+
+/* view single recipe */
+#view-recipe-page {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+}
+#view-recipe-page p {
+    margin: 0;
+}
+#view-recipe-page #details h1,
+#view-recipe-page #details h2 {
+    padding-top: 40px;
+    padding-bottom: 10px;
+}
+#view-recipe-page #details, 
+#view-recipe-page #comments-section {
+    margin: 10px 15%;
+}
+#view-recipe-page #comments-section ul {
+    padding: 0;
+}
+#view-recipe-page #comments-section .comment {
+    margin-left: 20px;
+}
+#view-recipe-page img {
+    width: 100%;
+}
+#view-recipe-page table {
+    max-width: 600px;
+}
+#view-recipe-page td {
+    border: lightgray 1px solid;
+    padding: 10px 5%;
+    width: 5%;
+}
+#view-recipe-page .quantity{
+    text-align: right;
+}
+#view-recipe-page .item-name{
+    text-align: center;
+}
+#view-recipe-page #top-extras{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+#top-extras select {
+    align-self: center;
+    height: 25px;
+}
+#top-extras form,
+#top-extras input{
+    align-content: center;
+    text-align: center;
+    height: 27px;
+    font-size: 16px;
+}
+#top-extras form {
+    font-size: 18px;
+}
+#top-extras .price p,
+#top-extras .rating p,
+#top-extras .submit-rating p,
+#top-extras .submit-rating label,
+#top-extras .add-to-favourites p {
+    margin: 0px;
+}
+#top-extras .price,
+#top-extras .rating {
+    padding: 2px 15px;
+    font-size: 18px;
+    border-right: 1px solid black;
+}
+#top-extras .submit-rating {
+    border-right: 1px solid black;
+}
+#top-extras .submit-rating,
+#top-extras .add-to-favourites {
+    padding: 2px 15px;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+}
