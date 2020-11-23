@@ -220,7 +220,7 @@ module.exports = function(app) {
             if (recipesData.length === 0) {
                 res.render("index", { noData: true });
             } else {
-                res.render("search-results", { recipes: recipesData });
+                res.render("search-results", { recipesData: recipesData });
             }
 
         } catch (error) {
