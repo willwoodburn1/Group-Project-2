@@ -20,19 +20,28 @@
 </head>
 
 <body>
-    <nav class="mainContent">
-        <a href="/">
-            <h1 class="appName"><strong>Meal Budgeter</strong> </h1>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark mainContent">
+        <a class="navbar-brand" href="/">
+            <h3 class="appName"><strong>Meal Budgeter</strong> </h3>
         </a>
-        <a href="/create-recipe">ADD A RECIPE</a> <br>
-        {{!-- <a href="/signup">Sign Up</a>
-        <a href="/login">Login</a> --}}
-        <a href="/members">USER ACCOUNT</a>
-        <label class="member-name"></label> <br>
-        <a href="/logout" id="logout">Logout</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <br>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ml-auto">
+                <a class="navbar-brand" href="/create-recipe">ADD A RECIPE</a> <br>
+                <a class="navbar-brand" href="/members">USER ACCOUNT</a>
+                {{!-- <label class="member-link"></label> <br> --}}
+                <a class="navbar-brand" href="/logout" id="logout">LOGOUT</a>
+            </div>
+        </div>
     </nav>
-    {{{body}}}
-    <footer>
+    <main>
+        {{{body}}}
+    </main>
+    <footer class="devdetails">
         <p>&COPY APP NAME</p>
         <a href="/api" target="_blank">API</a>
         <p>Developed by </p>
