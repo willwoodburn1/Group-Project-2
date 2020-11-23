@@ -2,23 +2,6 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var session = require("express-session");
 var passport = require("./config/passport");
-var mysql = require("mysql");
-
-var connection;
-if (process.env.JAWSDB_URL) {
-    // Database is JawsDB on Heroku
-    connection = mysql.createConnection(process.env.JAWSDB_URL);
-} else {
-    // Database is local
-    connection = mysql.createConnection({
-        port: 3306,
-        host: process.env.DB_HOST,
-        user: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
-    });
-};
-
 
 var app = express();
 var PORT = process.env.PORT || 8080;

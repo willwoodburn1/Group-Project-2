@@ -1,6 +1,6 @@
 -- CREATE DATABASE meal_budgeter;
 
-USE meal_budgeter;
+USE meal_budgeter;c
 
 -- User Sid
 INSERT INTO users (username, password, createdAt, updatedAt) 
