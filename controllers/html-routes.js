@@ -62,7 +62,7 @@ module.exports = function(app) {
             });
 
             let recipe = await db.sequelize.query(`
-                SELECT title, method, image FROM recipes WHERE recipes.id = ${recipe_id};
+                SELECT id, title, method, image FROM recipes WHERE recipes.id = ${recipe_id};
             `, {
                 type: sequelize.QueryTypes.SELECT
             });
@@ -115,6 +115,8 @@ module.exports = function(app) {
                 LEFT JOIN ratings ON ratings.recipe_id=comments.recipe_id AND ratings.user_id=comments.user_id
                 WHERE comments.recipe_id=${recipe_id};
             `, { type: sequelize.QueryTypes.SELECT });
+
+            console.log(recipe);
 
             res.render("view-recipe", {
                 recipe: recipe,

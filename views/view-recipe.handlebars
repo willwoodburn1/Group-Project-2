@@ -14,7 +14,7 @@
     <br>
     <label>Rate Recipe: You have rated this recipe</label>
         {{else if logged_user_id}}
-        <form method="post" action="/api/rate-recipe/{{recipe.0.recipe_id}}/{{logged_user_id}}">
+        <form method="post" action="/api/rate-recipe/{{recipe.0.id}}/{{logged_user_id}}">
             <label for="rating">Rate Recipe</label>
             <select name="rating" id="rating">
                 <option value="1">1</option>
@@ -34,7 +34,7 @@
     <br>
     <label>This recipe is in your favourites</label>
     {{else if logged_user_id}}
-        <form method="post" action="/api/add-favourite/{{recipe.0.recipe_id}}/{{logged_user_id}}">
+        <form method="post" action="/api/add-favourite/{{recipe.0.id}}/{{logged_user_id}}">
             <input type="submit" value="Add to favourites">
         </form>
         <br>    
@@ -82,7 +82,7 @@
            {{#if logged_user_id}}
            {{!-- Add new comment --}}
            <li>
-               <form method="post" action="/api/add-comment/{{recipe.0.recipe_id}}/{{logged_user_id}}">
+               <form method="post" action="/api/add-comment/{{recipe.0.id}}/{{logged_user_id}}">
                     <label for="comment">Add Comment</label>
                     <br>
                     <textarea name="comment" id="comment" cols="30" rows="2"></textarea>

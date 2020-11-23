@@ -26,7 +26,9 @@ VALUES
 ('tomato paste', 0.10, NOW(), NOW()),
 ('oregano', 0.2, NOW(), NOW()),
 ('beef stock cube', 0.15, NOW(), NOW()),
-('pepper', 0, NOW(), NOW());
+('pepper', 0, NOW(), NOW()),
+('cheese', 0, NOW(), NOW()),
+('bread slices', 0.12, NOW(), NOW());
 
 -- Recipes
 INSERT INTO recipes (title, method, image, createdAt, updatedAt, UserId) 
@@ -34,7 +36,7 @@ VALUES
 ('Boiled Egg', '<li>Add egg to cold water.</li><li>Bring water to boil.</li><li>Cook.</li>', 'https://cdn.pixabay.com/photo/2019/06/03/22/06/breakfast-4250077_960_720.jpg', NOW(), NOW(), 1),
 ('Chocolate Cake', '<li>Add eggs, flour, chocolate to pan.</li><li>Bake at 350 for 1 hour</li>', 'https://cdn.pixabay.com/photo/2016/11/22/18/52/cake-1850011_1280.jpg', NOW(), NOW(), 2),
 ('Bolognese', '<li>Fry onions and garlic</li><li>Add beef and brown</li><li>Add tinned tomatos, tomato paste, oregano, stock cube, salt and pepper</li><li>Bring to boil and simmer till sauce reduces, about 30 to 60 minutes</li>', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/the-best-spaghetti-bolognese-7e83155.jpg?quality=90&webp=true&resize=375,341', NOW(), NOW(), 3),
-('title', 'method', 'image', NOW(), NOW(), 4),
+('Cheese on Toast', '<li>Toast bread slightly</li><li>Cut cheese into slices</li><li>When bread is slightly toasted, butter and place cheese slices on top of toast</li><li>Place under a high grill till the cheese is melted</li>', 'https://ukcdn.ar-cdn.com/recipes/originals/a90bb4c9-c1a9-4608-bea8-c829f442864a.jpg', NOW(), NOW(), 4),
 ('title', 'method', 'image', NOW(), NOW(), 1),
 ('title', 'method', 'image', NOW(), NOW(), 2);
 
@@ -70,7 +72,13 @@ VALUES
 -- Simone gave 5 stars to Bolognese
 (5, NOW(), NOW(), 3, 2),
 -- Will gave 5 stars to Bolognese
-(5, NOW(), NOW(), 3, 4);
+(5, NOW(), NOW(), 3, 4),
+-- Will gave 4 stars to Cheese on Toast
+(4, NOW(), NOW(), 4, 4),
+-- Tom gave 5 stars to Cheese on Toast
+(5, NOW(), NOW(), 4, 3),
+-- Sid gave 3 stars to Cheese on Toast
+(3, NOW(), NOW(), 4, 1);
 
 INSERT INTO comments (comment, createdAt, updatedAt, recipe_id, user_id) 
 VALUES 
@@ -85,7 +93,13 @@ VALUES
 -- Sid commented on Bolognese
 ("Very nice indeed, maybe a little less salt", NOW(), NOW(), 3, 1),
 -- Tom commented on Bolognese
-("Very Beefy, almost too much", NOW(), NOW(), 3, 3);
+("Very Beefy, almost too much", NOW(), NOW(), 3, 3),
+-- Simone commented on Cheese on Toast
+("Very quick and delicious", NOW(), NOW(), 4, 2),
+-- Will commented on Cheeese on Toast
+("So satisfying", NOW(), NOW(), 4, 4),
+-- Sid commented on Cheese on Toast
+("Not bad, could be cheesier", NOW(), NOW(), 4, 1);
 
 INSERT INTO favourites (createdAt, updatedAt, recipe_id, user_id) 
 VALUES 
@@ -98,7 +112,13 @@ VALUES
 -- Will favourited Bolognese
 (NOW(), NOW(), 3, 4),
 -- Simone favourited Bolognese
-(NOW(), NOW(), 3, 2);
+(NOW(), NOW(), 3, 2),
+-- Will favourited Cheese on Toast
+(NOW(), NOW(), 4, 4),
+-- Simone favourited Cheese on Toast
+(NOW(), NOW(), 4, 2),
+-- Tom favourited Cheese on Toast
+(NOW(), NOW(), 4, 3);
 
 INSERT INTO recipe_ingredients (quantity, createdAt, updatedAt, measure_id, recipe_id, ingredient_id) 
 VALUES 
@@ -129,7 +149,11 @@ VALUES
 -- 1/2 tsp Salt for Bolognese
 (1, NOW(), NOW(), 3, 3, 2),
 -- 1/2 tsp Pepper for Bolognese
-(1, NOW(), NOW(), 3, 3, 14);
+(1, NOW(), NOW(), 3, 3, 14),
+-- 2 Units Cheese for Cheese on Toast
+(2, NOW(), NOW(), 1, 4, 15),
+-- 2 Units Bread Slices for Cheese on Toast
+(2, NOW(), NOW(), 1, 4, 16);
 
 SELECT * FROM comments;
 SELECT * FROM ratings;
