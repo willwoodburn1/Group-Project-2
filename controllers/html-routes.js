@@ -77,44 +77,11 @@ module.exports = function(app) {
                 type: sequelize.QueryTypes.SELECT
             })
 
-            // Query the database for the recipe with that ID
-            // let recipeData = await db.sequelize.query(`
-            //     SELECT 
-            //         recipes.id as recipe_id, 
-            //         recipes.title,
-            //         recipes.method,
-            //         recipes.image,
-            //         recipes.UserId as user_id,
-            //         users.username as chef,
-            //         recipe_ingredients.quantity as ingredient_quantity,
-            //         measures.measure_metric as ingredient_measure,
-            //         ingredients.item as ingredient_name,
-            //         FORMAT(ingredients.price, 2) as ingredient_price,
-            //         FORMAT(AVG(ratings.rating), 1) as 'rating'
-            //     FROM 
-            //         recipes
-            //     JOIN 
-            //         recipe_ingredients ON (recipes.id = recipe_ingredients.recipe_id)
-            //     JOIN
-            //         measures ON (recipe_ingredients.measure_id = measures.id)
-            //     JOIN
-            //         ingredients ON (recipe_ingredients.ingredient_id = ingredients.id)
-            //     JOIN
-            //         users ON (recipes.UserId = users.id)
-            //     LEFT JOIN 
-            //         ratings ON (ratings.recipe_id = recipes.id)
-            //     WHERE recipes.id = ${recipe_id}
-            //     GROUP BY ingredient_name;
-            //     `, {
-            //     type: sequelize.QueryTypes.SELECT
-            // });
-
             let recipePrice = await db.sequelize.query(`
                 SELECT recipe_ingredients.recipe_id, FORMAT(SUM(ingredients.price), 2) AS 'price'
                 FROM recipe_ingredients
                 JOIN ingredients ON ingredients.id = recipe_ingredients.ingredient_id
                 WHERE recipe_ingredients.recipe_id = ${recipe_id}
-                GROUP BY recipe_ingredients.recipe_id
             `, {
                 type: sequelize.QueryTypes.SELECT
             })
@@ -174,17 +141,32 @@ module.exports = function(app) {
     app.post("/view-recipes/less-than", async function(req, res) {
         try {
             let price = req.body.price;
-            let recipeResults = await db.sequelize.query(`
-                SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost", FORMAT(AVG(ra.rating), 1) AS 'rating'
+            let recipesData = await db.sequelize.query(`
+                SELECT r.id, r.title, FORMAT(SUM(i.price), 2) AS "cost"
                 FROM recipes r 
                 JOIN recipe_ingredients ri on r.id = ri.recipe_id 
                 JOIN ingredients i on i.id = ri.ingredient_id
-                LEFT JOIN ratings ra on ra.recipe_id=r.id
                 GROUP BY r.title
-                HAVING SUM(i.price)<${price};
+                HAVING SUM(i.price) < ${price};
                 `, { type: sequelize.QueryTypes.SELECT })
 
-            res.render("search-results", { recipes: recipeResults });
+            console.log(recipesData)
+
+            for (let i = 0; i < recipesData.length; i++) {
+                let rating = await db.sequelize.query(`
+                    SELECT recipes.id, recipes.title, FORMAT(AVG(ratings.rating), 2) AS 'rating'
+                    FROM ratings
+                    JOIN recipes ON recipes.id = ratings.recipe_id
+                    WHERE recipes.id = ${recipesData[i].id}
+                `, { type: sequelize.QueryTypes.SELECT })
+                recipesData[i].rating = rating[0].rating
+            }
+
+            console.log(recipesData)
+
+            res.render("search-results", {
+                recipesData: recipesData,
+            });
 
         } catch (error) {
             console.log(error);
