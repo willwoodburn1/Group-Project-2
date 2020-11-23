@@ -11,12 +11,6 @@
         <input class="submitbutton" type="submit" value="Submit">
     </form>
 
-    <form class="search-form" method="post" action="/search-recipes-by-title">
-        <label for="title">Search by Recipe Name</label>
-        <input type="text" id="title-input" name="title">
-        <input type="submit" value="Submit">
-    </form>
-
     {{#if noData}}
     <label>No Recipes found, please try again</label>
     {{/if}}
