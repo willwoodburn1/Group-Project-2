@@ -1,6 +1,6 @@
 -- CREATE DATABASE meal_budgeter;
 
-USE meal_budgeter;
+USE meal_budgeter;c
 
 -- User Sid
 INSERT INTO users (username, password, createdAt, updatedAt) 
@@ -36,9 +36,7 @@ VALUES
 ('Boiled Egg', '<li>Add egg to cold water.</li><li>Bring water to boil.</li><li>Cook.</li>', 'https://cdn.pixabay.com/photo/2019/06/03/22/06/breakfast-4250077_960_720.jpg', NOW(), NOW(), 1),
 ('Chocolate Cake', '<li>Add eggs, flour, chocolate to pan.</li><li>Bake at 350 for 1 hour</li>', 'https://cdn.pixabay.com/photo/2016/11/22/18/52/cake-1850011_1280.jpg', NOW(), NOW(), 2),
 ('Bolognese', '<li>Fry onions and garlic</li><li>Add beef and brown</li><li>Add tinned tomatos, tomato paste, oregano, stock cube, salt and pepper</li><li>Bring to boil and simmer till sauce reduces, about 30 to 60 minutes</li>', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/the-best-spaghetti-bolognese-7e83155.jpg?quality=90&webp=true&resize=375,341', NOW(), NOW(), 3),
-('Cheese on Toast', '<li>Toast bread slightly</li><li>Cut cheese into slices</li><li>When bread is slightly toasted, butter and place cheese slices on top of toast</li><li>Place under a high grill till the cheese is melted</li>', 'https://ukcdn.ar-cdn.com/recipes/originals/a90bb4c9-c1a9-4608-bea8-c829f442864a.jpg', NOW(), NOW(), 4),
-('title', 'method', 'image', NOW(), NOW(), 1),
-('title', 'method', 'image', NOW(), NOW(), 2);
+('Cheese on Toast', '<li>Toast bread slightly</li><li>Cut cheese into slices</li><li>When bread is slightly toasted, butter and place cheese slices on top of toast</li><li>Place under a high grill till the cheese is melted</li>', 'https://ukcdn.ar-cdn.com/recipes/originals/a90bb4c9-c1a9-4608-bea8-c829f442864a.jpg', NOW(), NOW(), 4);
 
 -- Measures
 INSERT INTO measures (measure_metric, createdAt, updatedAt) 
