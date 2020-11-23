@@ -38,7 +38,8 @@
                     <tr>
                         <td id="ingredient-id"></td>
                         <td>
-                            <input id="ingredient-quantity" name="ingredient-quantity" type="text" placeholder="quantity" />
+                            <input id="ingredient-quantity" name="ingredient-quantity" type="text"
+                                placeholder="quantity" />
                         </td>
                         <td>
                             <select name="measures" id="ingredient-measures" class="ingredient-measures"></select>
@@ -52,6 +53,7 @@
 
             <div id="manual-fill">
                 <table class="manual-ingredients">
+                    <th>Id</th>
                     <th>Quantity</th>
                     <th>Measure</th>
                     <th>Name</th>
@@ -91,7 +93,9 @@
         <h1 id="previewRecipeTitle">PREVIEW RECIPE</h1>
         <div id="preview-recipe">
             <h1 class="title">Recipe Title</h1>
-            <img alt="image" class="image"><br>
+            <div class="imagebox">
+                <img alt="image" class="image"><br>
+            </div>
             <p>created by <span class="author">Chef's Name</span></p>
 
             <h2>Ingredients</h2>
