@@ -34,6 +34,15 @@ module.exports = function (app) {
             res.json(data);
         })
     })
+    app.get("/api/measures/id/:id", function(req, res) {
+        db.Measure.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function (data) {
+            res.json(data);
+        })
+    })
 
     // search ingredients by id
     app.get("/api/ingredients/:id", function (req, res) {

@@ -2,8 +2,10 @@
     
     <h1>{{recipe.0.title}}</h1>
 
-    {{#if recipe.0.rating}}
-    <label>Rating: {{recipe.0.rating}}</label>
+    <label>Price: ${{recipePrice.0.price}}</label>
+    <br>
+    {{#if averageRating.0.rating}}
+    <label>Rating: <span class="recipe-rating">{{averageRating.0.rating}}</span></label>
     {{else}}
     <label>Rating: This recipe has not been rated yet</label>
     {{/if}}
@@ -12,7 +14,7 @@
     <br>
     <label>Rate Recipe: You have rated this recipe</label>
         {{else if logged_user_id}}
-        <form method="post" action="/api/rate-recipe/{{recipe.0.recipe_id}}/{{logged_user_id}}">
+        <form method="post" action="/api/rate-recipe/{{recipe.0.id}}/{{logged_user_id}}">
             <label for="rating">Rate Recipe</label>
             <select name="rating" id="rating">
                 <option value="1">1</option>
@@ -26,18 +28,27 @@
         {{else}}
     <br>
     <label>Rate Recipe: You must be logged in to rate this recipe</label>
-    {{/if}}
     <br>
+    {{/if}}
+    {{#if favouritesData}}
+    <br>
+    <label>This recipe is in your favourites</label>
+    {{else if logged_user_id}}
+        <form method="post" action="/api/add-favourite/{{recipe.0.id}}/{{logged_user_id}}">
+            <input type="submit" value="Add to favourites">
+        </form>
+        <br>    
+    {{/if}}
     <img src="{{recipe.0.image}}" alt="placeholder-image">
-    <p>Created by {{recipe.0.chef}}</p>
+    <p>Created by {{chef.0.username}}</p>
     
     <h2>Ingredients</h2>
     <table>
-        {{#each recipe}}
+        {{#each ingredientsData}}
         <tr>
-            <td>{{ingredient_quantity}} {{ingredient_measure}}s</td>
-            <td>{{ingredient_name}}</td>
-            <td>${{ingredient_price}}</td>
+            <td>{{quantity}} {{measure_metric}}(s)</td>
+            <td>{{item}}</td>
+            <td>${{price}}</td>
         </tr>
         {{/each}}
     </table>
@@ -60,7 +71,7 @@
                <label>{{username}}</label>
                <br>
                {{#if rating}}
-                    <label>Rating: {{rating}}</label>
+                    <label>Rating: <span class="recipe-rating">{{rating}}</span></label>
                {{else}}
                     <label>Rating: User has not rated</label>
                {{/if}}
@@ -71,7 +82,7 @@
            {{#if logged_user_id}}
            {{!-- Add new comment --}}
            <li>
-               <form method="post" action="/api/add-comment/{{recipe.0.recipe_id}}/{{logged_user_id}}">
+               <form method="post" action="/api/add-comment/{{recipe.0.id}}/{{logged_user_id}}">
                     <label for="comment">Add Comment</label>
                     <br>
                     <textarea name="comment" id="comment" cols="30" rows="2"></textarea>
