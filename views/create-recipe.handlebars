@@ -4,22 +4,25 @@
         <form id="recipeForm">
 
             {{!-- input title --}}
+
             <h4>Recipe name</h4>
             <input id="recipe-name" name="recipe-name" type="text" placeholder="recipe title" />
-            <button id="add-recipe-name">add name</button><br>
+            <button id="add-recipe-name">ADD</button><br><br>
+
+
 
 
             {{!-- input image link --}}
             <h4>Display image link</h4>
             <input id="recipe-image" name="recipe-image" type="text" placeholder="leave blank for default image" />
-            <button id="add-recipe-image">add image</button><br>
+            <button id="add-recipe-image">ADD</button><br><br>
 
             {{!-- search for ingredients --}}
             <h4>Ingredients</h4>
             <div id="auto-fill">
                 <h5>Search for ingredient</h5>
                 <input id="recipe-item" name="recipe-item" type="search" placeholder="ingredient" />
-                <button id="ingredient-search">search</button><br>
+                <button id="ingredient-search">search</button><br><br>
 
                 {{!-- search ingredients results --}}
                 <div class="ingredient-results">
@@ -38,7 +41,8 @@
                     <tr>
                         <td id="ingredient-id"></td>
                         <td>
-                            <input id="ingredient-quantity" name="ingredient-quantity" type="text" placeholder="quantity" />
+                            <input id="ingredient-quantity" name="ingredient-quantity" type="text"
+                                placeholder="quantity" />
                         </td>
                         <td>
                             <select name="measures" id="ingredient-measures" class="ingredient-measures"></select>
@@ -47,7 +51,7 @@
                         <td>$<span id="ingredient-price"></span></td>
                     </tr>
                 </table>
-                <button id="add-ingredient">add ingredient</button><br>
+                <button id="add-ingredient">ADD</button><br>
             </div>
 
             <div id="manual-fill">
@@ -55,7 +59,7 @@
                     <th>Quantity</th>
                     <th>Measure</th>
                     <th>Name</th>
-                    <th>Average unit price</th>
+                    <th>Average unit price $</th>
                     <tr>
                         <td>
                             <input id="manual-quantity" name="manual-quantity" type="text" placeholder="quantity" />
@@ -67,11 +71,12 @@
                             <input id="manual-name" name="manual-name" type="text" placeholder="item name" />
                         </td>
                         <td>
-                            $ <input id="manual-price" name="manual-price" type="text" placeholder="price" />
+                            <label for="manual-price"><input id="manual-price" name="manual-price" type="text"
+                                    placeholder="price" /></label>
                         </td>
                     </tr>
                 </table>
-                <button id="add-manual">add new ingredient</button><br>
+                <button id="add-manual">ADD</button><br>
             </div>
 
             <!-- show if manually adding ingredients -->

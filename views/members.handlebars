@@ -1,19 +1,12 @@
-<aside>
-    <a href="#account-info" class="account-info">account info |</a>
-    <a href="#user-recipes" class="user-recipes">my recipes |</a>
-    <a href="#saved-recipes" class="saved-recipes">saved recipes |</a>
-    <a href="/create-recipe" class="create-recipe">create a recipe</a>
-</aside>
-<main>
-
-    <div id="membersWrapper">
-        <div id="user-recipes">
+<div id="membersWrapper" class="container">
+    <div class="row">
+        <div id="user-recipes" class="col-md">
             <h1><strong>My Recipes</strong></h1>
             <div>
                 <table>
                     {{#each recipes}}
                     <tr>
-                        <td><a href="/view-recipe/{{id}}">{{title}}</a></td>
+                        <td><a class="userrecipetitle" href="/view-recipe/{{id}}">{{title}}</a></td>
                         <td><button id="{{id}}" class="edit-recipe">edit</button></td>
                         <td><button id="{{id}}" class="delete-recipe">delete</button></td>
                     </tr>
@@ -22,7 +15,7 @@
 
             </div>
         </div>
-        <div id="saved-recipes">
+        <div id="saved-recipes" class="col-md">
             <h1><strong> Saved Recipes</strong></h1>
             <section>
                 {{#if savedRecipes}}
@@ -39,8 +32,9 @@
             </section>
         </div>
     </div>
+</div>
 
 
-</main>
+
 
 <script type="text/javascript" src="/js/members.js"></script>

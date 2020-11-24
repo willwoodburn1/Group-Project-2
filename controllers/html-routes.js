@@ -6,21 +6,21 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 const db = require("../models");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
-module.exports = function(app) {
+module.exports = function (app) {
 
-    app.get("/", function(req, res) {
+    app.get("/", function (req, res) {
         res.render("index");
     });
 
-    app.get("/search-by-name", function(req, res) {
+    app.get("/search-by-name", function (req, res) {
         res.render("search-by-name");
     })
 
-    app.get("/signup", function(req, res) {
+    app.get("/signup", function (req, res) {
         res.render("signup");
     })
 
-    app.get("/login", function(req, res) {
+    app.get("/login", function (req, res) {
         // If the user already has an account send them to the members page
         if (req.user) {
             res.redirect("/");
@@ -28,16 +28,16 @@ module.exports = function(app) {
         res.render("login");
     });
 
-    app.get("logout", function(req, res) {
+    app.get("logout", function (req, res) {
         res.render("index");
     })
 
-    app.get("/create-recipe", isAuthenticated, function(req, res) {
+    app.get("/create-recipe", isAuthenticated, function (req, res) {
         res.render("create-recipe");
     });
 
 
-    app.get("/view-recipe/:id", async function(req, res) {
+    app.get("/view-recipe/:id", async function (req, res) {
         try {
             let recipe_id = req.params.id;
             let logged_user_id;
@@ -45,7 +45,7 @@ module.exports = function(app) {
             // Check if a user is logged in
             if (req.user) {
                 logged_user_id = req.user.id
-                    // Check if user has already rated the recipe
+                // Check if user has already rated the recipe
                 rated_before = await db.Ratings.findOne({
                     where: {
                         recipe_id: recipe_id,
@@ -139,13 +139,13 @@ module.exports = function(app) {
         }
     })
 
-    app.get("/view-recipe", function(req, res) {
+    app.get("/view-recipe", function (req, res) {
         res.render("view-recipe");
     })
 
     // When user enters a dollar amount in the search box
     // The recipes worth less than the inputted amount are search for here
-    app.post("/view-recipes/less-than", async function(req, res) {
+    app.post("/view-recipes/less-than", async function (req, res) {
         try {
             let price = req.body.price;
             let recipesData = await db.sequelize.query(`
@@ -171,9 +171,12 @@ module.exports = function(app) {
 
             console.log(recipesData)
 
+            let recipesObj = { pair: recipesData }
+            console.log(recipesObj)
             res.render("search-results", {
-                recipesData: recipesData,
+                recipesData: recipesObj,
             });
+
 
         } catch (error) {
             console.log(error);
@@ -208,7 +211,7 @@ module.exports = function(app) {
         });
     });
 
-    app.post("/search-recipes-by-title", async function(req, res) {
+    app.post("/search-recipes-by-title", async function (req, res) {
 
         try {
             let title = req.body.title.toLowerCase().trim();
@@ -223,11 +226,11 @@ module.exports = function(app) {
             `, {
                 type: sequelize.QueryTypes.SELECT
             });
-
+            let recipesObj = { pair: recipesData };
             if (recipesData.length === 0) {
                 res.render("index", { noData: true });
             } else {
-                res.render("search-results", { recipesData: recipesData });
+                res.render("search-results", { recipesData: recipesObj });
             }
 
         } catch (error) {
@@ -237,7 +240,7 @@ module.exports = function(app) {
 
     // Here we've add our isAuthenticated middleware to this route.
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
-    app.get("/members", isAuthenticated, async function(req, res) {
+    app.get("/members", isAuthenticated, async function (req, res) {
         try {
             let userId = req.user.id;
             let recipesData = await db.sequelize.query(`
