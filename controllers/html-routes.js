@@ -226,11 +226,11 @@ module.exports = function (app) {
             `, {
                 type: sequelize.QueryTypes.SELECT
             });
-
+            let recipesObj = { pair: recipesData };
             if (recipesData.length === 0) {
                 res.render("index", { noData: true });
             } else {
-                res.render("search-results", { recipesData: recipesData });
+                res.render("search-results", { recipesData: recipesObj });
             }
 
         } catch (error) {
