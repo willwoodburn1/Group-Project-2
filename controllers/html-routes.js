@@ -171,7 +171,7 @@ module.exports = function (app) {
 
             console.log(recipesData)
 
-            if (recipesData.length > 1) {
+            if (recipesData.length > 1 && recipesData.length % 2) {
                 let recipePairs = [];
                 for (var i = 0; i < recipesData.length; ++i) {
                     recipePairs.push([recipesData[i], recipesData[i + 1]]);
@@ -183,6 +183,20 @@ module.exports = function (app) {
                     Object.assign(recipeObj, { pair: recipePairs[i] })
                 }
                 console.log(recipeObj)
+                res.render("search-results", {
+                    recipesData: recipeObj,
+                });
+            } else if(recipesData.length > 1 && !recipesData.length % 2){
+                let recipePairs = [];
+                for (var i = 0; i < recipesData.length -1; ++i) {
+                    recipePairs.push([recipesData[i], recipesData[i + 1]]);
+                    i = i + 1;
+                }
+                recipePairs.push(recipesData[recipesData.length - 1]);
+                let recipeObj = {}
+                for (var i = 0; i < recipePairs.length; ++i) {
+                    Object.assign(recipeObj, { pair: recipePairs[i] })
+                }
                 res.render("search-results", {
                     recipesData: recipeObj,
                 });
