@@ -1,10 +1,13 @@
-# Group-Project-2 ![GitHub top language](https://img.shields.io/github/languages/top/willwoodburn1/Group-Project-2)
+# Meal Budgeter ![GitHub top language](https://img.shields.io/github/languages/top/willwoodburn1/Group-Project-2)
 
 ## Description <!-- omit in toc -->
 
-- a short description explaining the what, why, and how. 
-- What was your motivation? Why did you build this project?
-- What problem does it solve? 
+Our application allows users to search for specific recipes and be presented with details about said recipe including ingredients, method, and an image of the finished meal.
+
+As a university student recently out of home, I struggle with cooking and maintaining a nutritious lifestyle. I need an application that allows me to search for recipe ideas that tailor to my budgetary constraints.
+
+- As most people live on a budget we thought that this application could serve to aid in people’s day to day lives especially during the COVID pandemic in which funds are scarce.
+- In particular this was aimed at University students who struggle to come up with cost-effective, and creating meals when living out of home.
 
 ## Table of Contents
 
@@ -17,7 +20,15 @@
 
 ## Features & Technologies used :sparkles:
 
-- What are the features of your project?
+- Users can save their favorite recipes as well as create their own and add them to the database for future query.
+- Users can also implement a budget in which they can provide details as to their weekly food expenditure and our site will return based on the search parameters a list of meals that fit the budget for the week.
+- Users can also rate the meals they find using a 5-star rating system.
+
+### Design/Functionality
+- Bootstrap
+- Handlebars
+- MYSQL Workbench
+- Spoonacular API
 
 "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -34,20 +45,9 @@
     "sequelize-cli": "^6.2.0"
   }
 
-| Technology  | Description                                                     | Link                                   |
-| ----------- | --------------------------------------------------------------- | -------------------------------------- |
-| Node.js     | JavaScript runtime built on Chrome's V8 JavaScript engine       | https://nodejs.org/en/                 |
-| Inquirer.js | A collection of common interactive command line user interfaces | https://www.npmjs.com/package/inquirer |
-
 ## Installation :hammer_and_wrench:
 
-Head to the deployed site: 
-
-## Usage Demo
-
-- Provide instructions and examples for use. Include screenshots as needed. 
-
-![demo](https://media.giphy.com/media/g4wUHjOQJLf73UTqZu/giphy.gif)
+Head to the deployed site: https://arcane-tundra-81761.herokuapp.com/
 
 ## License ![License](https://img.shields.io/github/license/willwoodburn1/Group-Project-2)
 
@@ -69,5 +69,5 @@ Team members:
 
 ## Got questions? :thinking:
 
-Contact us @ _
+Contact us @ above links
 
