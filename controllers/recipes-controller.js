@@ -30,9 +30,9 @@ module.exports = function(app) {
         let price = req.params.price;
         db.sequelize.query(`
         SELECT r.id, r.title, SUM(i.price) AS "cost"
-        FROM recipes r 
-        JOIN recipe_ingredients ri on r.id = ri.recipe_id 
-        JOIN ingredients i on i.id = ri.ingredient_id
+        FROM Recipes r 
+        JOIN Recipe_Ingredients ri on r.id = ri.recipe_id 
+        JOIN Ingredients i on i.id = ri.ingredient_id
         GROUP BY r.title
         HAVING SUM(i.price)<${price};
         `, { type: sequelize.QueryTypes.SELECT })
