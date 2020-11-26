@@ -6,7 +6,7 @@ module.exports = function(app) {
         let recipe_id = req.params.recipe_id;
         let user_id = req.params.user_id;
         db.sequelize.query(`
-            INSERT INTO favourites (createdAt, updatedAt, recipe_id, user_id)
+            INSERT INTO Favourites (createdAt, updatedAt, recipe_id, user_id)
             VALUES (NOW(), NOW(), ${recipe_id}, ${user_id})
             `, {
             type: sequelize.QueryTypes.INSERT
