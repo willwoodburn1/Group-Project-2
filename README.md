@@ -47,7 +47,7 @@ As a university student recently out of home, I struggle with cooking and mainta
 
 ## Installation :hammer_and_wrench:
 
-Head to the deployed site: https://arcane-tundra-81761.herokuapp.com/
+Head to the deployed site: https://vast-crag-85624.herokuapp.com/
 
 ## License ![License](https://img.shields.io/github/license/willwoodburn1/Group-Project-2)
 
