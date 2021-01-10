@@ -4,6 +4,8 @@
 
 Our application allows users to search for specific recipes and be presented with details about said recipe including ingredients, method, and an image of the finished meal.
 
+This application allows users to insert their budgetary parameters into the search engine and have the application return recipes and food ideas that are within the alluded to parameters. Not only that, users can add their own receipes for later referral and use. The application is cutom fit for all who use it and ensures that users are given the best possible recipes based off of their individual budgetary and dietary needs.
+
 As a university student recently out of home, I struggle with cooking and maintaining a nutritious lifestyle. I need an application that allows me to search for recipe ideas that tailor to my budgetary constraints.
 
 - As most people live on a budget we thought that this application could serve to aid in people’s day to day lives especially during the COVID pandemic in which funds are scarce.
